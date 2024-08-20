@@ -1,0 +1,22 @@
+.header {
+    display: flex;
+    justify-content: center; /* Centers content horizontally */
+    align-items: center;     /* Centers content vertically if header has a fixed height */
+    height: 100px;           /* Set height to your preference */
+    background-color: #282c34; /* Background color of the header */
+    color: white;             /* Text color */
+    padding: 0 20px;          /* Horizontal padding */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for some depth */
+}
+
+.title {
+    font-size: 2rem;          /* Adjust font size */
+    font-weight: bold;        /* Make the font bold */
+    margin: 0;                /* Remove default margin */
+    text-align: center;       /* Ensure the text is centered */
+}
+
+.logo {
+    height: 50px; /* Adjust the height as needed */
+    margin-right: 10px;
+  }
