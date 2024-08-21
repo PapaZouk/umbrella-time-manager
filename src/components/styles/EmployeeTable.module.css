@@ -1,0 +1,141 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+}
+
+thead {
+  background-color: #f2f2f2;
+  width: 50%;
+}
+
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  font-weight: bold;
+}
+
+.holiday {
+  font-weight: lighter;
+  text-align: center;
+  background-color: #f8f688;
+  width: 350px;
+}
+
+.tableMonthTitle {
+  padding: 0 10px;
+  font-weight: bold;
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.balance-positive {
+  color: #006400;
+  background-color: #e6ffe6;
+}
+
+.balance-negative {
+  color: #ff0000;
+  background-color: #ffe6e6;
+}
+
+.total-balance-cell {
+  text-align: center;
+  font-size: 18px;
+}
+
+.total-balance-positive {
+  color: #004d00;
+  background-color: #e6ffe6;
+  font-weight: bold;
+}
+
+.total-balance-negative {
+  color: #b30000;
+  background-color: #ffe6e6;
+  font-weight: bold;
+}
+
+.annualLeaveDays {
+  text-align: center;
+  font-size: 18px;
+}
+
+.printButton {
+  margin: 10px 20px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.printButton:hover {
+  background-color: #45a049;
+}
+
+.exportButton {
+  margin: 10px 0;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #1791c5;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.exportButton:hover {
+  background-color: #1791c5;
+}
+
+.hours-cell {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hour-detail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 10px;
+}
+
+.hour-detail span {
+  display: inline-block;
+  margin-bottom: 5px;
+  padding: 0 5px;
+}
+
+.hour-detail:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+.hour-detail:nth-child(odd) {
+  background-color: #ffffff;
+}
+
+.hour-detail.holiday-background {
+  background-color: #f8f688;
+  text-align: center;
+}

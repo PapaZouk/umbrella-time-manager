@@ -10,6 +10,7 @@ import EmployeeTable from './components/EmployeeTable';
 import { handleDateChange } from './utils/HandleDateChange';
 import ErrorMessage from './components/errors/ErrorMessage';
 import { employeesData } from './resources/employeesData';
+import SaveTimesshet from './components/SaveTimesheet';
 
 const initialEmployee = {
   name: '',
@@ -17,15 +18,16 @@ const initialEmployee = {
   workingHours: '',
 };
 
-const timesheets = [];
+const initialTimesheets = [];
 
 function App() {
   const [selectedMonth, setSelectedMonth] = useState(null);
+  const [isMonthLocked, setIsMonthLocked] = useState(false);
   const [days, setDays] = useState([]);
   const [selectedDay, setSelectedDay] = useState(null);
   const [error, setError] = useState('');
   const [selectedEmployee, setSelectedEmployee] = useState(initialEmployee);
-  const [employeeTimesheets, setEmployeeTimesheets] = useState(timesheets);
+  const [employeeTimesheets, setEmployeeTimesheets] = useState(initialTimesheets);
   const [fadeIn, setFadeIn] = useState(false);
 
   useEffect(() => {
@@ -55,39 +57,60 @@ function App() {
       return;
     }
 
-    const existingTimesheetIndex = employeeTimesheets.findIndex(
-      (timesheet) =>
-        timesheet.employee.name === newTimesheet.employee.name &&
-        timesheet.employee.surname === newTimesheet.employee.surname
-    );
-    const existingTimesheet = employeeTimesheets[existingTimesheetIndex];
-
-    if (existingTimesheet) {
-      if (existingTimesheet.times[0].day === newTimesheet.times[0].day) {
-        setError('Godziny dla wybranego dnia już dodano. Wybierz kolejny dzień.')
-        setSelectedDay(null);
-        return;
-      } else {
-        console.log('Adding new times: ', existingTimesheet);
-        existingTimesheet.times.push(newTimesheet.times[0]);
-        // setEmployeeTimesheets((previousTimesheets) => {
-        //   const updatedTimesheets = [...previousTimesheets];
-        //   updatedTimesheets.push(existingTimesheet);
-        //   return updatedTimesheets;
-        // });
-      }
-    } else {
-      setEmployeeTimesheets((previousTimesheets) => {
-        const updatedTimesheets = [...previousTimesheets];
-        updatedTimesheets.push(newTimesheet);
-        return updatedTimesheets;
-      });
+    if ((!newTimesheet.times[0].checkIn || !newTimesheet.times[0].checkOut) && !newTimesheet.times[0].isHoliday) {
+      setError('Wybierz godziny przyjścia i wyjścia');
+      return;
     }
 
+    setEmployeeTimesheets((previousTimesheets) => {
+      const updatedTimesheets = previousTimesheets.map(timesheet => {
+        if (
+          timesheet.employee.name === newTimesheet.employee.name &&
+          timesheet.employee.surname === newTimesheet.employee.surname
+        ) {
+          const dayExists = timesheet.times.some(
+            time => time.day === newTimesheet.times[0].day
+          );
+
+          if (dayExists) {
+            setError('Godziny dla wybranego dnia już dodano. Wybierz kolejny dzień.');
+            setSelectedDay(null);
+            return timesheet;
+          } else {
+            return {
+              ...timesheet,
+              times: [...timesheet.times, newTimesheet.times[0]],
+            };
+          }
+        }
+        return timesheet;
+      });
+
+      // If the timesheet didn't exist, add a new one
+      if (
+        !previousTimesheets.some(
+          timesheet =>
+            timesheet.employee.name === newTimesheet.employee.name &&
+            timesheet.employee.surname === newTimesheet.employee.surname
+        )
+      ) {
+        updatedTimesheets.push(newTimesheet);
+      }
+
+      setIsMonthLocked(true);
+      return updatedTimesheets;
+    });
   }
 
-  function handlePrintTable() {
-    console.log(employeeTimesheets);
+  function handleOnSave() {
+    if (employeeTimesheets.length === 0) {
+      setError('Brak godzin do zapisania. Wypełnij godziny pracy.');
+      return;
+    }
+    setIsMonthLocked(false);
+    setSelectedEmployee(initialEmployee);
+    setEmployeeTimesheets(initialTimesheets);
+    setSelectedDay(null);
   }
 
   return (
@@ -95,7 +118,7 @@ function App() {
       <Header />
       <div className={`container ${fadeIn ? 'container-appear' : ''}`}>
         <div className="controls">
-          <MonthSelector onMonthChange={setSelectedMonth} />
+          <MonthSelector onMonthChange={setSelectedMonth} disabled={isMonthLocked} />
           <DaySelector days={days} onDayChange={(day) => handleDateChange(day, selectedMonth, setSelectedDay, setError)} />
         </div>
         <ErrorMessage message={error} />
@@ -122,7 +145,8 @@ function App() {
           onTimesheetsUpdate={handleTimesheetsUpdate}
         />
       </div>
-      {employeeTimesheets.length > 0 && <EmployeeTable test={handlePrintTable} />}
+      <EmployeeTable month={selectedMonth} timesheets={employeeTimesheets} />
+      <SaveTimesshet timesheets={employeeTimesheets} onSave={handleOnSave}/>
     </>
   );
 }

@@ -27,3 +27,18 @@
     outline: none;
     box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
 }
+
+.holidayButton {
+    margin: 10px 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #1791c5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+.holidayButton:hover {
+    background-color: #1791c5;
+}
