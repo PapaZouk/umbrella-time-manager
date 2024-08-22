@@ -1,17 +1,18 @@
 import './App.css';
 import { useState } from 'react';
-import Header from './components/Header';
-import MonthSelector from './components/MonthSelector';
-import DaySelector from './components/DaySelector';
-import EmployeeSelector from './components/EmployeeSelector';
-import TimesheetSelector from './components/TimesheetSelector';
-import EmployeeTable from './components/EmployeeTable';
+import {
+  DaySelector,
+  EmployeeSelector,
+  EmployeeTable,
+  MonthSelector,
+  SaveTimesheet,
+  TimesheetSelector,
+} from './components/business';
+import Header from './components/header/Header';
 import { handleDateChange } from './utils/HandleDateChange';
-import ErrorMessage from './components/errors/ErrorMessage';
+import { ErrorMessage } from './components/utils';
 import { employeesData } from './resources/employeesData';
-import SaveTimesheet from './components/SaveTimesheet';
-import useMonthDays from './components/hooks/useMonthDays';
-import useEmployeeTimesheet from './components/hooks/useEmployeeTimesheet';
+import { useMonthDays, useEmployeeTimesheet } from './components/hooks';
 
 function App() {
   const [selectedMonth, setSelectedMonth] = useState(null);
@@ -34,8 +35,8 @@ function App() {
     setFadeIn(true);
   }, [selectedDay, selectedEmployee.workingHours]);
 
-  function handleOnSave() {
-    if (employeeTimesheets.length === 0) {
+  function handleOnSave(timesheets) {
+    if (timesheets.length === 0) {
       setError('Brak godzin do zapisania. Wypełnij godziny pracy.');
       return;
     }
@@ -54,7 +55,7 @@ function App() {
         </div>
         <ErrorMessage message={error} />
       </div>
-      
+
       <div className={`container ${fadeIn ? 'container-appear' : ''}`}>
         <div className="info-row">
           <EmployeeSelector onEmployeeSelect={handleEmployeeSelect} employees={employeesData} />
@@ -79,7 +80,7 @@ function App() {
       </div>
 
       <EmployeeTable month={selectedMonth} timesheets={employeeTimesheets} />
-      <SaveTimesheet timesheets={employeeTimesheets} onSave={handleOnSave}/>
+      <SaveTimesheet timesheets={employeeTimesheets} onSave={handleOnSave} />
     </>
   );
 }

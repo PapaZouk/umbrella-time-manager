@@ -1,6 +1,7 @@
-import styles from './styles/DaysSelector.module.css';
+import React from 'react';
+import styles from './DaysSelector.module.css';
 
-export default function DaySelector({ days, onDayChange }) {
+export function DaySelector({ days, onDayChange }) {
     return (
         <div className={styles.container}>
             <label htmlFor="day" className={styles.label}>Wybierz dzień:</label>

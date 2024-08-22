@@ -1,8 +1,7 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { initialEmployee, initialTimesheets } from '../../resources/initialStates';
-import { se } from 'date-fns/locale';
 
-const useEmployeeTimesheet = () => {
+export const useEmployeeTimesheet = () => {
    const [selectedEmployee, setSelectedEmployee] = useState(initialEmployee);
    const [employeeTimesheets, setEmployeeTimesheets] = useState(initialTimesheets);
    const [error, setError] = useState('');
@@ -77,5 +76,3 @@ const useEmployeeTimesheet = () => {
         resetTimesheets,
     };
 };
-
-export default useEmployeeTimesheet;

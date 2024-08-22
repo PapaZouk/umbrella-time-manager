@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import moment from 'moment';
 
-const useMonthDays = (selectedMonth) => {
+export const useMonthDays = (selectedMonth) => {
     const [days, setDays] = useState([]);
 
     useEffect(() => {
@@ -13,6 +13,4 @@ const useMonthDays = (selectedMonth) => {
     }, [selectedMonth]);
 
     return days;
-}
-
-export default useMonthDays;
+};

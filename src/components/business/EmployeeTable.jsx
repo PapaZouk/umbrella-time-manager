@@ -1,10 +1,11 @@
-import { calculateTotalBalance } from '../utils/calculateBalance';
-import { dateFormatter } from '../utils/dateFormatter';
-import { calculateAnnualLeaveDays } from '../utils/calculateAnnualLeaveDays';
-import styles from './styles/EmployeeTable.module.css';
+import React from 'react';
+import { calculateTotalBalance } from '../../utils/calculateBalance';
+import { dateFormatter } from '../../utils/dateFormatter';
+import { calculateAnnualLeaveDays } from '../../utils/calculateAnnualLeaveDays';
+import styles from './EmployeeTable.module.css';
 import * as XLSX from 'xlsx';
 
-export default function EmployeeTable({ month, timesheets }) {
+export function EmployeeTable({ month, timesheets }) {
    const formattedDate = month ? dateFormatter(month) : 'Wybierz miesiąc';
 
    const handlePrint = () => {

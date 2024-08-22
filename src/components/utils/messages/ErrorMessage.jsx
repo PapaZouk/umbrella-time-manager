@@ -1,8 +1,11 @@
-export default function ErrorMessage({ message }) {
-    if (!message) return null; // Don't render anything if there's no error
+import React from 'react';
+
+export function ErrorMessage({ message }) {
+    if (!message) return null;
 
     return (
-        <div style={{
+        <div 
+            style={{
             display: 'flex',
             alignItems: 'center',
             backgroundColor: '#f8d7da',

@@ -1,8 +1,8 @@
 import { useState } from 'react';
-import { calculateBalance } from '../utils/calculateBalance';
-import styles from './styles/TimesheetSelector.module.css';
+import { calculateBalance } from '../../utils/calculateBalance';
+import styles from './TimesheetSelector.module.css';
 
-export default function TimesheetSelector({ employee, month, day, onTimesheetsUpdate }) {
+export function TimesheetSelector({ employee, month, day, onTimesheetsUpdate }) {
     const [checkIn, setCheckIn] = useState('');
     const [checkOut, setCheckOut] = useState('');
 
