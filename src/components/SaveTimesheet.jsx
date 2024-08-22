@@ -1,9 +1,15 @@
 import styles from './styles/SaveTimesheet.module.css';
+import validateTimesheets from '../validators/validateTimesheets';
 
-export default function SaveTimesshet({ timesheets, onSave }) {
+export default function SaveTimesheet({ timesheets, onSave }) {
+    function handleSave() {
+        validateTimesheets(timesheets);
+        onSave();
+    }
     return (
         <div>
-            <button className={styles.saveButton} onClick={onSave}>Zapisz godziny</button>
+            <button className={styles.saveButton} onClick={handleSave}>Zapisz godziny</button>
+            { }
         </div>
     );
 }

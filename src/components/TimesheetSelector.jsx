@@ -3,14 +3,14 @@ import { calculateBalance } from '../utils/calculateBalance';
 import styles from './styles/TimesheetSelector.module.css';
 
 export default function TimesheetSelector({ employee, month, day, onTimesheetsUpdate }) {
-    const [checkIn, setCheckIn] = useState();
-    const [checkOut, setCheckOut] = useState();
+    const [checkIn, setCheckIn] = useState('');
+    const [checkOut, setCheckOut] = useState('');
 
     const employeeTimesheet = {
         employee,
         times: [{
-            checkIn: null,
-            checkOut: null,
+            checkIn: '',
+            checkOut: '',
             month,
             day,
             balance: 0,

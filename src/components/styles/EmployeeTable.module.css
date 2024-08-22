@@ -29,9 +29,10 @@ th {
   width: 350px;
 }
 
-.tableMonthTitle {
-  padding: 0 10px;
+tr.tableMonthTitle {
+  padding: 20x;
   font-weight: bold;
+  font-size: 20px;
 }
 
 tr:hover {

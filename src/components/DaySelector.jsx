@@ -11,7 +11,7 @@ export default function DaySelector({ days, onDayChange }) {
                 onChange={(e) => onDayChange(e.target.value)}
             >
                 <option>Wybierz...</option>
-                {days.map((day) => (
+                {Array.isArray(days) && days.map((day) => (
                     <option key={day} value={day}>{day}</option>
                 ))}
             </select>

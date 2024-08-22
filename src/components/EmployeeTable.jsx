@@ -5,7 +5,6 @@ import styles from './styles/EmployeeTable.module.css';
 import * as XLSX from 'xlsx';
 
 export default function EmployeeTable({ month, timesheets }) {
-   console.log(timesheets);
    const formattedDate = month ? dateFormatter(month) : 'Wybierz miesiąc';
 
    const handlePrint = () => {
@@ -36,7 +35,8 @@ export default function EmployeeTable({ month, timesheets }) {
          <table className={styles.table}>
             <thead className={styles.thead}>
                <tr>
-                  <h3 className={styles.tableMonthTitle}>{formattedDate}</h3>
+                  <th className={styles.tableMonthTitle}>
+                     {formattedDate}</th>
                </tr>
                <tr>
                   <th>Imię</th>
