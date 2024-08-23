@@ -23,13 +23,6 @@ th {
   font-weight: bold;
 }
 
-.holiday {
-  font-weight: lighter;
-  text-align: center;
-  background-color: #f8f688;
-  width: 350px;
-}
-
 tr.tableMonthTitle {
   padding: 20x;
   font-weight: bold;
@@ -73,11 +66,6 @@ tbody tr:nth-child(odd) {
   color: #b30000;
   background-color: #ffe6e6;
   font-weight: bold;
-}
-
-.annualLeaveDays {
-  text-align: center;
-  font-size: 18px;
 }
 
 .hours-cell {

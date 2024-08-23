@@ -1,4 +1,4 @@
-.icon-button {
+.iconButton {
   display: inline-flex;
   font-size: 8px;
   align-items: center;
@@ -14,7 +14,7 @@
   transition: background-color 0.3s, transform 0.3s;
 }
 
-.icon-button:hover {
+.iconButton:hover {
   background-color: #d1d1d1;
   transform: scale(1.1);
 }

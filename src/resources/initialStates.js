@@ -1,8 +1,8 @@
 export const initialEmployee = {
-    name: '',
-    surname: '',
-    workingHours: '',
-  };
-  
+ name: "",
+ surname: "",
+ workingHours: "",
+ annualLeave: 26,
+};
+
 export const initialTimesheets = [];
-  

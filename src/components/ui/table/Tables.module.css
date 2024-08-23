@@ -34,21 +34,21 @@ table {
     background-color: #ffffff;
   }
   
-  /* Specific Styles for Summary */
+  /* Styles for Summary */
   .tableMonthTitle {
     font-weight: bold;
-    font-size: 20px;
-    background-color: #e0e0e0; /* Light grey for distinction */
+    font-size: 16px;
+    background-color: #e0e0e0;
     padding: 10px 0;
   }
   
   .annualLeaveDays {
     text-align: center;
     font-size: 18px;
-    font-weight: bold; /* Emphasize annual leave days */
+    font-weight: bold;
+    background-color: #f4f4c7;
   }
   
-  /* Keep the existing styling for Total Balance */
   .total-balance-positive {
     color: #004d00;
     background-color: #e6ffe6;

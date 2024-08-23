@@ -7,7 +7,8 @@ export default function TableSummary({
     annualLeaveDays,
     totalDaysInMonth,
     formattedDate,
-    totalBalance
+    totalBalance,
+    totalRecordedDays
 }) {
     return (
         <table className={styles.table} key={timesheetIndex}>
@@ -18,8 +19,9 @@ export default function TableSummary({
                     <th>Nazwisko</th>
                     <th>Godziny pracy</th>
                     <th>Bilans całkowity (min/godz)</th>
-                    <th>Dni urlopowe</th>
+                    <th>Urlop wykorzystany</th>
                     <th>Dni robocze w miesiącu</th>
+                    <th>Dni zarejestrowane</th>
                 </tr>
             </thead>
             <tbody>
@@ -35,10 +37,11 @@ export default function TableSummary({
                             : styles["total-balance-positive"]
                         }
                     >
-                        {totalBalance} / {Number(totalBalance / 60).toFixed(3)}
+                        {totalBalance} / {Number(totalBalance / 60).toFixed(2)}
                     </td>
-                    <td className={styles.annualLeaveDays}>{annualLeaveDays}</td>
+                    <td className={styles.annualLeaveDays}>{annualLeaveDays} / {employeeData.annualLeave}</td>
                     <td>{totalDaysInMonth}</td>
+                    <td>{totalRecordedDays}</td>
                 </tr>
             </tbody>
         </table>

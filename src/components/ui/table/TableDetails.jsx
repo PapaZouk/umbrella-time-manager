@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from "react";
 import styles from "./Tables.module.css";
-import icons from "./Icons.module.css";
-import { EditIcon, SaveIcon, CancelIcon } from "../ui/Icons.jsx";
-import { calculateBalance } from "../../utils/calculateBalance";
+import icons from "../Icons.module.css";
+import { EditIcon, SaveIcon, CancelIcon } from "../Icons.jsx";
+import { calculateBalance } from "../../../utils/calculateBalance.js";
+import TableSummaryHead from "./TableSumaryHead.jsx";
+import TableAnnualLeave from "./TableAnnualLeave.jsx";
+import TableTotalBalance from "./TableTotalBalance.jsx";
+import TableEditButtons from "./TableEditButtons.jsx";
+import TableEditButton from "./TableEditButton.jsx";
+import TableInput from "./TableInput.jsx";
 
 export default function TableDetails({
  timesheetIndex,
  sortedTimes,
  onTimesUpdate,
- 
 }) {
  const [editingIndex, setEditingIndex] = useState(null);
  const [editingField, setEditingField] = useState(null);
@@ -73,93 +78,52 @@ export default function TableDetails({
  return (
   <>
    <table className={styles.table}>
-    <thead className={styles.thead}>
-     <tr>
-      <th>Dzień</th>
-      <th>Przyjście</th>
-      <th>Wyjście</th>
-      <th>Bilans (min)</th>
-     </tr>
-    </thead>
+    <TableSummaryHead style={styles.thead} />
     <tbody>
      {sortedTimes.map((time, index) => (
       <tr key={index}>
        <td>{time.day}</td>
        {time.isHoliday ? (
-        <td className={styles.holiday} colSpan={4}>
-         URLOP
-        </td>
+        <TableAnnualLeave style={styles.annualLeaveDays} />
        ) : (
         <>
          <td>
           {editingIndex === index && editingField === "checkIn" ? (
            <>
-            <input
-             type="time"
-             value={editedCheckIn}
-             onChange={handleInputChange}
+            <TableInput
+             editedValue={editedCheckIn}
+             handler={handleInputChange}
             />
-            <span>
-             <button className={icons["icon-button"]} onClick={handleSave}>
-              <SaveIcon className={icons.icon} />
-             </button>
-             <button className={icons["icon-button"]} onClick={handleCancel}>
-              <CancelIcon className={icons.icon} />
-             </button>
-            </span>
+            <TableEditButtons onSave={handleSave} onCancel={handleCancel} />
            </>
           ) : (
            <>
             {time.checkIn}
-            <button
-             className={icons["icon-button"]}
-             onClick={() => handleEditClick(index, "checkIn")}
-            >
-             <EditIcon className={icons.icon} />
-            </button>
+            <TableEditButton
+             onEditHandler={() => handleEditClick(index, "checkIn")}
+            />
            </>
           )}
          </td>
          <td>
           {editingIndex === index && editingField === "checkOut" ? (
            <>
-            <input
-             type="time"
-             value={editedCheckOut}
-             onChange={handleInputChange}
+            <TableInput
+             editedValue={editedCheckOut}
+             handler={handleInputChange}
             />
-            <span>
-             <button className={icons["icon-button"]} onClick={handleSave}>
-              <SaveIcon className={icons.icon} />
-             </button>
-             <button className={icons["icon-button"]} onClick={handleCancel}>
-              <CancelIcon className={icons.icon} />
-             </button>
-            </span>
+            <TableEditButtons onSave={handleSave} onCancel={handleCancel} />
            </>
           ) : (
            <>
             {time.checkOut}
-            <button
-             className={icons["icon-button"]}
-             onClick={() => handleEditClick(index, "checkOut")}
-            >
-             <EditIcon className={icons.icon} />
-            </button>
+            <TableEditButton
+             onEditHandler={() => handleEditClick(index, "checkOut")}
+            />
            </>
           )}
          </td>
-         <td className={styles["total-balance-cell"]}>
-          <span
-           className={
-            time.balance < 0
-             ? styles["total-balance-negative"]
-             : styles["total-balance-positive"]
-           }
-          >
-           {time.balance}
-          </span>
-         </td>
+         <TableTotalBalance time={time} styles={styles} />
         </>
        )}
       </tr>
