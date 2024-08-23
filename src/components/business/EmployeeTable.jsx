@@ -7,7 +7,7 @@ import { sortTimesByDay } from "../../utils/sortTimesByDay";
 import TableSummary from "../ui/TableSummary";
 import TableDetails from "../ui/TableDetails";
 
-export function EmployeeTable({ month, timesheets }) {
+export function EmployeeTable({ month, timesheets, handleEditedTimesheets }) {
   const [sortedTimesheets, setSortedTimesheets] = useState(timesheets);
 
   useEffect(() => {
@@ -17,15 +17,16 @@ export function EmployeeTable({ month, timesheets }) {
     })));
   }, [timesheets]);
 
-const onTimesUpdate = (index, updatedTimes) => {
-  const updatedTimesheets = [...sortedTimesheets];
-  updatedTimesheets[index] = {
-    ...updatedTimesheets[index],
-    times: updatedTimes,
-    sortedTimes: sortTimesByDay(updatedTimes),
+  const onTimesUpdate = (index, updatedTimes) => {
+    const updatedTimesheets = [...sortedTimesheets];
+    updatedTimesheets[index] = {
+      ...updatedTimesheets[index],
+      times: updatedTimes,
+      sortedTimes: sortTimesByDay(updatedTimes),
+    };
+      setSortedTimesheets(updatedTimesheets);
+      handleEditedTimesheets(updatedTimesheets[index]);
   };
-  setSortedTimesheets(updatedTimesheets);
-};
 
   const formattedDate = month ? dateFormatter(month) : "Wybierz miesiąc";
 

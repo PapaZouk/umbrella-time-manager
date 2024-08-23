@@ -16,6 +16,21 @@ export const useEmployeeTimesheet = () => {
 
  const handleEmployeeSelect = (employee) => setSelectedEmployee(employee);
 
+ const handleEditedTimesheets = (editedTimesheets) => {
+  if (!isValidNewTimesheet(editedTimesheets, setError)) {
+   return;
+  }
+
+  setEmployeeTimesheets((previousTimesheets) => {
+   const updateTimesheets = previousTimesheets.map((timesheet) => ({
+    ...timesheet,
+    times: [...editedTimesheets.times],
+   }));
+
+   return updateTimesheets;
+  });
+ };
+
  const handleTimesheetsUpdate = (newTimesheet) => {
   if (!isValidNewTimesheet(newTimesheet, setError)) {
    return;
@@ -79,6 +94,7 @@ export const useEmployeeTimesheet = () => {
   successMessage,
   setError,
   setSuccesMessage,
+  handleEditedTimesheets,
   isMonthLocked,
   handleEmployeeSelect,
   handleTimesheetsUpdate,

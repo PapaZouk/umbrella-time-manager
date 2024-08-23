@@ -28,6 +28,7 @@ function App() {
   successMessage,
   setError,
   setSuccesMessage,
+  handleEditedTimesheets,
   isMonthLocked,
   handleEmployeeSelect,
   handleTimesheetsUpdate,
@@ -81,7 +82,7 @@ function App() {
     <EmployeeTable
      month={selectedMonth}
      timesheets={employeeTimesheets}
-     handleTimesheetsUpdate={handleTimesheetsUpdate}
+     handleEditedTimesheets={handleEditedTimesheets}
     />
    </Container>
 
