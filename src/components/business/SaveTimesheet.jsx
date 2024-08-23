@@ -1,40 +1,30 @@
 import React from "react";
-import { useState } from "react";
 import styles from "./SaveTimesheet.module.css";
-import validateTimesheets from "../../validators/validateTimesheets";
-import { ErrorMessage, SuccessMessage } from "../utils";
+import { handleOnSave } from "../../utils/handleOnSave";
 
-export function SaveTimesheet({ timesheets, onSave }) {
- const [saveError, setSaveError] = useState("");
- const [saveSuccess, setSaveSuccess] = useState("");
-
- function handleSave() {
-  if (timesheets.length < 1) {
-   setSaveError("Brak godzin do zapisu. Dodaj godziny.");
-   setTimeout(() => {
-    setSaveError("");
-   }, 2000);
-   return;
-  }
-  validateTimesheets(timesheets);
-  onSave(timesheets);
-  handleSaveSuccess();
+export function SaveTimesheet({
+    timesheets,
+    selectedMonth,
+ resetTimesheets,
+ setError,
+ setSuccesMessage,
+}) {
+ function onSave() {
+  handleOnSave(timesheets, selectedMonth, resetTimesheets, setError, setSuccesMessage);
  }
 
  function handleSaveSuccess() {
-  setSaveSuccess("Pomyślnie zapisano godziny.");
+  setSuccesMessage("Pomyślnie zapisano godziny.");
   setTimeout(() => {
-   setSaveSuccess("");
+   setSuccesMessage("");
   }, 2000);
  }
 
  return (
   <>
-   <button className={styles.saveButton} onClick={handleSave}>
+   <button className={styles.saveButton} onClick={onSave}>
     Zapisz godziny
    </button>
-   <ErrorMessage message={saveError} />
-   <SuccessMessage message={saveSuccess} />
   </>
  );
 }

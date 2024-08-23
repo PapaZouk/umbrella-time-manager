@@ -1,0 +1,63 @@
+/* General Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    color: #333;
+    margin: 10px;
+  }
+  
+  thead {
+    background-color: #f2f2f2;
+  }
+  
+  th, td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  th {
+    font-weight: bold;
+  }
+  
+  tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #f7f7f7;
+  }
+  
+  tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+  }
+  
+  /* Specific Styles for Summary */
+  .tableMonthTitle {
+    font-weight: bold;
+    font-size: 20px;
+    background-color: #e0e0e0; /* Light grey for distinction */
+    padding: 10px 0;
+  }
+  
+  .annualLeaveDays {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold; /* Emphasize annual leave days */
+  }
+  
+  /* Keep the existing styling for Total Balance */
+  .total-balance-positive {
+    color: #004d00;
+    background-color: #e6ffe6;
+    font-weight: bold;
+  }
+  
+  .total-balance-negative {
+    color: #b30000;
+    background-color: #ffe6e6;
+    font-weight: bold;
+  }
+  

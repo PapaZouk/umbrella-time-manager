@@ -1,13 +1,15 @@
 import { SaveTimesheet } from "./SaveTimesheet";
 import styles from "./TimesheetsController.module.css";
-import React, { useState } from "react";
+import React from "react";
 import ExportTimesheets from "./ExportTimesheets";
 import printTable from "../utils/printTable";
 
 export default function TimesheetsController({
  timesheets,
- handleOnSave,
+ selectedMonth,
+ resetTimesheets,
  setError,
+ setSuccesMessage,
 }) {
  function handleControllerError(errorMessage) {
   setError(errorMessage);
@@ -20,12 +22,6 @@ export default function TimesheetsController({
   printTable();
  }
 
-//  const handlePrint = () => {
-//   const table = document.getElementById("table-content");
-
-//   window.print();
-//  };
-
  return (
   <>
    <div>
@@ -37,7 +33,13 @@ export default function TimesheetsController({
       timesheets={timesheets}
       onError={handleControllerError}
      />
-     <SaveTimesheet timesheets={timesheets} onSave={handleOnSave} />
+     <SaveTimesheet
+      timesheets={timesheets}
+      selectedMonth={selectedMonth}
+      resetTimesheets={resetTimesheets}
+      setError={setError}
+      setSuccesMessage={setSuccesMessage}
+     />
     </span>
    </div>
   </>

@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
  DaySelector,
  EmployeeSelector,
@@ -9,43 +9,34 @@ import {
 } from "./components/business";
 import Header from "./components/header/Header";
 import { handleDateChange } from "./utils/HandleDateChange";
-import { ErrorMessage } from "./components/utils";
-import { employeesData } from "./resources/employeesData";
+import { ErrorMessage, SuccessMessage } from "./components/utils";
 import { useMonthDays, useEmployeeTimesheet } from "./components/hooks";
 import React from "react";
 import TimesheetsController from "./components/business/TimesheetsController";
 import Container from "./components/business/Container";
 
 function App() {
- const [selectedMonth, setSelectedMonth] = useState(null);
+ const [selectedMonth, setSelectedMonth] = useState();
  const [selectedDay, setSelectedDay] = useState(null);
  const [fadeIn, setFadeIn] = useState(false);
- const [errorMessage, setErrorMessage] = useState("");
 
  const days = useMonthDays(selectedMonth) || [];
  const {
   selectedEmployee,
   employeeTimesheets,
   error,
+  successMessage,
   setError,
+  setSuccesMessage,
   isMonthLocked,
   handleEmployeeSelect,
   handleTimesheetsUpdate,
   resetTimesheets,
  } = useEmployeeTimesheet();
 
- useState(() => {
+ useEffect(() => {
   setFadeIn(true);
  }, [selectedDay, selectedEmployee]);
-
- function handleOnSave(timesheets) {
-  if (timesheets.length === 0) {
-   setError("Brak godzin do zapisania. Wypełnij godziny pracy.");
-   return;
-  }
-  resetTimesheets();
-  setSelectedDay(null);
- }
 
  return (
   <>
@@ -63,7 +54,7 @@ function App() {
    </Container>
 
    <Container fadeIn={fadeIn}>
-     <EmployeeSelector onEmployeeSelect={handleEmployeeSelect} />
+    <EmployeeSelector onEmployeeSelect={handleEmployeeSelect} />
    </Container>
 
    <Container fadeIn={fadeIn}>
@@ -79,16 +70,23 @@ function App() {
    <Container fadeIn={fadeIn}>
     <TimesheetsController
      timesheets={employeeTimesheets}
-     handleOnSave={handleOnSave}
+     selectedMonth={selectedMonth}
+     resetTimesheets={resetTimesheets}
      setError={setError}
+     setSuccesMessage={setSuccesMessage}
     />
    </Container>
 
    <Container fadeIn={fadeIn}>
-    <EmployeeTable month={selectedMonth} timesheets={employeeTimesheets} />
+    <EmployeeTable
+     month={selectedMonth}
+     timesheets={employeeTimesheets}
+     handleTimesheetsUpdate={handleTimesheetsUpdate}
+    />
    </Container>
 
    <ErrorMessage message={error} />
+   <SuccessMessage message={successMessage} />
   </>
  );
 }
