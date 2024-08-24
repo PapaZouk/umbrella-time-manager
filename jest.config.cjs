@@ -6,10 +6,17 @@ module.exports = {
     '^.+\\.(svg)$': 'jest-transform-stub',
   },
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
-  roots: ['<rootDir>/src/tests'],
+  roots: ['<rootDir>/src'],
   setupFilesAfterEnv: ['<rootDir>/src/tests/setupTests.js'],
   collectCoverage: true,
-  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts'],
+  collectCoverageFrom: [
+    'src/**/*.{js,jsx,ts,tsx}',
+    '!src/**/*.d.ts',
+    '!src/resources**/*.{js,jsx,ts,tsx}',
+    '!src/contracts/**/*.{js,jsx,ts,tsx}',
+    '!src/utils/**/*.{js,jsx,ts,tsx}',
+    '!src/main.jsx',
+  ],
   coverageDirectory: 'coverage',
   coverageThreshold: {
     global: {

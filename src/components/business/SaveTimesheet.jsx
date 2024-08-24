@@ -13,9 +13,9 @@ export function SaveTimesheet({ timesheets, onSave }) {
             setSaveError('Brak godzin do zapisu. Dodaj godziny.');
             return;
         }
-        handleSaveSuccess();
         validateTimesheets(timesheets);
         onSave(timesheets);
+        handleSaveSuccess();
     }
 
     function handleSaveSuccess() {

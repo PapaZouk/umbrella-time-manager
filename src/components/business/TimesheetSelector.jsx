@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from 'react';
 import { calculateBalance } from '../../utils/calculateBalance';
 import styles from './TimesheetSelector.module.css';
@@ -20,9 +21,9 @@ export function TimesheetSelector({ employee, month, day, onTimesheetsUpdate }) 
         
     function handleChange(event, type) {
         if (type === 'check-in') {
-            setCheckIn(event);
+            setCheckIn(event.target.value);
         } else if (type === 'check-out') {
-            setCheckOut(event);
+            setCheckOut(event.target.value);
         }
     }
 
@@ -54,32 +55,32 @@ export function TimesheetSelector({ employee, month, day, onTimesheetsUpdate }) 
             <span>
                 <label
                     htmlFor="check-in"
-                    id="check-in"
                     className={styles.label}
                 >Przyjście</label>
                 <input
+                    id='check-in'
                     type="time"
                     className={styles.input}
                     value={checkIn}
-                    onChange={(e) => handleChange(e.target.value, "check-in")}
+                    onChange={(e) => handleChange(e, "check-in")}
                 />
                 <label
                     htmlFor="check-out"
                     className={styles.label}
-                    id="check-out"
                 >Wyjście</label>
                 <input
+                    id='check-out'
                     type="time"
                     className={styles.input}
                     value={checkOut}
-                    onChange={(e) => handleChange(e.target.value, "check-out")}
+                    onChange={(e) => handleChange(e, "check-out")}
                 />
                 <button
                 className={styles.holidayButton}
                 onClick={handleHolidayLeave}
                 >Urlop
                 </button>
-                <button onClick={handleUpdate}>+</button>
+                <button onClick={handleUpdate}>Dodaj</button>
             </span>
         </div>
     );

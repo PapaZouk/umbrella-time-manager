@@ -1,13 +1,11 @@
-import timesheetsSchema from '../contracts/schemas/timesheetsSchema';
-import { ValidationError } from 'yup';
-import logger from 'react-logger';
+import timesheetsSchema from "../contracts/schemas/timesheetsSchema";
+import logger from "react-logger";
 
 export default async function validateTimesheets(timesheets) {
-    try {
-       await timesheetsSchema.validate(timesheets);
-    } catch(error) {
-        if (error instanceof ValidationError) {
-            logger.error(error.message);
-        }    
-    }
+ try {
+  await timesheetsSchema.validate(timesheets);
+ } catch (error) {
+  logger.error(error.message);
+  throw error;
+ }
 }

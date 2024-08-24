@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { initialEmployee, initialTimesheets } from '../../resources/initialStates';
+import logger from 'react-logger';
 
 export const useEmployeeTimesheet = () => {
    const [selectedEmployee, setSelectedEmployee] = useState(initialEmployee);
@@ -12,12 +13,15 @@ export const useEmployeeTimesheet = () => {
     const handleTimesheetsUpdate = (newTimesheet) => {
         if (!newTimesheet.times[0].day) {
             setError('Wybierz dzień aby dodać godziny pracy.');
+            return;
         }
         if (!newTimesheet.employee.name && !newTimesheet.e) {
             setError('Wybierz pracownika.');
+            return;
         }
         if ((!newTimesheet.times[0].checkIn || !newTimesheet.times[0].checkOut) && !newTimesheet.times[0].isHoliday) {
             setError('Wybierz godziny przyjścia i wyjścia.');
+            return;
         }
 
         setEmployeeTimesheets((previousTimesheets) => {
@@ -54,7 +58,7 @@ export const useEmployeeTimesheet = () => {
             }
 
             setIsMonthLocked(true);
-            console.log('Updated timesheets: ', updatedTimesheets);
+            logger.info('Updated timesheets: ', updatedTimesheets);
             return updatedTimesheets;
         });
     };
@@ -63,6 +67,7 @@ export const useEmployeeTimesheet = () => {
         setSelectedEmployee(initialEmployee);
         setEmployeeTimesheets(initialTimesheets);
         setIsMonthLocked(false);
+        setError('');
     };
 
     return {
