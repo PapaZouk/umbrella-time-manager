@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './ExportTimesheets.module.css';
+import * as XLSX from 'xlsx';
 
 export default function ExportTimesheets({ timesheets, onError }) {
  const handleExport = () => {
@@ -11,7 +12,7 @@ export default function ExportTimesheets({ timesheets, onError }) {
    return;
   }
      
-  const ws = XLSX.utils.table_to_sheet(document.querySelector("table"));
+  const ws = XLSX.utils.table_to_sheet(document.getElementById("table-content"));
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, "Timesheets");
   XLSX.writeFile(wb, "timesheets.xlsx");

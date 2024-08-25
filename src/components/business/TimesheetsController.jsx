@@ -1,9 +1,8 @@
 import { SaveTimesheet } from "./SaveTimesheet";
-import * as XLSX from "xlsx";
 import styles from "./TimesheetsController.module.css";
 import React, { useState } from "react";
 import ExportTimesheets from "./ExportTimesheets";
-import { ErrorMessage } from "../utils";
+import printTable from "../utils/printTable";
 
 export default function TimesheetsController({
  timesheets,
@@ -16,9 +15,16 @@ export default function TimesheetsController({
    setError("");
   }, 2000);
  }
- const handlePrint = () => {
-  window.print();
- };
+
+ function handlePrint() {
+  printTable();
+ }
+
+//  const handlePrint = () => {
+//   const table = document.getElementById("table-content");
+
+//   window.print();
+//  };
 
  return (
   <>
