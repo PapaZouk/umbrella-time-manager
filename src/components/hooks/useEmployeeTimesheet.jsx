@@ -1,83 +1,84 @@
-import React, { useState } from 'react';
-import { initialEmployee, initialTimesheets } from '../../resources/initialStates';
-import logger from 'react-logger';
+import React, { useState } from "react";
+import {
+ initialEmployee,
+ initialTimesheets,
+} from "../../resources/initialStates";
+import logger from "react-logger";
+import isValidNewTimesheet from "../../utils/isValidNewTimesheet";
 
 export const useEmployeeTimesheet = () => {
-   const [selectedEmployee, setSelectedEmployee] = useState(initialEmployee);
-   const [employeeTimesheets, setEmployeeTimesheets] = useState(initialTimesheets);
-   const [error, setError] = useState('');
-   const [isMonthLocked, setIsMonthLocked] = useState(false);
-   
-   const handleEmployeeSelect = (employee) => setSelectedEmployee(employee);
+ const [selectedEmployee, setSelectedEmployee] = useState(initialEmployee);
+ const [employeeTimesheets, setEmployeeTimesheets] =
+  useState(initialTimesheets);
+ const [error, setError] = useState("");
+ const [isMonthLocked, setIsMonthLocked] = useState(false);
 
-    const handleTimesheetsUpdate = (newTimesheet) => {
-        if (!newTimesheet.times[0].day) {
-            setError('Wybierz dzień aby dodać godziny pracy.');
-            return;
-        }
-        if (!newTimesheet.employee.name && !newTimesheet.e) {
-            setError('Wybierz pracownika.');
-            return;
-        }
-        if ((!newTimesheet.times[0].checkIn || !newTimesheet.times[0].checkOut) && !newTimesheet.times[0].isHoliday) {
-            setError('Wybierz godziny przyjścia i wyjścia.');
-            return;
-        }
+ const handleEmployeeSelect = (employee) => setSelectedEmployee(employee);
 
-        setEmployeeTimesheets((previousTimesheets) => {
-            const updatedTimesheets = previousTimesheets.map((timesheet) => {
-                if (
-                    timesheet.employee.name === newTimesheet.employee.name &&
-                    timesheet.employee.surname === newTimesheet.employee.surname
-                ) {
-                    const dayExists = timesheet.times.some(
-                        time => time.day === newTimesheet.times[0].day
-                    );
+ const handleTimesheetsUpdate = (newTimesheet) => {
+  if (!isValidNewTimesheet(newTimesheet, setError)) {
+   return;
+  }
 
-                    if (dayExists) {
-                        setError('Godziny dla wybranego dnia już dodano. Wybierz kolejny dzień.');
-                        return timesheet;
-                    } else {
-                        return {
-                            ...timesheet,
-                            times: [...timesheet.times, newTimesheet.times[0]]
-                        };
-                    }
-                }
-                return timesheet;
-            });
+  setEmployeeTimesheets((previousTimesheets) => {
+   const updatedTimesheets = previousTimesheets.map((timesheet) => {
+    if (
+     timesheet.employee.name === newTimesheet.employee.name &&
+     timesheet.employee.surname === newTimesheet.employee.surname
+    ) {
+     const dayExists = timesheet.times.some(
+      (time) => time.day === newTimesheet.times[0].day
+     );
 
-            if (
-                !previousTimesheets.some(
-                    timesheet =>
-                        timesheet.employee.name === newTimesheet.employee.name &&
-                    timesheet.employee.surname === newTimesheet.employee.surname
-                )
-            ) {
-                updatedTimesheets.push(newTimesheet);
-            }
+     if (dayExists) {
+      logger.error("Chosen day has been already updated");
+      setError("Godziny dla wybranego dnia już dodano. Wybierz kolejny dzień.");
+      setTimeout(() => {
+       setError("");
+      }, 2000);
+      return timesheet;
+     } else {
+      return {
+       ...timesheet,
+       times: [...timesheet.times, newTimesheet.times[0]],
+      };
+     }
+    }
+    logger.info("Updated timesheets for existing employee ", timesheet);
+    return timesheet;
+   });
 
-            setIsMonthLocked(true);
-            logger.info('Updated timesheets: ', updatedTimesheets);
-            return updatedTimesheets;
-        });
-    };
+   if (
+    !previousTimesheets.some(
+     (timesheet) =>
+      timesheet.employee.name === newTimesheet.employee.name &&
+      timesheet.employee.surname === newTimesheet.employee.surname
+    )
+   ) {
+    updatedTimesheets.push(newTimesheet);
+    logger.info("Updated timesheets: ", updatedTimesheets);
+   }
 
-    const resetTimesheets = () => {
-        setSelectedEmployee(initialEmployee);
-        setEmployeeTimesheets(initialTimesheets);
-        setIsMonthLocked(false);
-        setError('');
-    };
+   setIsMonthLocked(true);
+   return updatedTimesheets;
+  });
+ };
 
-    return {
-        selectedEmployee,
-        employeeTimesheets,
-        error,
-        setError,
-        isMonthLocked,
-        handleEmployeeSelect,
-        handleTimesheetsUpdate,
-        resetTimesheets,
-    };
+ const resetTimesheets = () => {
+  setSelectedEmployee(initialEmployee);
+  setEmployeeTimesheets(initialTimesheets);
+  setIsMonthLocked(false);
+  setError("");
+ };
+
+ return {
+  selectedEmployee,
+  employeeTimesheets,
+  error,
+  setError,
+  isMonthLocked,
+  handleEmployeeSelect,
+  handleTimesheetsUpdate,
+  resetTimesheets,
+ };
 };

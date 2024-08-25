@@ -10,12 +10,17 @@ export function handleDateChange(day, selectedMonth, setSelectedDay, setError) {
 
     if (dayOfWeek === 0 || dayOfWeek === 6) {
       setError('Wybrany dzień jest weekendem. Proszę wybrać dzień roboczy');
-      setSelectedDay(null);
+      setTimeout(() => {
+        setError('');
+        setSelectedDay(null);
+      }, 2000);
     } else if (isHoliday(formattedDate)) {
       setError('Wybrany dzień jest świętem. Proszę wybrać dzień roboczy');
-      setSelectedDay(null);
+      setTimeout(() => {
+        setError('');
+        setSelectedDay(null);
+      }, 2000);
     } else {
-      setError('');
       setSelectedDay(day);
     }
   }

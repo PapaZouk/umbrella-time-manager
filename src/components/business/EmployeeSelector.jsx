@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./EmployeeSelector.module.css";
 import logger from "react-logger";
 import { employeesData } from "../../resources/employeesData";
+import { initialEmployee } from "../../resources/initialStates";
 
 export function EmployeeSelector({ onEmployeeSelect }) {
+ const [selectedEmployee, setSelectedEmployee] = useState({});
  const employees = employeesData();
 
  function handleChange(event) {
@@ -12,27 +14,41 @@ export function EmployeeSelector({ onEmployeeSelect }) {
    (employee) => employee.name === selectedName
   );
 
-  logger.info("Selected employee", selectedEmployee);
-  onEmployeeSelect(selectedEmployee);
+  if (selectedEmployee) {
+   logger.info("Selected employee", selectedEmployee);
+   setSelectedEmployee(selectedEmployee);
+   onEmployeeSelect(selectedEmployee);
+  } else {
+   logger.info("Setting up initial employee");
+   onEmployeeSelect(initialEmployee);
+   setSelectedEmployee({});
+  }
  }
 
  return (
-  <div className={styles.container}>
-   <label htmlFor="selected-employee" className={styles.label}>
-    Wybierz pracownika
-   </label>
-   <select
-    id="selected-employee"
-    className={styles.select}
-    onChange={handleChange}
-   >
-    <option value="">Wybierz...</option>
-    {employees.map((employee) => (
-     <option key={employee.name} value={employee.name}>
-      {`${employee.name} ${employee.surname}`}
-     </option>
-    ))}
-   </select>
-  </div>
+  <>
+   <div className="working-hours-frame">
+    <label htmlFor="selected-employee" className={styles.label}>
+     Wybierz pracownika
+    </label>
+    <select
+     id="selected-employee"
+     className={styles.select}
+     onChange={handleChange}
+    >
+     <option value="">Wybierz...</option>
+     {employees.map((employee) => (
+      <option key={employee.name} value={employee.name}>
+       {`${employee.name} ${employee.surname}`}
+      </option>
+     ))}
+    </select>
+   {selectedEmployee.workingHours && (
+     <span className="working-hours">
+      Godziny pracy: {selectedEmployee.workingHours}
+     </span>
+   )}
+   </div>
+  </>
  );
 }
