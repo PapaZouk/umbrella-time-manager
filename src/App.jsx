@@ -6,14 +6,14 @@ import {
  EmployeeTable,
  MonthSelector,
  TimesheetSelector,
-} from "./components/business";
-import Header from "./components/header/Header";
-import { handleDateChange } from "./utils/HandleDateChange";
-import { ErrorMessage, SuccessMessage } from "./components/utils";
-import { useMonthDays, useEmployeeTimesheet } from "./components/hooks";
+} from "./features/business";
+import Header from "./features/ui/header/Header";
+import { handleDateChange } from "./features/utils/handleDateChange";
+import { ErrorMessage, SuccessMessage } from "./features/shared/messages";
+import { useMonthDays, useEmployeeTimesheet } from "./features/hooks";
 import React from "react";
-import TimesheetsController from "./components/business/TimesheetsController";
-import Container from "./components/business/Container";
+import TimesheetsController from "./features/business/TimesheetsController";
+import Container from "./features/shared/container/Container";
 
 function App() {
  const [selectedMonth, setSelectedMonth] = useState();
