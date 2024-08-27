@@ -1,15 +1,14 @@
-import React from "react";
 import {fireEvent, render, screen} from "@testing-library/react";
-import {TimesheetSelector} from "../../../../features/business";
+import {TimesheetSelector} from "../../../../features/business/TimesheetSelector";
 
 jest.mock("../../../../features/utils/calculateBalance", () => ({
- calculateBalance: jest.fn((checkIn, checkOut, workingHours) => {
+ calculateBalance: jest.fn(() => {
   return 10;
  }),
 }));
 
 describe("TimesheetSelector", () => {
- const onTimesheetsUpdateMock = jest.fn();
+ const onTimesheetUpdateMock = jest.fn();
  const employee = {
   name: "Joe",
   surname: "Bloggs",
@@ -26,7 +25,7 @@ describe("TimesheetSelector", () => {
     employee={employee}
     month={month}
     day={day}
-    onTimesheetsUpdate={onTimesheetsUpdateMock}
+    onTimesheetUpdate={onTimesheetUpdateMock}
    />
   );
 
@@ -63,14 +62,14 @@ describe("TimesheetSelector", () => {
     employee={employee}
     month={month}
     day={day}
-    onTimesheetsUpdate={onTimesheetsUpdateMock}
+    onTimesheetUpdate={onTimesheetUpdateMock}
    />
   );
 
   const annualLeaveButton = screen.getByText("Urlop");
   fireEvent.click(annualLeaveButton);
 
-  expect(onTimesheetsUpdateMock).toHaveBeenCalledWith(expectedTimesheet);
+  expect(onTimesheetUpdateMock).toHaveBeenCalledWith(expectedTimesheet);
  });
  test("selecting timesheet for check-in and check-out should update timesheet values", () => {
   render(
@@ -78,7 +77,7 @@ describe("TimesheetSelector", () => {
     employee={employee}
     month={month}
     day={day}
-    onTimesheetsUpdate={onTimesheetsUpdateMock}
+    onTimesheetUpdate={onTimesheetUpdateMock}
    />
   );
 
@@ -92,7 +91,7 @@ describe("TimesheetSelector", () => {
   expect(checkOutInput.value).toBe(checkOut);
  });
 
- test("should update employee timesheets with all given data and reset times inputs", () => {
+ test("should update employee timesheet with all given data and reset times inputs", () => {
   const expectedUpdatedTimesheet = {
    employee,
    times: [
@@ -112,7 +111,7 @@ describe("TimesheetSelector", () => {
     employee={employee}
     month={month}
     day={day}
-    onTimesheetsUpdate={onTimesheetsUpdateMock}
+    onTimesheetUpdate={onTimesheetUpdateMock}
    />
   );
 
@@ -126,6 +125,6 @@ describe("TimesheetSelector", () => {
 
   expect(checkInInput.value).toBe("");
   expect(checkOutInput.value).toBe("");
-  expect(onTimesheetsUpdateMock).toHaveBeenCalledWith(expectedUpdatedTimesheet);
+  expect(onTimesheetUpdateMock).toHaveBeenCalledWith(expectedUpdatedTimesheet);
  });
 });

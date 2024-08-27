@@ -1,11 +1,9 @@
-// @ts-nocheck
-import React from "react";
 import styles from "./styles/SaveTimesheet.module.css";
 import { handleOnSave } from "../utils/handleOnSave";
 
-export function SaveTimesheet({ timesheets, selectedMonth, resetTimesheets, setError, setSuccessMessage }) {
+export function SaveTimesheet({ timesheet: timesheet, selectedMonth, resetTimesheet, setError, setSuccessMessage }) {
  function onSave() {
-  handleOnSave(timesheets, selectedMonth, resetTimesheets, setError, setSuccessMessage);
+  handleOnSave(timesheet, selectedMonth, resetTimesheet, setError, setSuccessMessage);
  }
 
  return (

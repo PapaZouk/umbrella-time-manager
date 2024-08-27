@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from "prop-types";
 
 export default function TableAnnualLeave({ style = '' }) {
@@ -9,6 +8,6 @@ export default function TableAnnualLeave({ style = '' }) {
     )
 }
 
-TableAnnualLeave.propType = {
+TableAnnualLeave.propTypes = {
     style: PropTypes.string,
 };

@@ -1,10 +1,9 @@
-import React from "react";
-import {getByText, render, screen} from '@testing-library/react';
+import { render} from '@testing-library/react';
 import Container from "../../../../../features/shared/container/Container";
 
 describe('Container', () => {
     test('renders container with fadeIn style correctly', () => {
-        const { container } =render(<Container fadeIn={true}>Test Content</Container>);
+        const { container } = render(<Container fadeIn={true}>Test Content</Container>);
 
         expect(container.firstChild).toHaveClass('container-appear');
     });

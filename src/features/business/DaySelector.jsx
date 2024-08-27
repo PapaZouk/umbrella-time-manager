@@ -1,5 +1,5 @@
-import React from 'react';
 import styles from './styles/DaysSelector.module.css';
+import PropTypes from "prop-types";
 
 export function DaySelector({ days, onDayChange }) {
     return (
@@ -19,3 +19,8 @@ export function DaySelector({ days, onDayChange }) {
         </div>
     );
 }
+
+DaySelector.propTypes = {
+    days: PropTypes.array.isRequired,
+    onDayChange: PropTypes.func.isRequired,
+};

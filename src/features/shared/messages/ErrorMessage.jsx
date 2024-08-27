@@ -1,10 +1,10 @@
-import React from 'react';
+import PropTypes from "prop-types";
 
 export function ErrorMessage({ message }) {
     if (!message) return null;
 
     return (
-        <div 
+        <div
             style={{
                 position: 'fixed',
                 top: '0',
@@ -45,3 +45,7 @@ export function ErrorMessage({ message }) {
         </div>
     );
 }
+
+ErrorMessage.propTypes = {
+    message: PropTypes.string,
+};

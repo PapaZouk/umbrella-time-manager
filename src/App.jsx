@@ -11,8 +11,7 @@ import Header from "./features/ui/header/Header";
 import { handleDateChange } from "./features/utils/handleDateChange";
 import { ErrorMessage, SuccessMessage } from "./features/shared/messages";
 import { useMonthDays, useEmployeeTimesheet } from "./features/hooks";
-import React from "react";
-import TimesheetsController from "./features/business/TimesheetsController";
+import { TimesheetController } from "./features/business";
 import Container from "./features/shared/container/Container";
 
 function App() {
@@ -23,16 +22,16 @@ function App() {
  const days = useMonthDays(selectedMonth) || [];
  const {
   selectedEmployee,
-  employeeTimesheets,
+  employeeTimesheet,
   error,
   successMessage,
   setError,
   setSuccesMessage,
-  handleEditedTimesheets,
+  handleEditedTimesheet,
   isMonthLocked,
   handleEmployeeSelect,
-  handleTimesheetsUpdate,
-  resetTimesheets,
+  handleTimesheetUpdate,
+  resetTimesheet,
  } = useEmployeeTimesheet();
 
  useEffect(() => {
@@ -63,16 +62,16 @@ function App() {
      employee={selectedEmployee}
      month={selectedMonth}
      day={selectedDay}
-     onTimesheetsUpdate={handleTimesheetsUpdate}
+     onTimesheetUpdate={handleTimesheetUpdate}
      setError={setError}
     />
    </Container>
 
    <Container fadeIn={fadeIn}>
-    <TimesheetsController
-     timesheets={employeeTimesheets}
+    <TimesheetController
+     timesheet={employeeTimesheet}
      selectedMonth={selectedMonth}
-     resetTimesheets={resetTimesheets}
+     resetTimesheet={resetTimesheet}
      setError={setError}
      setSuccesMessage={setSuccesMessage}
     />
@@ -81,8 +80,8 @@ function App() {
    <Container fadeIn={fadeIn}>
     <EmployeeTable
      month={selectedMonth}
-     timesheets={employeeTimesheets}
-     handleEditedTimesheets={handleEditedTimesheets}
+     timesheet={employeeTimesheet}
+     handleEditedTimesheet={handleEditedTimesheet}
     />
    </Container>
 

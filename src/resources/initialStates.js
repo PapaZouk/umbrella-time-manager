@@ -5,4 +5,4 @@ export const initialEmployee = {
  annualLeave: 26,
 };
 
-export const initialTimesheets = [];
+export const initialTimesheet = [];

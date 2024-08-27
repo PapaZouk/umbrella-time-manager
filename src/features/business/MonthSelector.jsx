@@ -1,7 +1,7 @@
-import React from 'react';
 import styles from './styles/MonthSelector.module.css';
+import PropTypes from "prop-types";
 
-export function MonthSelector({ onMonthChange, disabled }) {
+export function MonthSelector({ onMonthChange, disabled = false}) {
     const handleMonthChange = (event) => {
         if (!disabled) {
             onMonthChange(event.target.value);
@@ -21,3 +21,8 @@ export function MonthSelector({ onMonthChange, disabled }) {
         </div>
     );
 }
+
+MonthSelector.propTypes = {
+    onMonthChange: PropTypes.func.isRequired,
+    disabled: PropTypes.bool,
+};

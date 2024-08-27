@@ -2,25 +2,25 @@ import logger from "react-logger";
 import calculateBusinessDaysInMonth from "./calulculateBusinessDaysInMonth";
 import validateTimesheet from "../validators/validateTimesheet";
 
-export const handleOnSave = (employeeTimesheets, selectedMonth, resetTimesheets, setError, setSuccessMessage) => {
- if (employeeTimesheets.length === 0) {
+export const handleOnSave = (employeeTimesheet, selectedMonth, resetTimesheets, setError, setSuccessMessage) => {
+ if (employeeTimesheet.length === 0) {
   setError("Brak godzin do zapisu. Wypełmnij wszystkie godziny pracy");
   setTimeout(() => {
    setError("");
   }, 2000);
   return;
  }
- if (hasValidTimesheets(employeeTimesheets, selectedMonth, setError, setSuccessMessage)) {
+ if (hasValidTimesheet(employeeTimesheet, selectedMonth, setError, setSuccessMessage)) {
   logger.info("Saving employee timesheet");
   resetTimesheets();
  }
 };
 
-const hasValidTimesheets = (employeeTimesheets, selectedMonth, setError, setSuccessMessage) => {
+const hasValidTimesheet = (employeeTimesheet, selectedMonth, setError, setSuccessMessage) => {
  const businessDaysInMonth = calculateBusinessDaysInMonth(selectedMonth);
- validateTimesheet(employeeTimesheets);
+ validateTimesheet(employeeTimesheet);
 
- const invalidTimesheet = employeeTimesheets.filter((timesheet) => timesheet.times.length !== businessDaysInMonth);
+ const invalidTimesheet = employeeTimesheet.filter((timesheet) => timesheet.times.length !== businessDaysInMonth);
  if (invalidTimesheet.length > 0) {
   const employeeWithInvalidTimesheet = invalidTimesheet
    .map((timesheet) => `${timesheet.employee.name} ${timesheet.employee.surname}`)

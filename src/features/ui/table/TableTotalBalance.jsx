@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 export default function TableTotalBalance({ time, styles }) {
     return (
@@ -15,3 +15,12 @@ export default function TableTotalBalance({ time, styles }) {
          </td>
     )
 }
+
+TableTotalBalance.propTypes = {
+    time: PropTypes.string,
+    styles: PropTypes.shape({
+    "total-balance-cell": PropTypes.string.isRequired,
+    "total-balance-negative": PropTypes.string.isRequired,
+    "total-balance-positive": PropTypes.string.isRequired,
+}).isRequired,
+};

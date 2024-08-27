@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from "react";
+import {useState} from "react";
 import styles from "./styles/Tables.module.css";
-import icons from "../icons/styles/Icons.module.css";
-import { EditIcon, SaveIcon, CancelIcon } from "../icons/Icons.jsx";
-import { calculateBalance } from "../../utils/calculateBalance.js";
+import {calculateBalance} from "../../utils/calculateBalance.js";
 import TableSummaryHead from "./TableSumaryHead.jsx";
 import TableAnnualLeave from "./TableAnnualLeave.jsx";
 import TableTotalBalance from "./TableTotalBalance.jsx";

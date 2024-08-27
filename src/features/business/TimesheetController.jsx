@@ -1,13 +1,12 @@
 import { SaveTimesheet } from "./SaveTimesheet";
-import styles from "./styles/TimesheetsController.module.css";
-import React from "react";
-import ExportTimesheets from "./ExportTimesheets";
+import styles from "./styles/TimesheetController.module.css";
+import { ExportTimesheet } from "./ExportTimesheet";
 import printTable from "../utils/printTable";
 
-export default function TimesheetsController({
- timesheets,
+export function TimesheetController({
+ timesheet,
  selectedMonth,
- resetTimesheets,
+ resetTimesheet,
  setError,
  setSuccesMessage,
 }) {
@@ -29,14 +28,14 @@ export default function TimesheetsController({
      <button className={styles.printButton} onClick={handlePrint}>
       Drukuj
      </button>
-     <ExportTimesheets
-      timesheets={timesheets}
+     <ExportTimesheet
+      timesheet={timesheet}
       onError={handleControllerError}
      />
      <SaveTimesheet
-      timesheets={timesheets}
+      timesheet={timesheet}
       selectedMonth={selectedMonth}
-      resetTimesheets={resetTimesheets}
+      resetTimesheet={resetTimesheet}
       setError={setError}
       setSuccessMessage={setSuccesMessage}
      />

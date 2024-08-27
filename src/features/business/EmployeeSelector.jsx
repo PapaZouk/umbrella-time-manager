@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styles from "./styles/EmployeeSelector.module.css";
 import logger from "react-logger";
 import { employeesData } from "../../resources/employeesData";
 import { initialEmployee } from "../../resources/initialStates";
+import PropTypes from "prop-types";
 
 export function EmployeeSelector({ onEmployeeSelect }) {
  const [selectedEmployee, setSelectedEmployee] = useState({});
@@ -52,3 +53,7 @@ export function EmployeeSelector({ onEmployeeSelect }) {
   </>
  );
 }
+
+EmployeeSelector.propTypes = {
+ onEmployeeSelect: PropTypes.func.isRequired,
+};

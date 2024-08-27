@@ -1,26 +1,22 @@
-import React from "react";
-import { render, screen, act, waitFor } from "@testing-library/react";
-import { useEmployeeTimesheet } from "../../../../features/hooks/useEmployeeTimesheet";
-import {
- initialEmployee,
- initialTimesheets,
-} from "../../../../resources/initialStates";
+import {act, render, screen} from "@testing-library/react";
+import {useEmployeeTimesheet} from "../../../../features/hooks";
+import {initialEmployee, initialTimesheet,} from "../../../../resources/initialStates";
 
 const TestComponent = () => {
  const {
   selectedEmployee,
-  employeeTimesheets,
+  employeeTimesheet,
   error,
   isMonthLocked,
   handleEmployeeSelect,
-  handleTimesheetsUpdate,
-  resetTimesheets,
+  handleTimesheetUpdate,
+  resetTimesheet,
  } = useEmployeeTimesheet();
 
  return (
   <div>
    <div data-testid="selected-employee">{JSON.stringify(selectedEmployee)}</div>
-   <div data-testid="timesheets">{JSON.stringify(employeeTimesheets)}</div>
+   <div data-testid="timesheet">{JSON.stringify(employeeTimesheet)}</div>
    <div data-testid="error">{error}</div>
    <div data-testid="month-locked">{isMonthLocked ? "Locked" : "Unlocked"}</div>
    <button
@@ -31,7 +27,7 @@ const TestComponent = () => {
    </button>
    <button
     onClick={() =>
-     handleTimesheetsUpdate({
+     handleTimesheetUpdate({
       employee: { name: "John", surname: "Doe" },
       times: [
        { day: 1, checkIn: "08:00", checkOut: "16:00", isHoliday: false },
@@ -42,8 +38,8 @@ const TestComponent = () => {
    >
     Update Timesheet
    </button>
-   <button onClick={resetTimesheets} data-testid="reset-timesheets">
-    Reset Timesheets
+   <button onClick={resetTimesheet} data-testid="reset-timesheet">
+    Reset Timesheet
    </button>
   </div>
  );
@@ -56,8 +52,8 @@ describe("useEmployeeTimesheet", () => {
   expect(screen.getByTestId("selected-employee").textContent).toBe(
    JSON.stringify(initialEmployee)
   );
-  expect(screen.getByTestId("timesheets").textContent).toBe(
-   JSON.stringify(initialTimesheets)
+  expect(screen.getByTestId("timesheet").textContent).toBe(
+   JSON.stringify(initialTimesheet)
   );
   expect(screen.getByTestId("error").textContent).toBe("");
   expect(screen.getByTestId("month-locked").textContent).toBe("Unlocked");
@@ -75,10 +71,10 @@ describe("useEmployeeTimesheet", () => {
   );
  });
 
- test("should update timesheets correctly", () => {
+ test("should update timesheet correctly", () => {
   render(<TestComponent />);
 
-  const updatedTimessheets = [
+  const updatedTimesheet = [
    {
     employee: { name: "John", surname: "Doe" },
     times: [{ day: 1, checkIn: "08:00", checkOut: "16:00", isHoliday: false }],
@@ -89,14 +85,14 @@ describe("useEmployeeTimesheet", () => {
    screen.getByTestId("update-timesheet").click();
   });
 
-  expect(screen.getByTestId("timesheets").textContent).toBe(
-   JSON.stringify(updatedTimessheets)
+  expect(screen.getByTestId("timesheet").textContent).toBe(
+   JSON.stringify(updatedTimesheet)
   );
   expect(screen.getByTestId("month-locked").textContent).toBe("Locked");
   expect(screen.getByTestId("error").textContent).toBe("");
  });
 
- test("should reset timesheets to its initial state", () => {
+ test("should reset timesheet to its initial state", () => {
   render(<TestComponent />);
 
   act(() => {
@@ -105,14 +101,14 @@ describe("useEmployeeTimesheet", () => {
   });
 
   act(() => {
-   screen.getByTestId("reset-timesheets").click();
+   screen.getByTestId("reset-timesheet").click();
   });
 
   expect(screen.getByTestId("selected-employee").textContent).toBe(
    JSON.stringify(initialEmployee)
   );
-  expect(screen.getByTestId("timesheets").textContent).toBe(
-   JSON.stringify(initialTimesheets)
+  expect(screen.getByTestId("timesheet").textContent).toBe(
+   JSON.stringify(initialTimesheet)
   );
   expect(screen.getByTestId("month-locked").textContent).toBe("Unlocked");
  });

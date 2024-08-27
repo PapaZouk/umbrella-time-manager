@@ -1,6 +1,5 @@
-import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
-import { EmployeeSelector } from "../../../../features/business/EmployeeSelector";
+import { EmployeeSelector } from "../../../../features/business";
 import { employeesData } from "../../../../resources/employeesData";
 
 jest.mock("../../../../resources/employeesData");

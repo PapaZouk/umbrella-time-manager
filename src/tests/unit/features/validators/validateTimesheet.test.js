@@ -1,8 +1,7 @@
-import { ValidationError } from 'yup';
 import validateTimesheet from '../../../../features/validators/validateTimesheet';
 
 describe('validateTimesheet', () => {
-    test('given timesheets should validate successfully', () => {
+    test('given timesheet should validate successfully', () => {
         const employeeTimesheet = [{
             employee: {
                 name: 'Joe',
@@ -22,7 +21,7 @@ describe('validateTimesheet', () => {
         expect(() => validateTimesheet(employeeTimesheet)).not.toThrow();
     });
 
-    test('given timesheets is missing property should throw an error', async () => {
+    test('given timesheet is missing property should throw an error', async () => {
         const employeeTimesheet = [{
             times: [{
                 checkIn: '08:10',

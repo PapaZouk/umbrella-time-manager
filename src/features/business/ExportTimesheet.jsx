@@ -1,10 +1,10 @@
-import React from 'react'
-import styles from './styles/ExportTimesheets.module.css';
+import styles from './styles/ExportTimesheet.module.css';
 import * as XLSX from 'xlsx';
+import PropTypes from "prop-types";
 
-export default function ExportTimesheets({ timesheets, onError }) {
+export function ExportTimesheet({ timesheet, onError }) {
  const handleExport = () => {
-  if (timesheets.length < 1) {
+  if (timesheet.length < 1) {
       onError("Brak godzin do exportowania");
       setTimeout(() => {
           onError('');
@@ -14,8 +14,8 @@ export default function ExportTimesheets({ timesheets, onError }) {
 
   const ws = XLSX.utils.table_to_sheet(document.getElementById("table-content"));
   const wb = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(wb, ws, "Timesheets");
-  XLSX.writeFile(wb, "timesheets.xlsx");
+  XLSX.utils.book_append_sheet(wb, ws, "Timesheet");
+  XLSX.writeFile(wb, "timesheet.xlsx");
  };
 
  return (
@@ -26,3 +26,8 @@ export default function ExportTimesheets({ timesheets, onError }) {
   </>
  );
 }
+
+ExportTimesheet.propTypes = {
+    timesheet: PropTypes.array.isRequired,
+    onError: PropTypes.func.isRequired,
+};

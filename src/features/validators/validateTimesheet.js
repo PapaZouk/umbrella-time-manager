@@ -1,9 +1,9 @@
-import timesheetsSchema from "../../contracts/schemas/timesheetsSchema";
+import timesheetSchema from "../../contracts/schemas/timesheetSchema";
 import logger from "react-logger";
 
-export default async function validateTimesheet(timesheets) {
+export default async function validateTimesheet(timesheet) {
  try {
-  await timesheetsSchema.validate(timesheets);
+  await timesheetSchema.validate(timesheet);
  } catch (error) {
   logger.error(error.message);
   throw error;

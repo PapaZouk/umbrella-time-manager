@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-const timesheetsSchema = Yup.array().of(
+const timesheetSchema = Yup.array().of(
     Yup.object().shape({
         employee: Yup.object().shape({
             name: Yup.string().required('Name is required'),
@@ -24,4 +24,4 @@ const timesheetsSchema = Yup.array().of(
     })
 );
 
-export default timesheetsSchema;
+export default timesheetSchema;

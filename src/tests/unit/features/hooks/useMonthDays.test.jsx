@@ -1,11 +1,15 @@
-import { render, screen } from "@testing-library/react";
-import { useMonthDays } from "../../../../features/hooks/useMonthDays";
-import React, { useEffect } from "react";
+import {render, screen} from "@testing-library/react";
+import {useMonthDays} from "../../../../features/hooks";
+import PropTypes from "prop-types";
 
 const TestComponent = ({ selectedMonth }) => {
  const days = useMonthDays(selectedMonth);
 
  return <div data-testid="days">{days.join(", ")}</div>;
+};
+
+TestComponent.propTypes = {
+ selectedMonth: PropTypes.string,
 };
 
 describe("useMonthDays", () => {

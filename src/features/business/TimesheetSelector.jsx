@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import { calculateBalance } from "../utils/calculateBalance";
 import styles from "./styles/TimesheetSelector.module.css";
@@ -8,7 +7,7 @@ export function TimesheetSelector({
   employee,
   month,
   day,
-  onTimesheetsUpdate,
+  onTimesheetUpdate,
   setError,
 }) {
   const [checkIn, setCheckIn] = useState("");
@@ -40,7 +39,7 @@ export function TimesheetSelector({
         ],
       };
 
-      onTimesheetsUpdate(newTimesheet);
+      onTimesheetUpdate(newTimesheet);
 
       setCheckIn("");
       setCheckOut("");
@@ -68,7 +67,7 @@ export function TimesheetSelector({
           },
         ],
       };
-      onTimesheetsUpdate(newTimesheet);
+      onTimesheetUpdate(newTimesheet);
     }
   };
 

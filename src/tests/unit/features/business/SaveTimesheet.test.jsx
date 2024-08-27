@@ -1,6 +1,5 @@
-import React from "react";
 import {fireEvent, render, screen} from "@testing-library/react";
-import {SaveTimesheet} from "../../../../features/business/SaveTimesheet";
+import {SaveTimesheet} from "../../../../features/business";
 import {handleOnSave} from "../../../../features/utils/handleOnSave.js";
 
 jest.mock("../../../../features/utils/handleOnSave.js", () => ({
@@ -8,9 +7,8 @@ jest.mock("../../../../features/utils/handleOnSave.js", () => ({
 }));
 
 describe("SaveTimesheet", () => {
- const onSaveMock = jest.fn();
 
- const timeSheets = [
+ const timeSheet = [
   {
    employee: {
     name: "Joe",
@@ -30,7 +28,7 @@ describe("SaveTimesheet", () => {
   },
  ];
  const selectedMonth = "2024-08";
- const resetTimesheetsMock = jest.fn();
+ const resetTimesheetMock = jest.fn();
  const setErrorMock = jest.fn();
  const setSuccessMock = jest.fn();
 
@@ -41,9 +39,9 @@ describe("SaveTimesheet", () => {
  test("renders the save button", () => {
   render(
    <SaveTimesheet
-    timesheets={timeSheets}
+    timesheet={timeSheet}
     selectedMonth={selectedMonth}
-    resetTimesheets={resetTimesheetsMock}
+    resetTimesheet={resetTimesheetMock}
     setError={setErrorMock}
     setSuccessMessage={setSuccessMock}
    />
@@ -57,9 +55,9 @@ describe("SaveTimesheet", () => {
  test("calls onSave when the save button is clicked", () => {
   render(
    <SaveTimesheet
-    timesheets={timeSheets}
+    timesheet={timeSheet}
     selectedMonth={selectedMonth}
-    resetTimesheets={resetTimesheetsMock}
+    resetTimesheet={resetTimesheetMock}
     setError={setErrorMock}
     setSuccessMessage={setSuccessMock}
    />
@@ -69,9 +67,9 @@ describe("SaveTimesheet", () => {
   fireEvent.click(saveButton);
 
   expect(handleOnSave).toHaveBeenCalledWith(
-   timeSheets,
+   timeSheet,
    selectedMonth,
-   resetTimesheetsMock,
+   resetTimesheetMock,
    setErrorMock,
    setSuccessMock
   );

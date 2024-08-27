@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { calculateTotalBalance } from "../utils/calculateBalance";
 import { dateFormatter } from "../utils/dateFormatter";
 import { calculateAnnualLeaveDays } from "../utils/calculateAnnualLeaveDays";
@@ -7,34 +7,34 @@ import { sortTimesByDay } from "../utils/sortTimesByDay";
 import TableSummary from "../ui/table/TableSummary";
 import TableDetails from "../ui/table/TableDetails";
 
-export function EmployeeTable({ month, timesheets, handleEditedTimesheets }) {
- const [sortedTimesheets, setSortedTimesheets] = useState(timesheets);
+export function EmployeeTable({ month, timesheet, handleEditedTimesheet }) {
+ const [sortedTimesheet, setSortedTimesheet] = useState(timesheet);
 
  useEffect(() => {
-  setSortedTimesheets(
-   timesheets.map((timesheet) => ({
+  setSortedTimesheet(
+   timesheet.map((timesheet) => ({
     ...timesheet,
     sortedTimes: sortTimesByDay(timesheet.times),
    }))
   );
- }, [timesheets]);
+ }, [timesheet]);
 
  const onTimesUpdate = (index, updatedTimes) => {
-  const updatedTimesheets = [...sortedTimesheets];
-  updatedTimesheets[index] = {
-   ...updatedTimesheets[index],
+  const updatedTimesheet = [...sortedTimesheet];
+  updatedTimesheet[index] = {
+   ...updatedTimesheet[index],
    times: updatedTimes,
    sortedTimes: sortTimesByDay(updatedTimes),
   };
-  setSortedTimesheets(updatedTimesheets);
-  handleEditedTimesheets(updatedTimesheets[index]);
+  setSortedTimesheet(updatedTimesheet);
+  handleEditedTimesheet(updatedTimesheet[index]);
  };
 
  const formattedDate = month ? dateFormatter(month) : "Wybierz miesiąc";
 
  return (
   <div id="table-content">
-   {sortedTimesheets.map((timesheet, timesheetIndex) => {
+   {sortedTimesheet.map((timesheet, timesheetIndex) => {
     const employeeData = timesheet.employee;
     const employeeTimes = timesheet.times;
     const totalBalance = calculateTotalBalance(employeeTimes);

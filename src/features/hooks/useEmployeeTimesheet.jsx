@@ -1,43 +1,40 @@
-import React, { useState } from "react";
-import {
- initialEmployee,
- initialTimesheets,
-} from "../../resources/initialStates";
+import {useState} from "react";
+import {initialEmployee, initialTimesheet,} from "../../resources/initialStates";
 import logger from "react-logger";
 import isValidNewTimesheet from "../utils/isValidNewTimesheet";
 
 export const useEmployeeTimesheet = () => {
  const [selectedEmployee, setSelectedEmployee] = useState(initialEmployee);
- const [employeeTimesheets, setEmployeeTimesheets] =
-  useState(initialTimesheets);
+ const [employeeTimesheet, setEmployeeTimesheet] =
+  useState(initialTimesheet);
  const [error, setError] = useState("");
  const [successMessage, setSuccesMessage] = useState("");
  const [isMonthLocked, setIsMonthLocked] = useState(false);
 
  const handleEmployeeSelect = (employee) => setSelectedEmployee(employee);
 
- const handleEditedTimesheets = (editedTimesheets) => {
-  if (!isValidNewTimesheet(editedTimesheets, setError)) {
+ const handleEditedTimesheet = (editedTimesheet) => {
+  if (!isValidNewTimesheet(editedTimesheet, setError)) {
    return;
   }
 
-  setEmployeeTimesheets((previousTimesheets) => {
-   const updateTimesheets = previousTimesheets.map((timesheet) => ({
+  setEmployeeTimesheet((previousTimesheet) => {
+   const updateTimesheet = previousTimesheet.map((timesheet) => ({
     ...timesheet,
-    times: [...editedTimesheets.times],
+    times: [...editedTimesheet.times],
    }));
 
-   return updateTimesheets;
+   return updateTimesheet;
   });
  };
 
- const handleTimesheetsUpdate = (newTimesheet) => {
+ const handleTimesheetUpdate = (newTimesheet) => {
   if (!isValidNewTimesheet(newTimesheet, setError)) {
    return;
   }
 
-  setEmployeeTimesheets((previousTimesheets) => {
-   const updatedTimesheets = previousTimesheets.map((timesheet) => {
+  setEmployeeTimesheet((previousTimesheet) => {
+   const updatedTimesheet = previousTimesheet.map((timesheet) => {
     if (
      timesheet.employee.name === newTimesheet.employee.name &&
      timesheet.employee.surname === newTimesheet.employee.surname
@@ -60,44 +57,44 @@ export const useEmployeeTimesheet = () => {
       };
      }
     }
-    logger.info("Updated timesheets for existing employee ", timesheet);
+    logger.info("Updated timesheet for existing employee ", timesheet);
     return timesheet;
    });
 
    if (
-    !previousTimesheets.some(
+    !previousTimesheet.some(
      (timesheet) =>
       timesheet.employee.name === newTimesheet.employee.name &&
       timesheet.employee.surname === newTimesheet.employee.surname
     )
    ) {
-    updatedTimesheets.push(newTimesheet);
-    logger.info("Updated timesheets: ", updatedTimesheets);
+    updatedTimesheet.push(newTimesheet);
+    logger.info("Updated timesheet: ", updatedTimesheet);
    }
 
    setIsMonthLocked(true);
-   return updatedTimesheets;
+   return updatedTimesheet;
   });
  };
 
- const resetTimesheets = () => {
+ const resetTimesheet = () => {
   setSelectedEmployee(initialEmployee);
-  setEmployeeTimesheets(initialTimesheets);
+  setEmployeeTimesheet(initialTimesheet);
   setIsMonthLocked(false);
   setError("");
  };
 
  return {
   selectedEmployee,
-  employeeTimesheets,
+  employeeTimesheet,
   error,
   successMessage,
   setError,
   setSuccesMessage,
-  handleEditedTimesheets,
+  handleEditedTimesheet,
   isMonthLocked,
   handleEmployeeSelect,
-  handleTimesheetsUpdate,
-  resetTimesheets,
+  handleTimesheetUpdate: handleTimesheetUpdate,
+  resetTimesheet: resetTimesheet,
  };
 };

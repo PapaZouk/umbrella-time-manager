@@ -1,4 +1,4 @@
-import React from "react";
+import PropTypes from "prop-types";
 
 export function SuccessMessage({ message }) {
  if (!message) return null;
@@ -43,3 +43,7 @@ export function SuccessMessage({ message }) {
   </div>
  );
 }
+
+SuccessMessage.propTypes = {
+    message: PropTypes.string,
+};

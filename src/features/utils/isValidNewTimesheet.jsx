@@ -1,4 +1,3 @@
-import React from 'react'
 import logger from 'react-logger';
 
 export default function isValidNewTimesheet(timesheet, setError) {
