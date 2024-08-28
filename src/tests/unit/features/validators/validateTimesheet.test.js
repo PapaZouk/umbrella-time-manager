@@ -7,6 +7,7 @@ describe('validateTimesheet', () => {
                 name: 'Joe',
                 surname: 'Bloggs',
                 workingHours: '08:00-16:00',
+                annualLeave: 21,
             },
             times: [{
                 checkIn: '08:10',

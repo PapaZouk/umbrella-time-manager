@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { calculateBalance } from "../utils/calculateBalance";
+import { calculateBalance } from "../utils";
 import styles from "./styles/TimesheetSelector.module.css";
 import logger from "react-logger";
+import PropTypes from "prop-types";
 
 export function TimesheetSelector({
   employee,
@@ -104,5 +105,12 @@ export function TimesheetSelector({
       </div>
     </>
   );
-}
+};
 
+TimesheetSelector.propTypes = {
+  employee: PropTypes.object,
+  month: PropTypes.string,
+  day: PropTypes.string,
+  onTimesheetUpdate: PropTypes.func,
+  setError: PropTypes.func,
+};

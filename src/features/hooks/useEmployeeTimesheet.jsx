@@ -1,7 +1,7 @@
 import {useState} from "react";
 import {initialEmployee, initialTimesheet,} from "../../resources/initialStates";
 import logger from "react-logger";
-import isValidNewTimesheet from "../utils/isValidNewTimesheet";
+import { isValidNewTimesheet } from "../utils";
 
 export const useEmployeeTimesheet = () => {
  const [selectedEmployee, setSelectedEmployee] = useState(initialEmployee);

@@ -1,8 +1,12 @@
 import PropTypes from "prop-types";
 
-export default function TableTotalBalance({ time, styles }) {
+const defaultTimeValue = {
+    balance: 0,
+}
+
+export default function TableTotalBalance({ time = defaultTimeValue, styles = '' }) {
     return (
-        <td className={styles["total-balance-cell"]}>
+        <td data-testid='total-balance' className={styles["total-balance-cell"]}>
           <span
            className={
             time.balance < 0
@@ -17,10 +21,6 @@ export default function TableTotalBalance({ time, styles }) {
 }
 
 TableTotalBalance.propTypes = {
-    time: PropTypes.string,
-    styles: PropTypes.shape({
-    "total-balance-cell": PropTypes.string.isRequired,
-    "total-balance-negative": PropTypes.string.isRequired,
-    "total-balance-positive": PropTypes.string.isRequired,
-}).isRequired,
+    time: PropTypes.object,
+    styles: PropTypes.object,
 };

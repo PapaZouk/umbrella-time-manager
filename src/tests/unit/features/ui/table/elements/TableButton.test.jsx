@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import TableButton from "../../../../../features/ui/table/TableButton";
+import TableButton from "../../../../../../features/ui/table/elements/TableButton";
 
 describe('TableButton', () => {
     test('renders table button correctly', () => {

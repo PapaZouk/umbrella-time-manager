@@ -1,5 +1,5 @@
 import { render} from '@testing-library/react';
-import Container from "../../../../../features/shared/container/Container";
+import { Container } from "../../../../../features/shared";
 
 describe('Container', () => {
     test('renders container with fadeIn style correctly', () => {

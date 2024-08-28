@@ -1,5 +1,5 @@
 import {render} from '@testing-library/react';
-import TableAnnualLeave from "../../../../../features/ui/table/TableAnnualLeave";
+import TableAnnualLeave from "../../../../../../features/ui/table/details/TableAnnualLeave";
 
 describe('TableAnnualLeave', () => {
     test('renders with default props', () => {

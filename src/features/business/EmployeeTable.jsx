@@ -1,11 +1,7 @@
-import { useState, useEffect } from "react";
-import { calculateTotalBalance } from "../utils/calculateBalance";
-import { dateFormatter } from "../utils/dateFormatter";
-import { calculateAnnualLeaveDays } from "../utils/calculateAnnualLeaveDays";
-import calculateBusinessDaysInMonth from "../utils/calulculateBusinessDaysInMonth";
-import { sortTimesByDay } from "../utils/sortTimesByDay";
-import TableSummary from "../ui/table/TableSummary";
-import TableDetails from "../ui/table/TableDetails";
+import {useEffect, useState} from "react";
+import {dateFormatter, sortTimesByDay} from "../utils";
+import TableEmployeeOverview from "../ui/table/employee/TableEmployeeOverview";
+import PropTypes from "prop-types";
 
 export function EmployeeTable({ month, timesheet, handleEditedTimesheet }) {
  const [sortedTimesheet, setSortedTimesheet] = useState(timesheet);
@@ -33,36 +29,17 @@ export function EmployeeTable({ month, timesheet, handleEditedTimesheet }) {
  const formattedDate = month ? dateFormatter(month) : "Wybierz miesiąc";
 
  return (
-  <div id="table-content">
-   {sortedTimesheet.map((timesheet, timesheetIndex) => {
-    const employeeData = timesheet.employee;
-    const employeeTimes = timesheet.times;
-    const totalBalance = calculateTotalBalance(employeeTimes);
-    const annualLeaveDays = calculateAnnualLeaveDays(timesheet.times);
-    const totalDaysInMonth = calculateBusinessDaysInMonth(month);
-    const totalRecordedDays = timesheet.times.length;
-
-    return (
-     <div key={timesheetIndex}>
-      <TableSummary
-       timesheetIndex={timesheetIndex}
-       employeeData={employeeData}
-       annualLeaveDays={annualLeaveDays}
-       totalDaysInMonth={totalDaysInMonth}
-       formattedDate={formattedDate}
-       totalBalance={totalBalance}
-       totalRecordedDays={totalRecordedDays}
-      />
-      <TableDetails
-       timesheetIndex={timesheetIndex}
-       sortedTimes={timesheet.sortedTimes}
-       onTimesUpdate={(updatedTimes) =>
-        onTimesUpdate(timesheetIndex, updatedTimes)
-       }
-      />
-     </div>
-    );
-   })}
-  </div>
+  <TableEmployeeOverview
+      sortedTimesheet={sortedTimesheet}
+      month={month}
+      formattedDate={formattedDate}
+      onTimesUpdate={onTimesUpdate}
+  />
  );
-}
+};
+
+EmployeeTable.propTypes = {
+ month: PropTypes.string,
+ timesheet: PropTypes.array,
+ handleEditedTimesheet: PropTypes.func,
+};

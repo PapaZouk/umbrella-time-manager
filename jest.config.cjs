@@ -16,14 +16,17 @@ module.exports = {
     '!src/contracts/**/*.{js,jsx,ts,tsx}',
     '!src/utils/**/*.{js,jsx,ts,tsx}',
     '!src/main.jsx',
+    '!src/**/index.js',
+    '!src/features/utils/**/*.{js,jsx,ts,tsx}',
+    '!src/tests/unit/_mocks/**/*.{js,jsx,ts,tsx}',
   ],
   coverageDirectory: 'coverage',
   coverageThreshold: {
     global: {
-      branches: 30,
-      functions: 30,
-      lines: 30,
-      statements: 30,
+      branches: 70,
+      functions: 75,
+      lines: 75,
+      statements: 75,
     },
   },
 };

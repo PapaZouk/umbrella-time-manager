@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 
-export default function TableSummaryHead({ style }) {
+export default function TableDetailsHead({ style }) {
  return (
   <thead className={style}>
    <tr>
@@ -13,6 +13,6 @@ export default function TableSummaryHead({ style }) {
  );
 }
 
-TableSummaryHead.propTypes = {
+TableDetailsHead.propTypes = {
     style: PropTypes.string,
 };

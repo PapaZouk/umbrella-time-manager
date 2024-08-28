@@ -1,15 +1,18 @@
 import { SaveTimesheet } from "./SaveTimesheet";
-import styles from "./styles/TimesheetController.module.css";
 import { ExportTimesheet } from "./ExportTimesheet";
-import printTable from "../utils/printTable";
+import { printTable } from "../utils";
+import PrintTimesheet from "./PrintTimesheet";
+import PropTypes from "prop-types";
 
-export function TimesheetController({
- timesheet,
- selectedMonth,
- resetTimesheet,
- setError,
- setSuccesMessage,
-}) {
+export function TimesheetController(
+    {
+     timesheet,
+     selectedMonth,
+     resetTimesheet,
+     setError,
+     setSuccesMessage,
+    }
+) {
  function handleControllerError(errorMessage) {
   setError(errorMessage);
   setTimeout(() => {
@@ -23,11 +26,9 @@ export function TimesheetController({
 
  return (
   <>
-   <div>
+   <div data-testid='timesheet-controller'>
     <span>
-     <button className={styles.printButton} onClick={handlePrint}>
-      Drukuj
-     </button>
+     <PrintTimesheet handlePrint={handlePrint}/>
      <ExportTimesheet
       timesheet={timesheet}
       onError={handleControllerError}
@@ -43,4 +44,12 @@ export function TimesheetController({
    </div>
   </>
  );
+};
+
+TimesheetController.propTypes = {
+ timesheet: PropTypes.array,
+ selectedMonth: PropTypes.string,
+ resetTimesheet: PropTypes.func,
+ setError: PropTypes.func,
+ setSuccesMessage: PropTypes.func,
 }

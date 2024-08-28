@@ -1,4 +1,4 @@
-export default function printTable() {
+export function printTable() {
     const table = document.getElementById('table-content');
 
     const printWindow = window.open('', '', 'heigh=600, width=800');

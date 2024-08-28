@@ -1,5 +1,5 @@
 import logger from "react-logger";
-import calculateBusinessDaysInMonth from "./calulculateBusinessDaysInMonth";
+import {calculateBusinessDaysInMonth} from "./calculators/calulculateBusinessDaysInMonth";
 import validateTimesheet from "../validators/validateTimesheet";
 
 export const handleOnSave = (employeeTimesheet, selectedMonth, resetTimesheets, setError, setSuccessMessage) => {

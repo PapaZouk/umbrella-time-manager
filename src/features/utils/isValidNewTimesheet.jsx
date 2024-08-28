@@ -1,7 +1,4 @@
-import logger from 'react-logger';
-
-export default function isValidNewTimesheet(timesheet, setError) {
-    logger.info('Validating timesheet', timesheet);
+export function isValidNewTimesheet(timesheet, setError) {
     if (!timesheet.times[0].day) {
         setError("Wybierz dzień aby dodać godziny pracy.");
         setTimeout(() => {

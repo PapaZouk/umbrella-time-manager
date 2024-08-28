@@ -20,7 +20,7 @@ export function ExportTimesheet({ timesheet, onError }) {
 
  return (
   <>
-   <button className={styles.exportButton} onClick={handleExport}>
+   <button data-testid='export-button' className={styles.exportButton} onClick={handleExport}>
     Exportuj
    </button>
   </>
@@ -28,6 +28,6 @@ export function ExportTimesheet({ timesheet, onError }) {
 }
 
 ExportTimesheet.propTypes = {
-    timesheet: PropTypes.array.isRequired,
-    onError: PropTypes.func.isRequired,
+    timesheet: PropTypes.array,
+    onError: PropTypes.func,
 };

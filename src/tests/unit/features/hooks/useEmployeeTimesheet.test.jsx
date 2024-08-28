@@ -1,6 +1,9 @@
 import {act, render, screen} from "@testing-library/react";
 import {useEmployeeTimesheet} from "../../../../features/hooks";
 import {initialEmployee, initialTimesheet,} from "../../../../resources/initialStates";
+import {generateTimesheetWithEmployeeMock} from "../../_mocks/generateTimesheetWithEmployee.mock";
+
+const timesheet =  generateTimesheetWithEmployeeMock();
 
 const TestComponent = () => {
  const {
@@ -26,15 +29,9 @@ const TestComponent = () => {
     Select Employee
    </button>
    <button
-    onClick={() =>
-     handleTimesheetUpdate({
-      employee: { name: "John", surname: "Doe" },
-      times: [
-       { day: 1, checkIn: "08:00", checkOut: "16:00", isHoliday: false },
-      ],
-     })
-    }
-    data-testid="update-timesheet"
+       data-testid="update-timesheet"
+       onClick={() =>
+           handleTimesheetUpdate(timesheet)}
    >
     Update Timesheet
    </button>
@@ -74,19 +71,12 @@ describe("useEmployeeTimesheet", () => {
  test("should update timesheet correctly", () => {
   render(<TestComponent />);
 
-  const updatedTimesheet = [
-   {
-    employee: { name: "John", surname: "Doe" },
-    times: [{ day: 1, checkIn: "08:00", checkOut: "16:00", isHoliday: false }],
-   },
-  ];
-
   act(() => {
    screen.getByTestId("update-timesheet").click();
   });
 
   expect(screen.getByTestId("timesheet").textContent).toBe(
-   JSON.stringify(updatedTimesheet)
+   JSON.stringify([timesheet])
   );
   expect(screen.getByTestId("month-locked").textContent).toBe("Locked");
   expect(screen.getByTestId("error").textContent).toBe("");

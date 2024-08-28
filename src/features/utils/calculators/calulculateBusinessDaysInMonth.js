@@ -1,7 +1,7 @@
 import moment from 'moment';
 import Holidays from 'date-holidays';
 
-export default function calculateBusinessDaysInMonth(selectedMonth) {
+export function calculateBusinessDaysInMonth(selectedMonth) {
     const [year, month] = selectedMonth.split('-').map(Number);
     const startDate = moment([year, month - 1]).startOf('month');
     const endDate = moment([year, month - 1]).endOf('month');

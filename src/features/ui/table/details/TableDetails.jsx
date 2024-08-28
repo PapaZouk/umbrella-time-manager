@@ -1,15 +1,15 @@
 import {useState} from "react";
-import styles from "./styles/Tables.module.css";
-import {calculateBalance} from "../../utils/calculateBalance.js";
-import TableSummaryHead from "./TableSumaryHead.jsx";
+import styles from "../styles/Tables.module.css";
+import {calculateBalance} from "../../../utils";
+import TableDetailsHead from "./TableDetailsHead.jsx";
 import TableAnnualLeave from "./TableAnnualLeave.jsx";
 import TableTotalBalance from "./TableTotalBalance.jsx";
-import TableEditButtons from "./TableEditButtons.jsx";
-import TableEditButton from "./TableEditButton.jsx";
-import TableInput from "./TableInput.jsx";
+import TableCheckInCell from "./TableCheckInCell";
+import TableCheckOutCell from "./TableCheckOutCell";
+import {EndLine} from "../../../shared";
+import PropTypes from "prop-types";
 
 export default function TableDetails({
- timesheetIndex,
  sortedTimes,
  onTimesUpdate,
 }) {
@@ -20,7 +20,7 @@ export default function TableDetails({
 
  const handleSave = () => {
   if (editingIndex !== null) {
-   const updatedTimes = [...sortedTimes]; // Use sortedTimes directly
+   const updatedTimes = [...sortedTimes];
    const updatedCheckIn =
     editingField === "checkIn"
      ? editedCheckIn
@@ -75,8 +75,8 @@ export default function TableDetails({
 
  return (
   <>
-   <table className={styles.table}>
-    <TableSummaryHead style={styles.thead} />
+   <table data-testid='table-details' className={styles.table}>
+    <TableDetailsHead style={styles.thead} />
     <tbody>
      {sortedTimes.map((time, index) => (
       <tr key={index}>
@@ -85,42 +85,28 @@ export default function TableDetails({
         <TableAnnualLeave style={styles.annualLeaveDays} />
        ) : (
         <>
-         <td>
-          {editingIndex === index && editingField === "checkIn" ? (
-           <>
-            <TableInput
-             editedValue={editedCheckIn}
-             handler={handleInputChange}
-            />
-            <TableEditButtons onSave={handleSave} onCancel={handleCancel} />
-           </>
-          ) : (
-           <>
-            {time.checkIn}
-            <TableEditButton
-             onEditHandler={() => handleEditClick(index, "checkIn")}
-            />
-           </>
-          )}
-         </td>
-         <td>
-          {editingIndex === index && editingField === "checkOut" ? (
-           <>
-            <TableInput
-             editedValue={editedCheckOut}
-             handler={handleInputChange}
-            />
-            <TableEditButtons onSave={handleSave} onCancel={handleCancel} />
-           </>
-          ) : (
-           <>
-            {time.checkOut}
-            <TableEditButton
-             onEditHandler={() => handleEditClick(index, "checkOut")}
-            />
-           </>
-          )}
-         </td>
+         <TableCheckInCell
+             time={time}
+             editingIndex={editingIndex}
+             index={index}
+             editedCheckIn={editedCheckIn}
+             editingField={editingField}
+             handleInputChange={handleInputChange}
+             handleSave={handleSave}
+             handleCancel={handleCancel}
+             handleEditClick={handleEditClick}
+         />
+         <TableCheckOutCell
+             time={time}
+             editingIndex={editingIndex}
+             index={index}
+             editedCheckOut={editedCheckOut}
+             editingField={editingField}
+             handleInputChange={handleInputChange}
+             handleSave={handleSave}
+             handleCancel={handleCancel}
+             handleEditClick={handleEditClick}
+         />
          <TableTotalBalance time={time} styles={styles} />
         </>
        )}
@@ -128,9 +114,12 @@ export default function TableDetails({
      ))}
     </tbody>
    </table>
-   <hr
-    style={{ border: "1px solid grey", width: "70%", margin: "20px auto" }}
-   />
+   <EndLine />
   </>
  );
+}
+
+TableDetails.propTypes = {
+ sortedTimes: PropTypes.array,
+ onTimesUpdate: PropTypes.func,
 }

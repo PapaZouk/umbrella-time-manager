@@ -8,11 +8,11 @@ import {
  TimesheetSelector,
 } from "./features/business";
 import Header from "./features/ui/header/Header";
-import { handleDateChange } from "./features/utils/handleDateChange";
-import { ErrorMessage, SuccessMessage } from "./features/shared/messages";
+import { handleDateChange } from "./features/utils";
+import { ErrorMessage, SuccessMessage } from "./features/shared";
 import { useMonthDays, useEmployeeTimesheet } from "./features/hooks";
 import { TimesheetController } from "./features/business";
-import Container from "./features/shared/container/Container";
+import {Container} from "./features/shared";
 
 function App() {
  const [selectedMonth, setSelectedMonth] = useState();

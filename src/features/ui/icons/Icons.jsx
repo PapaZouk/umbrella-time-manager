@@ -1,4 +1,5 @@
 import styles from './styles/Icons.module.css';
+import PropTypes from "prop-types";
 
 export const EditIcon = ({ className = '', color = '#000' }) => (
   <svg
@@ -17,8 +18,13 @@ export const EditIcon = ({ className = '', color = '#000' }) => (
   </svg>
 );
 
+EditIcon.propTypes = {
+  className: PropTypes.string,
+  color: PropTypes.string,
+};
+
 export const SaveIcon = ({ className = '', color = '#28a745' }) => (
-  <svg
+  <svg data-testid='save-icon'
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
@@ -34,8 +40,13 @@ export const SaveIcon = ({ className = '', color = '#28a745' }) => (
   </svg>
 );
 
+SaveIcon.propTypes = {
+  className: PropTypes.string,
+  color: PropTypes.string,
+};
+
 export const CancelIcon = ({ className = '', color = '#dc3545' }) => (
-  <svg
+  <svg data-testid='cancel-icon'
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
@@ -50,3 +61,8 @@ export const CancelIcon = ({ className = '', color = '#dc3545' }) => (
     />
   </svg>
 );
+
+CancelIcon.propTypes = {
+  className: PropTypes.string,
+  color: PropTypes.string,
+};

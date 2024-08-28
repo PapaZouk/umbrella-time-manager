@@ -6,6 +6,7 @@ const timesheetSchema = Yup.array().of(
             name: Yup.string().required('Name is required'),
             surname: Yup.string().required('Surname is required'),
             workingHours: Yup.string().required('Working hours are required'),
+            annualLeave: Yup.number().required('Annual leave is required'),
         }),
         times: Yup.array().of(
             Yup.object().shape({

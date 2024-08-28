@@ -1,7 +1,7 @@
 import {fireEvent, render, screen} from "@testing-library/react";
 import {TimesheetSelector} from "../../../../features/business/TimesheetSelector";
 
-jest.mock("../../../../features/utils/calculateBalance", () => ({
+jest.mock("../../../../features/utils/calculators/calculateBalance", () => ({
  calculateBalance: jest.fn(() => {
   return 10;
  }),
