@@ -15,6 +15,7 @@ dist-ssr
 # dirs
 node_modules
 coverage
+test-results
 
 # Editor directories and files
 .vscode/*
@@ -26,3 +27,7 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/

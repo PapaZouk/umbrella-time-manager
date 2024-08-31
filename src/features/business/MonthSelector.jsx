@@ -9,8 +9,15 @@ export function MonthSelector({ onMonthChange, disabled = false}) {
     }
     return (
         <div className={styles.container}>
-            <label htmlFor="month" className={styles.label}>Wybierz miesiąc:</label>
+            <label
+                data-testid='month-selector-label'
+                htmlFor="month"
+                className={styles.label}
+            >
+                Wybierz miesiąc:
+            </label>
             <input
+                data-testid='month-selector-input'
                 type="month"
                 id="month"
                 name="month"

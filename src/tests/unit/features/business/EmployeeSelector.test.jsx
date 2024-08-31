@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import { EmployeeSelector } from "../../../../features/business";
 import { employeesData } from "../../../../resources/employeesData";
 
@@ -16,10 +16,10 @@ describe("EmployeeSelector", () => {
   employeesData.mockImplementation(() => [employee]);
  });
 
- test("calls onEmployeeSelect when input is selected", () => {
-  render(<EmployeeSelector onEmployeeSelect={onEmployeeSelect} />);
+ test("calls onEmployeeSelect when select is selected", () => {
+  const { getByTestId } = render(<EmployeeSelector onEmployeeSelect={onEmployeeSelect} />);
 
-  const selectElement = screen.getByLabelText(/Wybierz pracownika/i);
+  const selectElement = getByTestId('employee-selector-select');
 
   fireEvent.change(selectElement, { target: { value: employee.name } });
 
