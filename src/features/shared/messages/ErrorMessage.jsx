@@ -5,6 +5,7 @@ export function ErrorMessage({ message }) {
 
     return (
         <div
+            data-testid='error-message-popup'
             style={{
                 position: 'fixed',
                 top: '0',
