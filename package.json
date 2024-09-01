@@ -10,7 +10,8 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "jest --config jest.config.cjs --runInBand --coverage",
+    "test:unit": "jest --config jest.config.cjs --runInBand --coverage",
+    "test:e2e": "npx playwright test",
     "clean": "npx rimraf node_modules && npx rimraf package-lock.json && npm cache clean --force && npm install"
   },
   "dependencies": {
@@ -31,8 +32,10 @@
     "@babel/preset-react": "^7.24.7",
     "@eslint/js": "^9.9.0",
     "@faker-js/faker": "^8.4.1",
+    "@playwright/test": "^1.46.1",
     "@testing-library/jest-dom": "^6.4.8",
     "@testing-library/react": "^16.0.0",
+    "@types/node": "^22.5.1",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@vitejs/plugin-react-swc": "^3.5.0",

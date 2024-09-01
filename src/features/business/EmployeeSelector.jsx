@@ -29,10 +29,15 @@ export function EmployeeSelector({ onEmployeeSelect }) {
  return (
   <>
    <div className="working-hours-frame">
-    <label htmlFor="selected-employee" className={styles.label}>
+    <label
+        data-testid='employee-selector-label'
+        htmlFor="employee-selector-label"
+        className={styles.label}
+    >
      Wybierz pracownika
     </label>
     <select
+     data-testid='employee-selector-select'
      id="selected-employee"
      className={styles.select}
      onChange={handleChange}

@@ -6,7 +6,7 @@ export default function Header() {
         <header className={styles.appHeader}>
             <div className={styles.logoContainer}>
             <h1 className={styles.title}>Umbrella Time Manager</h1>
-                <img className={logo} src={logo} alt="Umbrella Time Manager Logo" />
+                <img data-testid='header-logo' className={logo} src={logo} alt="Umbrella Time Manager Logo" />
             </div>
         </header>
     );

@@ -4,8 +4,15 @@ import PropTypes from "prop-types";
 export function DaySelector({ days, onDayChange }) {
     return (
         <div className={styles.container}>
-            <label htmlFor="day" className={styles.label}>Wybierz dzień:</label>
+            <label
+                data-testid='day-selector-input'
+                htmlFor="day"
+                className={styles.label}
+            >
+                Wybierz dzień:
+            </label>
             <select
+                data-testid='day-selector-select'
                 name="day"
                 id="day"
                 className={styles.select}

@@ -5,8 +5,12 @@ module.exports = {
     '^.+\\.(css|less|scss|sass)$': 'jest-transform-stub',
     '^.+\\.(svg)$': 'jest-transform-stub',
   },
+  testPathIgnorePatterns: [
+    "/node_modules/",
+    "/src/tests/e2e/"
+  ],
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
-  roots: ['<rootDir>/src'],
+  roots: ['<rootDir>/src/tests/unit/'],
   setupFilesAfterEnv: ['<rootDir>/src/tests/setupTests.js'],
   collectCoverage: true,
   collectCoverageFrom: [
