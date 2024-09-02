@@ -42,7 +42,7 @@ describe('App', () => {
             error: '',
             successMessage: '',
             setError: jest.fn(),
-            setSuccesMessage: jest.fn(),
+            setSuccessMessage: jest.fn(),
             handleEditedTimesheet: jest.fn(),
             isMonthLocked: false,
             handleEmployeeSelect: jest.fn(),

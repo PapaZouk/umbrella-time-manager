@@ -10,7 +10,7 @@ export function TimesheetController(
      selectedMonth,
      resetTimesheet,
      setError,
-     setSuccesMessage,
+     setSuccessMessage,
     }
 ) {
  function handleControllerError(errorMessage) {
@@ -38,7 +38,7 @@ export function TimesheetController(
       selectedMonth={selectedMonth}
       resetTimesheet={resetTimesheet}
       setError={setError}
-      setSuccessMessage={setSuccesMessage}
+      setSuccessMessage={setSuccessMessage}
      />
     </span>
    </div>
@@ -51,5 +51,5 @@ TimesheetController.propTypes = {
  selectedMonth: PropTypes.string,
  resetTimesheet: PropTypes.func,
  setError: PropTypes.func,
- setSuccesMessage: PropTypes.func,
+ setSuccessMessage: PropTypes.func,
 }
