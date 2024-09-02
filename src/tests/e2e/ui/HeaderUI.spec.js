@@ -1,6 +1,6 @@
 import {describe, expect, test} from "@playwright/test";
 
-describe('Header', () => {
+describe('HeaderUI', () => {
     test('has title', async ({ page }) => {
         await page.goto('/');
 

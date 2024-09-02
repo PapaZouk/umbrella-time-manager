@@ -7,7 +7,7 @@ export function isValidNewTimesheet(timesheet, setError) {
         return false;
     }
     if (!timesheet.employee.name && !timesheet.e) {
-        setError("Wybierz pracownika.");
+        setError("Wybierz pracownika");
         setTimeout(() => {
             setError('');
         }, 2000);

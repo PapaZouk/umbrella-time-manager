@@ -38,18 +38,18 @@ To get started with Umbrella Time Manager, follow these steps:
 
 Once the application is running, you can access it via your web browser at `http://localhost:5173/`. Use the provided interface to track your time, manage employees, and generate reports.
 
-## Contributing
-
-We welcome contributions to Umbrella Time Manager. To contribute:
-
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Make your changes and commit them.
-4. Open a pull request with a description of your changes.
-
 ## Testing
 
 To run the tests for this application, use:
 
 ```bash
-npm test
+npm test:unit
+```
+
+## E2E Testing
+
+To run the E2E tests, use:
+
+```bash
+npm run test:e2e
+```

@@ -74,33 +74,50 @@ export function TimesheetSelector({
 
   return (
     <>
-      <h3>Wybierz godziny pracy</h3>
+      <h3 data-testid='time-selector-h3'>Wybierz godziny pracy</h3>
       <div className={styles.container}>
         <span>
-          <label htmlFor="check-in" className={styles.label}>
+          <label
+            data-testid='time-selector-check-in-label'
+            htmlFor="check-in"
+            className={styles.label}
+          >
             Przyjście
           </label>
           <input
+            data-testid='time-selector-check-in-input'
             id="check-in"
             type="time"
             className={styles.input}
             value={checkIn}
             onChange={(e) => handleChange(e, "check-in")}
           />
-          <label htmlFor="check-out" className={styles.label}>
+          <label
+            data-testid='time-selector-check-out-label'
+            htmlFor="check-out"
+            className={styles.label}
+          >
             Wyjście
           </label>
           <input
+            data-testid='time-selector-check-out-input'
             id="check-out"
             type="time"
             className={styles.input}
             value={checkOut}
             onChange={(e) => handleChange(e, "check-out")}
           />
-          <button className={styles.holidayButton} onClick={handleHolidayLeave}>
+          <button
+              data-testid='time-selector-annual-leave-button'
+              className={styles.holidayButton}
+              onClick={handleHolidayLeave}
+          >
             Urlop
           </button>
-          <button onClick={handleUpdate}>Dodaj</button>
+          <button
+              data-testid='time-selector-add-button'
+              onClick={handleUpdate}
+          >Dodaj</button>
         </span>
       </div>
     </>

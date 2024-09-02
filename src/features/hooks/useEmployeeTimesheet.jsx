@@ -94,7 +94,7 @@ export const useEmployeeTimesheet = () => {
   handleEditedTimesheet,
   isMonthLocked,
   handleEmployeeSelect,
-  handleTimesheetUpdate: handleTimesheetUpdate,
+  handleTimesheetUpdate,
   resetTimesheet: resetTimesheet,
  };
 };
