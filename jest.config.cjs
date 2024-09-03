@@ -1,5 +1,8 @@
 module.exports = {
   testEnvironment: 'jsdom',
+  testMatch: [
+      '<rootDir>src/tests/unit/**/*.test.{js,jsx}'
+  ],
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
     '^.+\\.(css|less|scss|sass)$': 'jest-transform-stub',
@@ -22,6 +25,7 @@ module.exports = {
     '!src/main.jsx',
     '!src/**/index.js',
     '!src/features/utils/**/*.{js,jsx,ts,tsx}',
+    '!src/features/business/styles/**/*.{js,jsx,ts,tsx}',
     '!src/tests/unit/_mocks/**/*.{js,jsx,ts,tsx}',
   ],
   coverageDirectory: 'coverage',

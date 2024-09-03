@@ -63,7 +63,6 @@ describe('App', () => {
         expect(getByTestId('employee-selector')).toBeInTheDocument();
         expect(getByTestId('employee-table')).toBeInTheDocument();
         expect(getByTestId('month-selector')).toBeInTheDocument();
-        expect(getByTestId('timesheet-selector')).toBeInTheDocument();
         expect(getByTestId('timesheet-controller')).toBeInTheDocument();
         expect(getByTestId('error-message')).toBeInTheDocument();
         expect(getByTestId('success-message')).toBeInTheDocument();

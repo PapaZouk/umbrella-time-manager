@@ -2,7 +2,7 @@ import {Container} from "../shared";
 import styles from './styles/TimesController.module.css';
 import PropTypes from "prop-types";
 import {useState} from "react";
-import TimesInputs from "../business/styles/TimesInputs";
+import TimesInputs from "../business/TimesInputs";
 import {calculateBalance} from "../utils";
 import logger from "react-logger";
 
@@ -16,7 +16,7 @@ export default function TimesController(
     }
 ) {
     const [isAddingTime, setIsAddingTime] = useState(false);
-    const [checkIn, setCheckIn] = useState("");
+    const [checkIn, setCheckIn] = useState();
     const [checkOut, setCheckOut] = useState("");
 
     const handleAddTime = () => {
@@ -24,7 +24,9 @@ export default function TimesController(
     };
 
     const handleSave = () => {
+        console.log('CheckIn: ' + checkIn + " , CheckOut: " + checkOut);
         if (checkIn && checkOut && employee.name && employee.surname && day) {
+            console.log('Calls handkeSave');
             const balance = calculateBalance(checkIn, checkOut, 8);
             const newTimesheet = {
                 employee,
@@ -120,14 +122,14 @@ export default function TimesController(
         <Container fadeIn={true}>
             <div>
                 <button
-                    data-testid='time-selector-add-button'
+                    data-testid='time-controller-add-button'
                     className={styles.addTimes}
                     onClick={handleAddTime}
                 >
                     Dodaj godziny
                 </button>
                 <button
-                    data-testid='time-selector-annual-leave-button'
+                    data-testid='time-controller-annual-leave-button'
                     className={styles.holidayButton}
                     onClick={handleAddAnnualLeave}
                 >

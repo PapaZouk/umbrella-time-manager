@@ -1,4 +1,4 @@
-import styles from "./TimesheetSelector.module.css";
+import styles from "./styles/TimesheetSelector.module.css";
 import PropTypes from "prop-types";
 
 export default function TimesInputs(
