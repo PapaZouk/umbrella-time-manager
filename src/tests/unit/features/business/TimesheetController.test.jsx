@@ -28,7 +28,7 @@ describe('TimesheetController', () => {
            selectedMonth={selectedMonth}
            resetTimesheet={resetTimesheetMock}
            setError={setErrorMock}
-           setSuccesMessage={setSuccessMock}
+           setSuccessMessage={setSuccessMock}
            />
        );
 
@@ -52,7 +52,7 @@ describe('TimesheetController', () => {
                 selectedMonth={selectedMonth}
                 resetTimesheet={resetTimesheetMock}
                 setError={setErrorMock}
-                setSuccesMessage={setSuccessMock}
+                setSuccessMessage={setSuccessMock}
             />
         );
 
@@ -70,7 +70,7 @@ describe('TimesheetController', () => {
                 selectedMonth={selectedMonth}
                 resetTimesheet={resetTimesheetMock}
                 setError={setErrorMock}
-                setSuccesMessage={setSuccessMock}
+                setSuccessMessage={setSuccessMock}
             />
         );
 

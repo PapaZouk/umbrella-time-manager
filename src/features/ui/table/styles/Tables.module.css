@@ -7,33 +7,33 @@ table {
     color: #333;
     margin: 10px;
   }
-  
+
   thead {
     background-color: #f2f2f2;
   }
-  
+
   th, td {
     padding: 12px 15px;
     text-align: center;
     border-bottom: 1px solid #ddd;
   }
-  
+
   th {
     font-weight: bold;
   }
-  
+
   tr:hover {
     background-color: #f9f9f9;
   }
-  
+
   tbody tr:nth-child(even) {
     background-color: #f7f7f7;
   }
-  
+
   tbody tr:nth-child(odd) {
     background-color: #ffffff;
   }
-  
+
   /* Styles for Summary */
   .tableMonthTitle {
     font-weight: bold;
@@ -41,23 +41,29 @@ table {
     background-color: #e0e0e0;
     padding: 10px 0;
   }
-  
+
   .annualLeaveDays {
     text-align: center;
     font-size: 18px;
     font-weight: bold;
     background-color: #f4f4c7;
   }
-  
+
+  .businessTrip {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: #b2d9ed;
+  }
+
   .total-balance-positive {
     color: #004d00;
     background-color: #e6ffe6;
     font-weight: bold;
   }
-  
+
   .total-balance-negative {
     color: #b30000;
     background-color: #ffe6e6;
     font-weight: bold;
   }
-  

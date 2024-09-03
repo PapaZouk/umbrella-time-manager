@@ -8,7 +8,7 @@ export const useEmployeeTimesheet = () => {
  const [employeeTimesheet, setEmployeeTimesheet] =
   useState(initialTimesheet);
  const [error, setError] = useState("");
- const [successMessage, setSuccesMessage] = useState("");
+ const [successMessage, setSuccessMessage] = useState("");
  const [isMonthLocked, setIsMonthLocked] = useState(false);
 
  const handleEmployeeSelect = (employee) => setSelectedEmployee(employee);
@@ -90,7 +90,7 @@ export const useEmployeeTimesheet = () => {
   error,
   successMessage,
   setError,
-  setSuccesMessage,
+  setSuccessMessage: setSuccessMessage,
   handleEditedTimesheet,
   isMonthLocked,
   handleEmployeeSelect,

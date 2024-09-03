@@ -28,6 +28,6 @@ export function ExportTimesheet({ timesheet, onError }) {
 }
 
 ExportTimesheet.propTypes = {
-    timesheet: PropTypes.array,
+    timesheet: PropTypes.object,
     onError: PropTypes.func,
 };

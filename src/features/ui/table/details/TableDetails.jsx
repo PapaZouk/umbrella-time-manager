@@ -8,6 +8,7 @@ import TableCheckInCell from "./TableCheckInCell";
 import TableCheckOutCell from "./TableCheckOutCell";
 import {EndLine} from "../../../shared";
 import PropTypes from "prop-types";
+import TableBusinessTrip from "./TableBusinessTrip";
 
 export default function TableDetails({
  sortedTimes,
@@ -83,33 +84,36 @@ export default function TableDetails({
        <td>{time.day}</td>
        {time.isHoliday ? (
         <TableAnnualLeave style={styles.annualLeaveDays} />
-       ) : (
-        <>
-         <TableCheckInCell
-             time={time}
-             editingIndex={editingIndex}
-             index={index}
-             editedCheckIn={editedCheckIn}
-             editingField={editingField}
-             handleInputChange={handleInputChange}
-             handleSave={handleSave}
-             handleCancel={handleCancel}
-             handleEditClick={handleEditClick}
-         />
-         <TableCheckOutCell
-             time={time}
-             editingIndex={editingIndex}
-             index={index}
-             editedCheckOut={editedCheckOut}
-             editingField={editingField}
-             handleInputChange={handleInputChange}
-             handleSave={handleSave}
-             handleCancel={handleCancel}
-             handleEditClick={handleEditClick}
-         />
-         <TableTotalBalance time={time} styles={styles} />
-        </>
-       )}
+       ) : time.isBusinessTrip
+           ? <TableBusinessTrip style={styles.businessTrip}/>
+           : (
+               <>
+                <TableCheckInCell
+                    time={time}
+                    editingIndex={editingIndex}
+                    index={index}
+                    editedCheckIn={editedCheckIn}
+                    editingField={editingField}
+                    handleInputChange={handleInputChange}
+                    handleSave={handleSave}
+                    handleCancel={handleCancel}
+                    handleEditClick={handleEditClick}
+                />
+                <TableCheckOutCell
+                    time={time}
+                    editingIndex={editingIndex}
+                    index={index}
+                    editedCheckOut={editedCheckOut}
+                    editingField={editingField}
+                    handleInputChange={handleInputChange}
+                    handleSave={handleSave}
+                    handleCancel={handleCancel}
+                    handleEditClick={handleEditClick}
+                />
+                <TableTotalBalance time={time} styles={styles} />
+               </>
+           )
+       }
       </tr>
      ))}
     </tbody>

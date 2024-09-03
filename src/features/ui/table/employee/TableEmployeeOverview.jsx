@@ -3,6 +3,7 @@ import TableSummary from "../summary/TableSummary";
 import TableDetails from "../details/TableDetails";
 import PropTypes from "prop-types";
 import {calculateTotalBalance} from "../../../utils/calculators/calculateBalance";
+import {calculateBusinessTripDays} from "../../../utils/calculators/calculateBusinessTripDays";
 
 export default function TableEmployeeOverview(
     {
@@ -19,6 +20,7 @@ export default function TableEmployeeOverview(
                 const employeeTimes = timesheet.times;
                 const totalBalance = calculateTotalBalance(employeeTimes);
                 const annualLeaveDays = calculateAnnualLeaveDays(timesheet.times);
+                const totalBusinessTripDays = calculateBusinessTripDays(timesheet.times);
                 const totalDaysInMonth = calculateBusinessDaysInMonth(month);
                 const totalRecordedDays = timesheet.times.length;
 
@@ -28,6 +30,7 @@ export default function TableEmployeeOverview(
                             timesheetIndex={timesheetIndex}
                             employeeData={employeeData}
                             annualLeaveDays={annualLeaveDays}
+                            totalBusinessTripDays={totalBusinessTripDays}
                             totalDaysInMonth={totalDaysInMonth}
                             formattedDate={formattedDate}
                             totalBalance={totalBalance}

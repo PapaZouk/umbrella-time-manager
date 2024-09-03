@@ -1,18 +1,11 @@
 import "./App.css";
-import { useEffect, useState } from "react";
-import {
- DaySelector,
- EmployeeSelector,
- EmployeeTable,
- MonthSelector,
- TimesheetSelector,
-} from "./features/business";
+import {useEffect, useState} from "react";
+import {DaySelector, EmployeeSelector, EmployeeTable, MonthSelector, TimesheetController,} from "./features/business";
 import Header from "./features/ui/header/Header";
-import { handleDateChange } from "./features/utils";
-import { ErrorMessage, SuccessMessage } from "./features/shared";
-import { useMonthDays, useEmployeeTimesheet } from "./features/hooks";
-import { TimesheetController } from "./features/business";
-import {Container} from "./features/shared";
+import {handleDateChange} from "./features/utils";
+import {Container, ErrorMessage, SuccessMessage} from "./features/shared";
+import {useEmployeeTimesheet, useMonthDays} from "./features/hooks";
+import TimesController from "./features/controller/TimesController";
 
 function App() {
  const [selectedMonth, setSelectedMonth] = useState();
@@ -26,7 +19,7 @@ function App() {
   error,
   successMessage,
   setError,
-  setSuccesMessage,
+  setSuccessMessage,
   handleEditedTimesheet,
   isMonthLocked,
   handleEmployeeSelect,
@@ -57,15 +50,15 @@ function App() {
     <EmployeeSelector onEmployeeSelect={handleEmployeeSelect} />
    </Container>
 
-   <Container fadeIn={fadeIn}>
-    <TimesheetSelector
-     employee={selectedEmployee}
-     month={selectedMonth}
-     day={selectedDay}
-     onTimesheetUpdate={handleTimesheetUpdate}
-     setError={setError}
-    />
-   </Container>
+  <Container fadeIn={fadeIn}>
+      <TimesController
+          employee={selectedEmployee}
+          month={selectedMonth}
+          day={selectedDay}
+          onTimesheetUpdate={handleTimesheetUpdate}
+          setError={setError}
+      />
+  </Container>
 
    <Container fadeIn={fadeIn}>
     <TimesheetController
@@ -73,7 +66,7 @@ function App() {
      selectedMonth={selectedMonth}
      resetTimesheet={resetTimesheet}
      setError={setError}
-     setSuccesMessage={setSuccesMessage}
+     setSuccessMessage={setSuccessMessage}
     />
    </Container>
 

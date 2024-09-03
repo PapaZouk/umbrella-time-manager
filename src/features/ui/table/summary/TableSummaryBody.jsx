@@ -6,6 +6,7 @@ export default function TableSummaryBody(
         formattedDate,
         employeeData,
         totalBalance,
+        businessTripDays,
         annualLeaveDays,
         totalDaysInMonth,
         totalRecordedDays,
@@ -29,6 +30,12 @@ export default function TableSummaryBody(
                 {totalBalance} / {Number(totalBalance / 60).toFixed(2)}
             </td>
             <td
+                data-testid='summary-body-total-business-trip-days'
+                className={styles.businessTrip}
+            >
+                {businessTripDays}
+            </td>
+            <td
                 data-testid='summary-body-annual-leave-days'
                 className={styles.annualLeaveDays}
             >
@@ -45,6 +52,7 @@ TableSummaryBody.propTypes = {
     formattedDate: PropTypes.string,
     employeeData: PropTypes.object,
     totalBalance: PropTypes.number,
+    businessTripDays: PropTypes.number,
     annualLeaveDays: PropTypes.number,
     totalDaysInMonth: PropTypes.number,
     totalRecordedDays: PropTypes.number,

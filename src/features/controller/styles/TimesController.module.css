@@ -1,0 +1,44 @@
+.addTimes {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #629711;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.addTimes:hover {
+    background-color: #3a580c;
+}
+
+.holidayButton {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #a79d51;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.holidayButton:hover {
+    background-color: #6a6437;
+}
+
+.businessTripButton {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #79b9da;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.businessTripButton:hover {
+    background-color: #7494a4;
+}

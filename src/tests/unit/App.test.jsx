@@ -42,7 +42,7 @@ describe('App', () => {
             error: '',
             successMessage: '',
             setError: jest.fn(),
-            setSuccesMessage: jest.fn(),
+            setSuccessMessage: jest.fn(),
             handleEditedTimesheet: jest.fn(),
             isMonthLocked: false,
             handleEmployeeSelect: jest.fn(),
@@ -63,7 +63,6 @@ describe('App', () => {
         expect(getByTestId('employee-selector')).toBeInTheDocument();
         expect(getByTestId('employee-table')).toBeInTheDocument();
         expect(getByTestId('month-selector')).toBeInTheDocument();
-        expect(getByTestId('timesheet-selector')).toBeInTheDocument();
         expect(getByTestId('timesheet-controller')).toBeInTheDocument();
         expect(getByTestId('error-message')).toBeInTheDocument();
         expect(getByTestId('success-message')).toBeInTheDocument();

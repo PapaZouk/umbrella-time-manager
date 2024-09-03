@@ -18,6 +18,7 @@ describe('TableSummaryBody', () => {
            annualLeave: 21
        };
        const totalBalance = 8;
+       const totalBusinessTripDays = 1;
        const totalDaysInMonth = 21;
        const totalRecordedDays = 13;
        const annualLeaveDays = 2;
@@ -27,6 +28,7 @@ describe('TableSummaryBody', () => {
               <TableSummaryBody
                 formattedDate={formattedDate}
                 employeeData={employeeData}
+                businessTripDays={totalBusinessTripDays}
                 totalBalance={totalBalance}
                 annualLeaveDays={annualLeaveDays}
                 totalDaysInMonth={totalDaysInMonth}
@@ -42,7 +44,7 @@ describe('TableSummaryBody', () => {
       expect(tableRow).toBeInTheDocument();
 
       const tableData = getAllByTestId(/summary-body/);
-      expect(tableData).toHaveLength(8);
+      expect(tableData).toHaveLength(9);
    });
 
    test('given balance is negative should render total balance cell with correct class name', () => {
@@ -54,6 +56,7 @@ describe('TableSummaryBody', () => {
            annualLeave: 21
        };
        const totalBalance = -15;
+       const totalBusinessTripDays = 1;
        const totalDaysInMonth = 21;
        const totalRecordedDays = 13;
        const annualLeaveDays = 2;
@@ -63,6 +66,7 @@ describe('TableSummaryBody', () => {
                <TableSummaryBody
                    formattedDate={formattedDate}
                    employeeData={employeeData}
+                   businessTripDays={totalBusinessTripDays}
                    totalBalance={totalBalance}
                    annualLeaveDays={annualLeaveDays}
                    totalDaysInMonth={totalDaysInMonth}
@@ -86,6 +90,7 @@ describe('TableSummaryBody', () => {
            annualLeave: 21
        };
        const totalBalance = 30;
+       const totalBusinessTripDays = 1;
        const totalDaysInMonth = 21;
        const totalRecordedDays = 13;
        const annualLeaveDays = 2;
@@ -95,6 +100,7 @@ describe('TableSummaryBody', () => {
                <TableSummaryBody
                    formattedDate={formattedDate}
                    employeeData={employeeData}
+                   businessTripDays={totalBusinessTripDays}
                    totalBalance={totalBalance}
                    annualLeaveDays={annualLeaveDays}
                    totalDaysInMonth={totalDaysInMonth}

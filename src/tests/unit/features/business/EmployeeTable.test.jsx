@@ -3,22 +3,20 @@ import {EmployeeTable} from "../../../../features/business";
 import {sortTimesByDay} from "../../../../features/utils";
 import {generateTimesheetWithEmployeeAndSortedMock} from "../../_mocks/generateTimesheetWithEmployeeAndSorted.mock";
 
-const sortedTimes = [
-    {
-        day: 1,
-        month: '2024-04',
-        checkIn: '08:00',
-        checkOut: '16:00',
-        balance: 0,
-        isHoliday: false,
-    }
-];
-
 jest.mock('../../../../features/utils/dateFormatter', () => ({
     dateFormatter: jest.fn(() => 'August 2024'),
 }));
 jest.mock('../../../../features/utils/sortTimesByDay', () => ({
-    sortTimesByDay: jest.fn(() => sortedTimes),
+    sortTimesByDay: jest.fn(() => [
+        {
+            day: 1,
+            month: '2024-04',
+            checkIn: '08:00',
+            checkOut: '16:00',
+            balance: 0,
+            isHoliday: false,
+        }
+    ]),
 }));
 
 describe('EmployeeTable', () => {

@@ -10,6 +10,6 @@ describe('EndLine', () => {
       expect(hr).toBeInTheDocument();
       expect(hr).toHaveStyle('border: 1px solid grey');
       expect(hr).toHaveStyle('width: 70%');
-      expect(hr).toHaveStyle('margin: 20px auto');
+      expect(hr).toHaveStyle('margin: 30px auto');
    });
 });
