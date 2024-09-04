@@ -22,5 +22,5 @@ export default function TableTotalBalance({ time = defaultTimeValue, styles = ''
 
 TableTotalBalance.propTypes = {
     time: PropTypes.object,
-    styles: PropTypes.string,
+    styles: PropTypes.object,
 };

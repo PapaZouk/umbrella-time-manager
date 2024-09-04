@@ -6,6 +6,7 @@ import {handleDateChange} from "./features/utils";
 import {Container, ErrorMessage, SuccessMessage} from "./features/shared";
 import {useEmployeeTimesheet, useMonthDays} from "./features/hooks";
 import TimesController from "./features/controller/TimesController";
+import Popup from "./features/shared/popups/Popup";
 
 function App() {
  const [selectedMonth, setSelectedMonth] = useState();
@@ -20,6 +21,8 @@ function App() {
   successMessage,
   setError,
   setSuccessMessage,
+  popupContent,
+  setPopupContent,
   handleEditedTimesheet,
   isMonthLocked,
   handleEmployeeSelect,
@@ -57,6 +60,7 @@ function App() {
           day={selectedDay}
           onTimesheetUpdate={handleTimesheetUpdate}
           setError={setError}
+          setPopupContent={setPopupContent}
       />
   </Container>
 
@@ -80,6 +84,7 @@ function App() {
 
    <ErrorMessage message={error} />
    <SuccessMessage message={successMessage} />
+   <Popup content={popupContent} />
   </>
  );
 }

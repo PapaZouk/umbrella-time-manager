@@ -10,7 +10,7 @@ export function employeesData() {
             name: 'Rafał',
             surname: 'Zoukowski',
             workingHours: '08:00-16:00',
-            annualLeave: 21
+            annualLeave: 20
         },
         {
             name: 'Magdalena',

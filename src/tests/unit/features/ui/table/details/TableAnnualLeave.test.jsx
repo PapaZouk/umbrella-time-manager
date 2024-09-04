@@ -2,12 +2,12 @@ import {render} from '@testing-library/react';
 import TableAnnualLeave from "../../../../../../features/ui/table/details/TableAnnualLeave";
 
 describe('TableAnnualLeave', () => {
-    test('renders with default props', () => {
+    test('renders with default props and annual leave type text', () => {
        const { container } = render(
            <table>
                <tbody>
                    <tr>
-                       <TableAnnualLeave />
+                       <TableAnnualLeave annualLeaveType={'annual leave type'}/>
                    </tr>
                </tbody>
            </table>
@@ -16,7 +16,7 @@ describe('TableAnnualLeave', () => {
 
        expect(cell).toBeInTheDocument();
        expect(cell).toHaveAttribute('colSpan', '4');
-       expect(cell).toHaveTextContent('URLOP');
+       expect(cell).toHaveTextContent('ANNUAL LEAVE TYPE');
        expect(cell).not.toHaveClass('some-class');
     });
 
@@ -25,7 +25,7 @@ describe('TableAnnualLeave', () => {
            <table>
                <tbody>
                     <tr>
-                        <TableAnnualLeave style='custom-class'/>
+                        <TableAnnualLeave style='custom-class' annualLeaveType={''}/>
                     </tr>
                </tbody>
            </table>

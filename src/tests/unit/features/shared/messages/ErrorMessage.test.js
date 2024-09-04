@@ -1,15 +1,19 @@
 import { render, screen } from '@testing-library/react';
-import { ErrorMessage } from '../../../../../features/shared/messages'
+import { ErrorMessage } from '../../../../../features/shared'
+import '../../../../../features/ui/icons/Icons'
+
+jest.mock('../../../../../features/ui/icons/Icons', () => ({
+    ErrorIcon: jest.fn(() => <div data-testid="mock-error-icon"/>)
+}))
 
 describe('ErrorMessage', () => {
-    test('renders error message when provided', () => {
+    test('renders the error message and error icon when provided', () => {
         const message = 'test message';
 
         render(<ErrorMessage message={message} />);
 
         expect(screen.getByText(message)).toBeInTheDocument();
-        expect(screen.getByText(message)).toHaveStyle('backgroundColor: #f8d7da');
-        expect(screen.getByText(message)).toHaveStyle('color: #721c24');
+        expect(screen.getByTestId("mock-error-icon")).toBeInTheDocument();
     });
 
     test('no message was provided, should not render error', () => {

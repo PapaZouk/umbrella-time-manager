@@ -1,4 +1,4 @@
-import styles from "./styles/SaveTimesheet.module.css";
+import buttons from '../shared/styles/Buttons.module.css';
 import {handleOnSave} from "../utils";
 import PropTypes from "prop-types";
 
@@ -19,7 +19,7 @@ export function SaveTimesheet(
   <>
    <button
        data-testid='save-timesheet-button'
-       className={styles.saveButton}
+       className={buttons.redButton}
        onClick={onSave}
    >
     Zapisz godziny
