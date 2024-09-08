@@ -2,8 +2,9 @@ name: Deploy to GitHub Pages
 
 on:
   workflow_run:
-    workflows:
-      - ['Umbrella CI']
+    workflows: ["Umbrella CI"]
+    types:
+      - completed
   workflow_dispatch:
 
 jobs:
