@@ -2,7 +2,11 @@ import PropTypes from "prop-types";
 
 export default function TableBusinessTrip({ style = '' }) {
     return (
-        <td className={style} colSpan={4}>
+        <td
+            data-testid='table-business-trip-data'
+            className={style.businessTrip}
+            colSpan={4}
+        >
             WYJAZD SŁUŻBOWY
         </td>
     );

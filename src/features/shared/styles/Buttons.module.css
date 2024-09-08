@@ -1,0 +1,60 @@
+.greenButton {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #629711;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.greenButton:hover {
+    background-color: #3a580c;
+}
+
+.yellowButton {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #a79d51;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.yellowButton:hover {
+    background-color: #6a6437;
+}
+
+
+.blueButton {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #79b9da;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.blueButton:hover {
+    background-color: #7494a4;
+}
+
+.redButton {
+    margin: 10px 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #f73a3a;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.redButton:hover {
+    background-color: #d86161;
+}

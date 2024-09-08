@@ -1,166 +1,150 @@
-import {fireEvent, screen, render} from '@testing-library/react';
+import {fireEvent, render, screen} from '@testing-library/react';
 import TimesController from "../../../../features/controller/TimesController";
 import {generateEmployeeMock} from "../../_mocks/generateEmployee.mock";
-import {afterEach, beforeEach} from "node:test";
+import TimesInputs from "../../../../features/business/TimesInputs";
 
-jest.mock('../../../../features/shared', () => ({
-    Container: jest.fn(({ children }) => (<div>{children}</div>)),
-}));
-jest.mock('../../../../features/controller/styles/TimesController.module.css', () => ({
-        addTimes: "addTimes",
-        holidayButton: "holidayButton",
-        businessTripButton: "businessTripButton",
-}));
+jest.mock("../../../../features/business/TimesInputs");
+jest.mock("../../../../features/shared/popups/DayOffPopup");
+jest.mock("../../../../features/utils");
 
 describe('TimesController', () => {
-    const timeControllerAddButtonId = 'time-controller-add-button';
-    const timeControllerAnnualLeaveButtonId = 'time-controller-annual-leave-button';
-    const timeControllerBusinessTripButtonId = 'time-controller-business-trip-button';
-    const timeSelectorCheckInLabelId = 'time-selector-check-in-label';
-    const timeSelectorCheckInInputId = 'time-selector-check-in-input';
-    const timeSelectorCheckOutLabelId = 'time-selector-check-out-label';
-    const timeSelectorCheckOutInputId = 'time-selector-check-out-input';
-    const timesInputSaveButtonId = 'times-input-save-button';
-
+    const employee = generateEmployeeMock();
+    const addDayOffId = 'time-controller-day-off-button';
+    const addBusinessTripId = 'time-controller-business-trip-button';
     const month = '2024-08';
     const day = '2';
 
-    const setErrorMock = jest.fn();
+    let mockOnTimesheetUpdate;
+    let mockSetError;
+    let mockSetPopupContent;
 
     beforeEach(() => {
-       jest.clearAllMocks();
+        jest.clearAllMocks();
+        jest.useFakeTimers();
+
+        mockOnTimesheetUpdate = jest.fn();
+        mockSetError = jest.fn();
+        mockSetPopupContent = jest.fn();
     });
 
     afterEach(() => {
-       jest.resetAllMocks();
+       jest.useRealTimers();
     });
 
-   test('renders all buttons, times inputs and save button, when add button was clicked', () => {
-       const employee = generateEmployeeMock();
-       const onTimesheetUpdateMock = jest.fn();
+    const renderComponent = (props = {}) => {
+        return render(
+            <TimesController
+                employee={employee}
+                month={month}
+                day={day}
+                onTimesheetUpdate={mockOnTimesheetUpdate}
+                setError={mockSetError}
+                setPopupContent={mockSetPopupContent}
+                {...props}
+            />
+        );
+    }
 
-       render(
-           <TimesController
-               employee={employee}
-               month={month}
-               day={day}
-               onTimesheetUpdate={onTimesheetUpdateMock}
-               setError={setErrorMock}
-           />
-       );
+    afterEach(() => {
+        jest.resetAllMocks();
+    });
 
-       const addButton = screen.getByTestId(timeControllerAddButtonId);
+    test('renders all buttons', () => {
+        renderComponent();
+
+        const addButton = screen.getByTestId('time-controller-add-button');
+        const annualLeaveButton = screen.getByTestId(addDayOffId);
+        const businessTripButton = screen.getByTestId(addBusinessTripId);
+
+        expect(addButton).toBeVisible();
+        expect(annualLeaveButton).toBeVisible();
+        expect(businessTripButton).toBeVisible();
+    });
+
+    test('calls setPopupContent with TimesInputs when handleAddTime is triggered', () => {
+        TimesInputs.mockImplementation(() => <div data-testid="mock-times-input" />);
+
+        renderComponent();
+
+        const addButton = screen.getByTestId('time-controller-add-button');
+        fireEvent.click(addButton);
+
+        expect(mockSetPopupContent).toHaveBeenCalled();
+        expect(mockSetPopupContent).toHaveBeenCalledWith(expect.anything()); // You might want to check the exact content
+    });
+
+    test('renders error when month is not provided', () => {
+        renderComponent({ month: '' });
+
+       const addButton = screen.getByTestId('time-controller-add-button');
        fireEvent.click(addButton);
 
-       const annualLeaveButton = screen.getByTestId(timeControllerAnnualLeaveButtonId);
-       const businessTripButton = screen.getByTestId(timeControllerBusinessTripButtonId);
-       const checkInLabel = screen.getByTestId(timeSelectorCheckInLabelId);
-       const checkInInput = screen.getByTestId(timeSelectorCheckInInputId);
-       const checkOutLabel = screen.getByTestId(timeSelectorCheckOutLabelId);
-       const checkOutInput = screen.getByTestId(timeSelectorCheckOutInputId);
-       const saveButton = screen.getByTestId(timesInputSaveButtonId);
+       expect(mockSetError).toHaveBeenCalledWith("Wybierz miesiąc");
+       jest.advanceTimersByTime(2000);
+       expect(mockSetError).toHaveBeenCalledWith("");
+    });
 
-       expect(addButton).toBeVisible();
-       expect(annualLeaveButton).toBeVisible();
-       expect(businessTripButton).toBeVisible();
-       expect(checkInLabel).toBeVisible();
-       expect(checkInInput).toBeVisible();
-       expect(checkOutLabel).toBeVisible();
-       expect(checkOutInput).toBeVisible();
-       expect(saveButton).toBeVisible();
-   });
+    test('renders error when day is not provided', () => {
+        renderComponent({ day: '' });
 
-   test('renders only add, annual leave and business trip buttons', () => {
-       const employee = generateEmployeeMock();
-       const onTimesheetUpdateMock = jest.fn();
-
-       render(
-           <TimesController
-               employee={employee}
-               month={month}
-               day={day}
-               onTimesheetUpdate={onTimesheetUpdateMock}
-               setError={setErrorMock}
-           />
-       );
-
-       const addButton = screen.getByTestId(timeControllerAddButtonId);
-       const annualLeaveButton = screen.getByTestId(timeControllerAnnualLeaveButtonId);
-       const businessTripButton = screen.getByTestId(timeControllerBusinessTripButtonId);
-
-       expect(addButton).toBeVisible();
-       expect(annualLeaveButton).toBeVisible();
-       expect(businessTripButton).toBeVisible();
-   });
-
-   test('calls onTimesheetUpdate with correct data when save button was clicked', () => {
-       const employee = generateEmployeeMock();
-       const onTimesheetUpdateMock = jest.fn();
-
-      render(
-          <TimesController
-              employee={employee}
-              month={month}
-              day={day}
-              onTimesheetUpdate={onTimesheetUpdateMock}
-              setError={setErrorMock}
-          />
-      );
-
-      const addButton = screen.getByTestId(timeControllerAddButtonId);
-      fireEvent.click(addButton);
-
-      fireEvent.change(screen.getByTestId(timeSelectorCheckInInputId), {
-          target: {
-              value: '08:00'
-          },
-      });
-      fireEvent.change(screen.getByTestId(timeSelectorCheckOutInputId), {
-          target: {
-              value: '16:00',
-          },
-      });
-
-      const saveButton = screen.getByTestId(timesInputSaveButtonId);
-      fireEvent.click(saveButton);
-
-      expect(onTimesheetUpdateMock).toHaveBeenCalledWith({
-         employee,
-         times: [
-             {
-                 checkIn: '08:00',
-                 checkOut: '16:00',
-                 day,
-                 month,
-                 balance: 0,
-                 isHoliday: false,
-             },
-         ],
-      });
-      expect(setErrorMock).not.toHaveBeenCalled();
-   });
-
-   test('calls setError when save button was clicked with missing data', () => {
-       const mockEmployee = {};
-       const onTimesheetUpdateMock = jest.fn();
-
-       render(
-           <TimesController
-               employee={mockEmployee}
-               month={month}
-               day={day}
-               onTimesheetUpdate={onTimesheetUpdateMock}
-               setError={setErrorMock}
-           />
-       );
-
-       const addButton =  screen.getByTestId(timeControllerAddButtonId);
+       const addButton = screen.getByTestId('time-controller-add-button');
        fireEvent.click(addButton);
 
-       const saveButton = screen.getByTestId(timesInputSaveButtonId);
-       fireEvent.click(saveButton);
+       expect(mockSetError).toHaveBeenCalledWith("Wybierz dzień");
+       jest.advanceTimersByTime(2000);
+       expect(mockSetError).toHaveBeenCalledWith("");
+    });
 
-       expect(setErrorMock).toHaveBeenCalledWith('Uzupełnij wszystkie dane');
-       expect(onTimesheetUpdateMock).not.toHaveBeenCalled();
-   });
+    test('renders error when employee name and surname is not provided', () => {
+        renderComponent({ employee: { name: '', surname: ''} });
+
+       const addButton = screen.getByTestId('time-controller-add-button');
+       fireEvent.click(addButton);
+
+       expect(mockSetError).toHaveBeenCalledWith("Wybierz pracownika");
+       jest.advanceTimersByTime(2000);
+       expect(mockSetError).toHaveBeenCalledWith("");
+    });
+
+    test('displays error when trying to add business trip without employee', () => {
+        renderComponent({ employee: { name: '', surname: '' } });
+
+        const businessTripButton = screen.getByTestId('time-controller-business-trip-button');
+        fireEvent.click(businessTripButton);
+
+        expect(mockSetError).toHaveBeenCalledWith('Wybierz pracownika');
+
+        jest.advanceTimersByTime(2000); // Fast-forward time to clear the error
+        expect(mockSetError).toHaveBeenCalledWith('');
+    });
+
+    test('calls onTimesheetUpdate with the correct data for business trip', () => {
+        renderComponent();
+
+        const businessTripButton = screen.getByTestId(addBusinessTripId);
+        fireEvent.click(businessTripButton);
+
+        jest.runAllTimers();
+
+        expect(mockOnTimesheetUpdate).toHaveBeenCalledWith({
+            employee,
+            times: [
+                {
+                    checkIn: "",
+                    checkOut: "",
+                    month,
+                    day,
+                    balance: 0,
+                    dayOff: '',
+                    isBusinessTrip: true,
+                    isHoliday: false,
+                    isMaternityLeave: false,
+                    isOccasionalLeave: false,
+                    isParentalLeave: false,
+                    isSickLeave: false,
+                    isUnpaidLeave: false,
+                },
+            ],
+        });
+    });
 });

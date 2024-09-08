@@ -8,6 +8,9 @@ module.exports = {
     '^.+\\.(css|less|scss|sass)$': 'jest-transform-stub',
     '^.+\\.(svg)$': 'jest-transform-stub',
   },
+  moduleNameMapper: {
+    '\\.(jpg|jpeg|png|gif|svg)$': '<rootDir>/src/tests/unit/_mocks/fileMock.js',
+  },
   testPathIgnorePatterns: [
     "/node_modules/",
     "/src/tests/e2e/"
@@ -31,7 +34,7 @@ module.exports = {
   coverageDirectory: 'coverage',
   coverageThreshold: {
     global: {
-      branches: 70,
+      branches: 75,
       functions: 75,
       lines: 75,
       statements: 75,

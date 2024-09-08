@@ -1,4 +1,4 @@
-import styles from './styles/ExportTimesheet.module.css';
+import buttons from '../shared/styles/Buttons.module.css';
 import * as XLSX from 'xlsx';
 import PropTypes from "prop-types";
 
@@ -20,7 +20,7 @@ export function ExportTimesheet({ timesheet, onError }) {
 
  return (
   <>
-   <button data-testid='export-button' className={styles.exportButton} onClick={handleExport}>
+   <button data-testid='export-button' className={buttons.blueButton} onClick={handleExport}>
     Exportuj
    </button>
   </>

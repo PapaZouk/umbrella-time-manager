@@ -28,6 +28,7 @@ describe('TableDetails', () => {
                 checkIn: '08:00',
                 checkOut: '16:00',
                 balance: 0,
+                dayOff: '',
                 isHoliday: false,
             }
         ];
@@ -52,6 +53,7 @@ describe('TableDetails', () => {
 
    test('renders annual leave row when isHoliday is set true', () => {
        sortedTimes[0].isHoliday = true;
+       sortedTimes[0].dayOff = 'Urlop';
 
        const { container } = render(
            <TableDetails
@@ -140,6 +142,7 @@ describe('TableDetails', () => {
             checkIn: '09:30',
             checkOut: sortedTimes[0].checkOut,
             balance: sortedTimes[0].balance,
+            dayOff: '',
             isHoliday: sortedTimes[0].isHoliday,
         }];
         const {getByTestId, getByDisplayValue} = render(
@@ -191,9 +194,7 @@ describe('TableDetails', () => {
         const { getByTestId , getByDisplayValue} = render(<TableDetails sortedTimes={sortedTimes} onTimesUpdate={onTimesUpdateMock} />);
 
         fireEvent.click(getByTestId('edit-button-checkin-0'));
-        // Change the check-in time
         fireEvent.change(getByDisplayValue('08:00'), { target: { value: '09:00' } });
-        // Click the save button
         fireEvent.click(getByTestId('save-button'));
 
         const expectedUpdatedTimes = [{
@@ -202,6 +203,7 @@ describe('TableDetails', () => {
             checkIn: '09:00',
             checkOut: '16:00',
             balance: 1,
+            dayOff: '',
             isHoliday: false,
         }];
 
