@@ -1,69 +1,151 @@
-/* General Table Styles */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    color: #333;
-    margin: 10px;
-  }
 
-  thead {
-    background-color: #f2f2f2;
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 16px;
+  color: #333;
+  margin: 10px 0;
+}
+
+thead {
+  background-color: #34495e;
+  color: #ecf0f1;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  font-weight: 700;
+}
+
+tbody tr {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+tbody tr:hover {
+  background-color: #2c3e50;
+  color: #ecf0f1;
+}
+
+tbody tr td.annualLeaveDays {
+  background-color: #00bcd4;
+  color: #ffffff;
+}
+
+tbody tr td.businessTrip {
+  background-color: #3498db;
+  color: #ffffff;
+}
+
+tbody tr td.sickLeave {
+  background-color: #e67e22;
+  color: #ffffff;
+}
+
+tbody tr td.unpaidLeave {
+  background-color: #95a5a6;
+  color: #ffffff;
+}
+
+tbody tr td.maternityLeave {
+  background-color: #1abc9c;
+  color: #ffffff;
+}
+
+tbody tr td.occasionalLeave {
+  background-color: #16a085;
+  color: #ffffff;
+}
+
+tbody tr td.parentalLeave {
+  background-color: #2ecc71;
+  color: #ffffff;
+}
+
+tbody tr td.total-balance-positive {
+  color: #27ae60;
+  background-color: #e9f7ef;
+  font-weight: 700;
+}
+
+tbody tr td.total-balance-negative {
+  color: #e74c3c;
+  background-color: #f9d6d5;
+  font-weight: 700;
+}
+
+tbody tr td.annualLeaveDays:hover {
+  background-color: #0097a7;
+  color: #ffffff;
+}
+
+tbody tr td.businessTrip:hover {
+  background-color: #2980b9;
+  color: #ffffff;
+}
+
+tbody tr td.sickLeave:hover {
+  background-color: #d35400;
+  color: #ffffff;
+}
+
+tbody tr td.unpaidLeave:hover {
+  background-color: #7f8c8d;
+  color: #ffffff;
+}
+
+tbody tr td.maternityLeave:hover {
+  background-color: #16a085;
+  color: #ffffff;
+}
+
+tbody tr td.occasionalLeave:hover {
+  background-color: #1e8449;
+  color: #ffffff;
+}
+
+tbody tr td.parentalLeave:hover {
+  background-color: #27ae60;
+  color: #ffffff;
+}
+
+tbody tr:nth-child(even):not(:hover) {
+  background-color: #f2f2f2;
+}
+
+tbody tr:nth-child(odd):not(:hover) {
+  background-color: #ffffff;
+}
+
+.tableMonthTitle {
+  font-weight: 700;
+  font-size: 18px;
+  background-color: #2c3e50;
+  color: #ecf0f1;
+  padding: 10px 0;
+}
+
+@media (max-width: 768px) {
+  table {
+    font-size: 14px;
   }
 
   th, td {
-    padding: 12px 15px;
-    text-align: center;
-    border-bottom: 1px solid #ddd;
+    padding: 8px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  table {
+    font-size: 12px;
   }
 
-  th {
-    font-weight: bold;
+  th, td {
+    padding: 6px 8px;
   }
-
-  tr:hover {
-    background-color: #f9f9f9;
-  }
-
-  tbody tr:nth-child(even) {
-    background-color: #f7f7f7;
-  }
-
-  tbody tr:nth-child(odd) {
-    background-color: #ffffff;
-  }
-
-  /* Styles for Summary */
-  .tableMonthTitle {
-    font-weight: bold;
-    font-size: 16px;
-    background-color: #e0e0e0;
-    padding: 10px 0;
-  }
-
-  .annualLeaveDays {
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    background-color: #f4f4c7;
-  }
-
-  .businessTrip {
-    text-align: center;
-    font-size: 18px;
-    font-weight: bold;
-    background-color: #b2d9ed;
-  }
-
-  .total-balance-positive {
-    color: #004d00;
-    background-color: #e6ffe6;
-    font-weight: bold;
-  }
-
-  .total-balance-negative {
-    color: #b30000;
-    background-color: #ffe6e6;
-    font-weight: bold;
-  }
+}

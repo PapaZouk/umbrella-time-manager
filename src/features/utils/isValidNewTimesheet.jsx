@@ -21,7 +21,7 @@ export function isValidNewTimesheet(timesheet, setError) {
 
     if (
         (!timesheet.times[0].checkIn || !timesheet.times[0].checkOut) &&
-        (!timesheet.times[0].isHoliday || !timesheet.times[0].isBusinessTrip)
+        (timesheet.times[0].isHoliday || timesheet.times[0].isBusinessTrip)
     ) {
         setError("Wybierz godziny przyjścia i wyjścia.");
         setTimeout(() => {

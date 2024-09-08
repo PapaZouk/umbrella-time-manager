@@ -2,12 +2,12 @@ import {useState} from "react";
 import styles from "../styles/Tables.module.css";
 import {calculateBalance} from "../../../utils";
 import TableDetailsHead from "./TableDetailsHead.jsx";
-import TableAnnualLeave from "./TableAnnualLeave.jsx";
 import TableTotalBalance from "./TableTotalBalance.jsx";
 import TableCheckInCell from "./TableCheckInCell";
 import TableCheckOutCell from "./TableCheckOutCell";
 import {EndLine} from "../../../shared";
 import PropTypes from "prop-types";
+import TableDetailsDayOffType from "./TableDetailsDayOffType";
 import TableBusinessTrip from "./TableBusinessTrip";
 
 export default function TableDetails({
@@ -82,10 +82,16 @@ export default function TableDetails({
      {sortedTimes.map((time, index) => (
       <tr key={index}>
        <td>{time.day}</td>
-       {time.isHoliday ? (
-        <TableAnnualLeave style={styles.annualLeaveDays} />
-       ) : time.isBusinessTrip
-           ? <TableBusinessTrip style={styles.businessTrip}/>
+       {
+        time.isBusinessTrip ? <TableBusinessTrip style={styles}/> :
+         time.isHoliday ||
+         time.isBusinessTrip ||
+         time.isSickLeave ||
+         time.isUnpaidLeave ||
+         time.isMaternityLeave ||
+         time.isOccasionalLeave ||
+         time.isParentalLeave
+           ? <TableDetailsDayOffType style={styles} dayOffType={time.dayOff}/>
            : (
                <>
                 <TableCheckInCell

@@ -9,6 +9,7 @@ export const useEmployeeTimesheet = () => {
   useState(initialTimesheet);
  const [error, setError] = useState("");
  const [successMessage, setSuccessMessage] = useState("");
+ const [popupContent, setPopupContent] = useState("");
  const [isMonthLocked, setIsMonthLocked] = useState(false);
 
  const handleEmployeeSelect = (employee) => setSelectedEmployee(employee);
@@ -51,13 +52,13 @@ export const useEmployeeTimesheet = () => {
       }, 2000);
       return timesheet;
      } else {
+      logger.info(`Updated timesheet for existing employee: ${timesheet.employee.name} ${timesheet.employee.surname}`);
       return {
        ...timesheet,
        times: [...timesheet.times, newTimesheet.times[0]],
       };
      }
     }
-    logger.info("Updated timesheet for existing employee ", timesheet);
     return timesheet;
    });
 
@@ -69,7 +70,10 @@ export const useEmployeeTimesheet = () => {
     )
    ) {
     updatedTimesheet.push(newTimesheet);
-    logger.info("Updated timesheet: ", updatedTimesheet);
+    logger.info(
+        `Updated timesheet for new employee: `,
+        updatedTimesheet,
+    );
    }
 
    setIsMonthLocked(true);
@@ -90,6 +94,8 @@ export const useEmployeeTimesheet = () => {
   error,
   successMessage,
   setError,
+  popupContent,
+  setPopupContent,
   setSuccessMessage: setSuccessMessage,
   handleEditedTimesheet,
   isMonthLocked,
