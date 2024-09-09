@@ -1,5 +1,6 @@
 import styles from "../styles/Tables.module.css";
 import PropTypes from "prop-types";
+import {calculateTotalHoursAndMinutes} from "../../../utils/calculators/calculateBalance";
 
 export default function TableSummaryBody(
     {
@@ -12,6 +13,7 @@ export default function TableSummaryBody(
         totalRecordedDays,
     }
     ) {
+    const totalHoursAndMinutes = calculateTotalHoursAndMinutes(totalBalance);
     return (
         <tbody>
         <tr>
@@ -27,7 +29,7 @@ export default function TableSummaryBody(
                         : styles["total-balance-positive"]
                 }
             >
-                {totalBalance} / {Number(totalBalance / 60).toFixed(2)}
+                {totalBalance} / {totalHoursAndMinutes}
             </td>
             <td
                 data-testid='summary-body-total-business-trip-days'

@@ -1,4 +1,3 @@
-import {Container} from "../shared";
 import buttons from '../shared/styles/Buttons.module.css';
 import PropTypes from "prop-types";
 import {useState} from "react";
@@ -209,31 +208,29 @@ export default function TimesController(
     };
 
     return (
-        <Container fadeIn={true}>
-            <div>
-                <button
-                    data-testid='time-controller-add-button'
-                    className={buttons.greenButton}
-                    onClick={handleAddTime}
-                >
-                    Dodaj godziny
-                </button>
-                <button
-                    data-testid='time-controller-day-off-button'
-                    className={buttons.yellowButton}
-                    onClick={handleAddDayOff}
-                >
-                Dodaj dzień wolny
-                </button>
-                <button
-                    data-testid='time-controller-business-trip-button'
-                    className={buttons.blueButton}
-                    onClick={handleAddBusinessTrip}
-                >
-                Wyjazd służbowy
-                </button>
-            </div>
-        </Container>
+        <div>
+            <button
+                data-testid='time-controller-add-button'
+                className={buttons.greenButton}
+                onClick={handleAddTime}
+            >
+                Dodaj godziny
+            </button>
+            <button
+                data-testid='time-controller-day-off-button'
+                className={buttons.yellowButton}
+                onClick={handleAddDayOff}
+            >
+            Dodaj dzień wolny
+            </button>
+            <button
+                data-testid='time-controller-business-trip-button'
+                className={buttons.blueButton}
+                onClick={handleAddBusinessTrip}
+            >
+            Wyjazd służbowy
+            </button>
+        </div>
     );
 };
 
