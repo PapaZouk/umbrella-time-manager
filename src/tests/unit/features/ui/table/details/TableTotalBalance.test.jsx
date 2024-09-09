@@ -12,7 +12,7 @@ describe('TableTotalBalance', () => {
     const timeMock = {
         balance: '10',
     };
-    const calculatedBalance = Number(timeMock.balance / 60).toFixed(2);
+    const calculatedBalance = '0.10';
 
     const { container } = render(
         <table>
@@ -37,7 +37,7 @@ describe('TableTotalBalance', () => {
        const timeMock = {
            balance: '-10',
        };
-       const calculatedBalance = Number(timeMock.balance / 60).toFixed(2);
+       const calculatedBalance = '-0.10';
 
        const { container } = render(
            <table>
@@ -73,7 +73,7 @@ describe('TableTotalBalance', () => {
        const span = cell.querySelector('span');
 
        expect(cell).toBeInTheDocument();
-       expect(cell.textContent).toBe('0 / 0.00');
+       expect(cell.textContent).toBe('0 / 0.0');
        expect(cell).toHaveClass(styles["total-balance-cell"]);
        expect(span).toHaveClass(styles["total-balance-positive"]);
    });
@@ -82,7 +82,7 @@ describe('TableTotalBalance', () => {
        const timeMock = {
            balance: '10',
        };
-       const calculatedBalance = Number(timeMock.balance / 60).toFixed(2);
+       const calculatedBalance = '0.10';
 
        const { container } = render(
            <table>

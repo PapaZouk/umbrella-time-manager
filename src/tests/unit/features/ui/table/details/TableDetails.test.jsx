@@ -13,6 +13,7 @@ jest.mock('../../../../../../features/ui/table/styles/Tables.module.css', () => 
 }));
 jest.mock('../../../../../../features/utils/calculators/calculateBalance', () => ({
     calculateBalance: jest.fn(() => 0),
+    calculateTotalHoursAndMinutes: jest.fn(),
 }));
 
 describe('TableDetails', () => {
