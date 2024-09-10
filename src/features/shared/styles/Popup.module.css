@@ -23,6 +23,11 @@
     animation: fadeIn 0.3s ease-out;
 }
 
+.popupErrorContainer {
+    background-color: #f8d7da;
+    color: #721c24;
+}
+
 .popupContent h3 {
     color: #2C3E50;
     font-size: 24px;

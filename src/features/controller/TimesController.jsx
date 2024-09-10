@@ -8,6 +8,7 @@ import {dayOffTypes} from "../../resources/dayOffTypes";
 import {CreateTimesheet} from "../utils/factory/TimesheetFactory";
 import {isInitialTimesheetDataProvided} from "./validators/isInitialTimesheetDataProvided";
 import {hasAllTimes} from './validators/hasAllTimes';
+import TrainingPopup from "../shared/popups/TrainingPopup";
 
 export default function TimesController(
     {
@@ -33,7 +34,7 @@ export default function TimesController(
                 setCheckIn={setCheckIn}
                 setCheckOut={setCheckOut}
                 handleCloseTimesInputs={(checkInValue, checkOutValue) => handleCloseTimesInputsPopup(checkInValue, checkOutValue)}
-                handleCancel={handleOnCancel}
+                handleCancel={closePopup}
             />
         );
     };
@@ -45,13 +46,25 @@ export default function TimesController(
         setPopupContent(
             <DayOffPopup
                 onSaveDayOff={(day) => handleSaveDayOff(day)}
-                handleCancel={handleOnCancel}
+                handleCancel={closePopup}
             />
         );
     };
 
+    const handleAddTraining = () => {
+      if (!isInitialTimesheetDataProvided({month, day, employee, setError})) {
+          return;
+      }
+      setPopupContent(
+          <TrainingPopup
+            onSaveTraining={(training) => handleTrainingButton(training)}
+            handleCancel={closePopup}
+          />
+      );
+    };
+
     const handleSaveDayOff = (selectedDayOff) => {
-        setPopupContent("");
+        closePopup();
 
         const dayOffType = Array.from(dayOffTypes()).filter((day) => day === selectedDayOff)[0];
 
@@ -85,6 +98,27 @@ export default function TimesController(
         onTimesheetUpdate(newTimesheetWithBusinessTrip);
         resetCheckInAndCheckOut();
     };
+
+    const handleTrainingButton = (trainingType) => {
+      closePopup();
+
+      if (!isInitialTimesheetDataProvided({month, day, employee, setError})) {
+          return;
+      }
+
+      const newTimesheetWithTraining = CreateTimesheet(
+          {
+            employee,
+              month,
+              day,
+              isTraining: true,
+              trainingType: trainingType
+          }
+      );
+      onTimesheetUpdate(newTimesheetWithTraining);
+      resetCheckInAndCheckOut();
+    };
+
     const handleSave = (newCheckIn, newCheckOut) => {
         if (!hasAllTimes(newCheckIn, newCheckOut, employee, setError)) {
             return;
@@ -186,20 +220,19 @@ export default function TimesController(
               isParentalLeave: true,
           }
       );
-      console.log('PARENTAL LEAVE TIMESHEET: ', newTimesheetWithParentalLeave);
       onTimesheetUpdate(newTimesheetWithParentalLeave);
       resetCheckInAndCheckOut();
     };
 
-    const handleOnCancel = () => {
-        setPopupContent("");
+    const handleCloseTimesInputsPopup = (checkIn, checkOut) => {
+        closePopup();
+        handleSave(checkIn, checkOut);
     };
 
-    const handleCloseTimesInputsPopup = (checkIn, checkOut) => {
+    const closePopup = () => {
         setTimeout(() => {
             setPopupContent("");
-        }, 500);
-        handleSave(checkIn, checkOut);
+        }, 200);
     };
 
     const resetCheckInAndCheckOut = () => {
@@ -229,6 +262,13 @@ export default function TimesController(
                 onClick={handleAddBusinessTrip}
             >
             Wyjazd służbowy
+            </button>
+            <button
+                data-testid='time-controller-business-training-button'
+                className={buttons.blueButton}
+                onClick={handleAddTraining}
+            >
+            Dodaj szkolenie
             </button>
         </div>
     );

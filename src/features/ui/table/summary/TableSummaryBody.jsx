@@ -9,6 +9,7 @@ export default function TableSummaryBody(
         totalBalance,
         businessTripDays,
         annualLeaveDays,
+        totalSickLeaveDays,
         totalDaysInMonth,
         totalRecordedDays,
     }
@@ -43,6 +44,12 @@ export default function TableSummaryBody(
             >
                 {annualLeaveDays} / {employeeData.annualLeave}
             </td>
+            <td
+                data-testid='summary-body-total-sick-leave-days'
+                className={styles.sickLeave}
+            >
+                {totalSickLeaveDays}
+            </td>
             <td data-testid='summary-body-total-days-in-month'>{totalDaysInMonth}</td>
             <td data-testid='summary-body-total-recorded-days'>{totalRecordedDays}</td>
         </tr>
@@ -56,6 +63,7 @@ TableSummaryBody.propTypes = {
     totalBalance: PropTypes.number,
     businessTripDays: PropTypes.number,
     annualLeaveDays: PropTypes.number,
+    totalSickLeaveDays: PropTypes.number,
     totalDaysInMonth: PropTypes.number,
     totalRecordedDays: PropTypes.number,
 }

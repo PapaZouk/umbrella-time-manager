@@ -1,57 +1,59 @@
-import styles from "../styles/Popup.module.css";
-import effects from '../styles/Effects.module.css';
-import errors from '../styles/Errors.module.css';
-import buttons from '../styles/Buttons.module.css';
+import styles from '../styles/Popup.module.css';
 import labels from '../styles/Labels.module.css';
-import {dayOffTypes} from "../../../resources/dayOffTypes";
+import buttons from '../styles/Buttons.module.css';
 import {useState} from "react";
+import errors from "../styles/Errors.module.css";
+import { trainingTypes } from '../../../resources/trainingTypes';
 import PropTypes from "prop-types";
 
-export default function DayOffPopup({ onSaveDayOff, handleCancel }) {
-    const [selectedOption, setSelectedOption] = useState("");
+export default function TrainingPopup({ onSaveTraining, handleCancel }) {
+    const [selectedOption, setSelectedOption] = useState('');
     const [error, setError] = useState(false);
 
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
     };
 
+    const handleOnCancel = () => {
+        handleCancel();
+    }
+
     const handleSave = () => {
         if (selectedOption) {
             setError(false);
-            onSaveDayOff(selectedOption);
+            onSaveTraining(selectedOption);
         } else {
             setError(true);
             setTimeout(() => {
-               setError(false);
+               setError('')
             }, 2000);
         }
-    }
+    };
 
     return (
         <>
             {error && (
-                <div data-testid='day-off-error' className={styles.container}>
-                    <p className={errors.errorFrame}>Wybierz rodzaj dnia wolnego</p>
+                <div data-testid='training-popup-error' className={styles.popupErrorContainer}>
+                    <p className={errors.errorFrame}>Wybierz rodzaj szkolenia</p>
                 </div>
             )}
             <label
-                data-testid='day-off-selector-label'
-                htmlFor="day-off-selector-label"
-                className={labels.label}
+            data-testid='training-selector-label'
+            htmlFor='training-selector'
+            className={labels.label}
             >
-                Wybierz rodzaj
+                Wybierz trening
             </label>
             <div>
                 <select
-                    data-testid='day-off-selector-select'
+                    data-testid='training-selector'
                     value={selectedOption}
-                    className={`${error && !selectedOption ? effects.errorEffect : ''}`}
                     onChange={handleChange}
                 >
                     <option value="" disabled>
                         Wybierz...
                     </option>
-                    {dayOffTypes().map((option, index) => (
+                    {trainingTypes().map((option, index) => (
                         <option key={index} value={option}>
                             {option}
                         </option>
@@ -60,7 +62,7 @@ export default function DayOffPopup({ onSaveDayOff, handleCancel }) {
             </div>
             <div>
                 <button
-                    data-testid='day-off-selector-save-button'
+                    data-testid='training-selector-save-button'
                     className={buttons.greenButton}
                     onClick={handleSave}
                     disabled={error}
@@ -68,9 +70,9 @@ export default function DayOffPopup({ onSaveDayOff, handleCancel }) {
                     Zapisz
                 </button>
                 <button
-                    data-testid='day-off-selector-cancel-button'
+                    data-testid='training-selector-cancel-button'
                     className={buttons.redButton}
-                    onClick={handleCancel}
+                    onClick={handleOnCancel}
                 >
                     Anuluj
                 </button>
@@ -79,8 +81,7 @@ export default function DayOffPopup({ onSaveDayOff, handleCancel }) {
     );
 };
 
-DayOffPopup.propTypes = {
-    onSaveDayOff: PropTypes.func,
-    setSelectedDayOff: PropTypes.func,
+TrainingPopup.propTypes = {
+    onSaveTraining: PropTypes.func,
     handleCancel: PropTypes.func,
 };
