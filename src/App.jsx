@@ -64,23 +64,24 @@ function App() {
       />
   </Container>
 
-   <Container fadeIn={fadeIn}>
-    <TimesheetController
-     timesheet={employeeTimesheet}
-     selectedMonth={selectedMonth}
-     resetTimesheet={resetTimesheet}
-     setError={setError}
-     setSuccessMessage={setSuccessMessage}
-    />
-   </Container>
+   {employeeTimesheet.length > 0 ? (
+       <>
+        <Container fadeIn={fadeIn}>
+         <TimesheetController
+             timesheet={employeeTimesheet}
+             resetTimesheet={resetTimesheet}
+             setError={setError}
+             setSuccessMessage={setSuccessMessage}
+         />
+        </Container>
+       </>
+   ) : ""}
 
-   <Container fadeIn={fadeIn}>
     <EmployeeTable
      month={selectedMonth}
      timesheet={employeeTimesheet}
      handleEditedTimesheet={handleEditedTimesheet}
     />
-   </Container>
 
    <ErrorMessage message={error} />
    <SuccessMessage message={successMessage} />

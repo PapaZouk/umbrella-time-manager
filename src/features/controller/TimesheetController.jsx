@@ -1,5 +1,4 @@
-import { SaveTimesheet } from "../business/SaveTimesheet";
-import { ExportTimesheet } from "../business/ExportTimesheet";
+import { SaveTimesheet } from "../business";
 import { printTable } from "../utils";
 import PrintTimesheet from "../business/PrintTimesheet";
 import PropTypes from "prop-types";
@@ -7,19 +6,11 @@ import PropTypes from "prop-types";
 export function TimesheetController(
     {
      timesheet,
-     selectedMonth,
      resetTimesheet,
      setError,
      setSuccessMessage,
     }
 ) {
- function handleControllerError(errorMessage) {
-  setError(errorMessage);
-  setTimeout(() => {
-   setError("");
-  }, 2000);
- }
-
  function handlePrint() {
   printTable();
  }
@@ -29,13 +20,8 @@ export function TimesheetController(
    <div data-testid='timesheet-controller'>
     <span>
      <PrintTimesheet handlePrint={handlePrint}/>
-     <ExportTimesheet
-      timesheet={timesheet}
-      onError={handleControllerError}
-     />
      <SaveTimesheet
       timesheet={timesheet}
-      selectedMonth={selectedMonth}
       resetTimesheet={resetTimesheet}
       setError={setError}
       setSuccessMessage={setSuccessMessage}

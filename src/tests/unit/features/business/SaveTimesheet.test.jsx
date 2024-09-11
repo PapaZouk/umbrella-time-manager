@@ -1,12 +1,13 @@
 import {fireEvent, render, screen} from "@testing-library/react";
 import {SaveTimesheet} from "../../../../features/business";
-import {handleOnSave} from "../../../../features/utils/handleOnSave.js";
+import {handleOnSave} from "../../../../features/utils";
 
 jest.mock("../../../../features/utils/handleOnSave.js", () => ({
     handleOnSave: jest.fn(),
 }));
 
 describe("SaveTimesheet", () => {
+ const saveButtonId = 'save-timesheet-button';
 
  const timeSheet = [
   {
@@ -27,7 +28,6 @@ describe("SaveTimesheet", () => {
    ],
   },
  ];
- const selectedMonth = "2024-08";
  const resetTimesheetMock = jest.fn();
  const setErrorMock = jest.fn();
  const setSuccessMock = jest.fn();
@@ -40,14 +40,13 @@ describe("SaveTimesheet", () => {
   render(
    <SaveTimesheet
     timesheet={timeSheet}
-    selectedMonth={selectedMonth}
     resetTimesheet={resetTimesheetMock}
     setError={setErrorMock}
     setSuccessMessage={setSuccessMock}
    />
   );
 
-  const saveButton = screen.getByText("Zapisz godziny");
+  const saveButton = screen.getByTestId(saveButtonId);
 
   expect(saveButton).toBeInTheDocument();
  });
@@ -56,19 +55,17 @@ describe("SaveTimesheet", () => {
   render(
    <SaveTimesheet
     timesheet={timeSheet}
-    selectedMonth={selectedMonth}
     resetTimesheet={resetTimesheetMock}
     setError={setErrorMock}
     setSuccessMessage={setSuccessMock}
    />
   );
 
-  const saveButton = screen.getByText("Zapisz godziny");
+  const saveButton = screen.getByTestId(saveButtonId);
   fireEvent.click(saveButton);
 
   expect(handleOnSave).toHaveBeenCalledWith(
    timeSheet,
-   selectedMonth,
    resetTimesheetMock,
    setErrorMock,
    setSuccessMock

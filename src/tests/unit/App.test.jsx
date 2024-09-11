@@ -35,6 +35,18 @@ jest.mock('../../features/shared/container/Container', () => ({
 }));
 
 describe('App', () => {
+    const headerId = 'header';
+    const monthSelectorId = 'month-selector';
+    const daySelectorId = 'day-selector';
+    const employeeSelectorId = 'employee-selector';
+    const addTimesButtonId = 'time-controller-add-button';
+    const addDayOffButtonId = 'time-controller-day-off-button';
+    const addBusinessTripButtonId = 'time-controller-business-trip-button';
+    const addTrainingButtonId = 'time-controller-business-training-button';
+    const errorMessageId = 'error-message';
+    const successMessageId = 'success-message';
+    const employeeTableId = 'employee-table';
+
     beforeEach(() => {
         Hooks.useEmployeeTimesheet.mockReturnValue({
             selectedEmployee: null,
@@ -56,22 +68,26 @@ describe('App', () => {
         });
     });
 
-    test("renders app component without crashing", () => {
+    test("renders app components without crashing", () => {
         const { getByTestId } = render(<App />);
 
-        expect(getByTestId('header')).toBeInTheDocument();
-        expect(getByTestId('employee-selector')).toBeInTheDocument();
-        expect(getByTestId('employee-table')).toBeInTheDocument();
-        expect(getByTestId('month-selector')).toBeInTheDocument();
-        expect(getByTestId('timesheet-controller')).toBeInTheDocument();
-        expect(getByTestId('error-message')).toBeInTheDocument();
-        expect(getByTestId('success-message')).toBeInTheDocument();
+        expect(getByTestId(headerId)).toBeInTheDocument();
+        expect(getByTestId(monthSelectorId)).toBeInTheDocument();
+        expect(getByTestId(daySelectorId)).toBeInTheDocument();
+        expect(getByTestId(employeeSelectorId)).toBeInTheDocument();
+        expect(getByTestId(addTimesButtonId)).toBeInTheDocument();
+        expect(getByTestId(addDayOffButtonId)).toBeInTheDocument();
+        expect(getByTestId(addBusinessTripButtonId)).toBeInTheDocument();
+        expect(getByTestId(addTrainingButtonId)).toBeInTheDocument();
+        expect(getByTestId(errorMessageId)).toBeInTheDocument();
+        expect(getByTestId(successMessageId)).toBeInTheDocument();
+        expect(getByTestId(employeeTableId)).toBeInTheDocument();
     });
 
     test('renders and interacts with DaySelector', () => {
         render(<App />);
 
-        const daySelector = screen.getByTestId('day-selector');
+        const daySelector = screen.getByTestId(daySelectorId);
         expect(daySelector).toBeInTheDocument();
 
         fireEvent.click(daySelector);
@@ -88,7 +104,7 @@ describe('App', () => {
        Hooks.useMonthDays.mockReturnValue(['2024-06', '2024-07']);
        render(<App />);
 
-       expect(screen.getByTestId('day-selector')).toBeInTheDocument();
+       expect(screen.getByTestId(daySelectorId)).toBeInTheDocument();
        expect(screen.getByTestId('days-content')).toBeInTheDocument();
     });
 
@@ -96,14 +112,14 @@ describe('App', () => {
        Hooks.useMonthDays.mockReturnValue([]);
        render(<App />);
 
-       expect(screen.getByTestId('day-selector')).toBeInTheDocument();
+       expect(screen.getByTestId(daySelectorId)).toBeInTheDocument();
        expect(screen.getByText('No Days')).toBeInTheDocument();
     });
 
     test('useMonthDays is called with selectedMonth', () => {
         render(<App />);
 
-        const monthSelector = screen.getByTestId('month-selector');
+        const monthSelector = screen.getByTestId(monthSelectorId);
         fireEvent.click(monthSelector);
 
         expect(Hooks.useMonthDays).toHaveBeenCalledWith('2024-08');
