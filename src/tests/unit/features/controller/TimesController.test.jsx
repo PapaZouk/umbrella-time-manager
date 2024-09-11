@@ -143,6 +143,8 @@ describe('TimesController', () => {
                     isParentalLeave: false,
                     isSickLeave: false,
                     isUnpaidLeave: false,
+                    isTraining: false,
+                    trainingType: "",
                 },
             ],
         });

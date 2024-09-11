@@ -9,6 +9,7 @@ import {EndLine} from "../../../shared";
 import PropTypes from "prop-types";
 import TableDetailsDayOffType from "./TableDetailsDayOffType";
 import TableBusinessTrip from "./TableBusinessTrip";
+import TableTraining from "./TableTraining";
 
 export default function TableDetails({
  sortedTimes,
@@ -84,41 +85,44 @@ export default function TableDetails({
        <td>{time.day}</td>
        {
         time.isBusinessTrip ? <TableBusinessTrip style={styles}/> :
-         time.isHoliday ||
-         time.isBusinessTrip ||
-         time.isSickLeave ||
-         time.isUnpaidLeave ||
-         time.isMaternityLeave ||
-         time.isOccasionalLeave ||
-         time.isParentalLeave
-           ? <TableDetailsDayOffType style={styles} dayOffType={time.dayOff}/>
-           : (
-               <>
-                <TableCheckInCell
-                    time={time}
-                    editingIndex={editingIndex}
-                    index={index}
-                    editedCheckIn={editedCheckIn}
-                    editingField={editingField}
-                    handleInputChange={handleInputChange}
-                    handleSave={handleSave}
-                    handleCancel={handleCancel}
-                    handleEditClick={handleEditClick}
-                />
-                <TableCheckOutCell
-                    time={time}
-                    editingIndex={editingIndex}
-                    index={index}
-                    editedCheckOut={editedCheckOut}
-                    editingField={editingField}
-                    handleInputChange={handleInputChange}
-                    handleSave={handleSave}
-                    handleCancel={handleCancel}
-                    handleEditClick={handleEditClick}
-                />
-                <TableTotalBalance time={time} styles={styles} />
-               </>
-           )
+          time.isTraining ?
+              <TableTraining style={styles} trainingType={time.trainingType}/> :
+              time.isHoliday ||
+              time.isBusinessTrip ||
+              time.isSickLeave ||
+              time.isUnpaidLeave ||
+              time.isMaternityLeave ||
+              time.isOccasionalLeave ||
+              time.isParentalLeave
+                  ? <TableDetailsDayOffType style={styles} dayOffType={time.dayOff}/>
+                  :
+                  (
+                      <>
+                       <TableCheckInCell
+                           time={time}
+                           editingIndex={editingIndex}
+                           index={index}
+                           editedCheckIn={editedCheckIn}
+                           editingField={editingField}
+                           handleInputChange={handleInputChange}
+                           handleSave={handleSave}
+                           handleCancel={handleCancel}
+                           handleEditClick={handleEditClick}
+                       />
+                       <TableCheckOutCell
+                           time={time}
+                           editingIndex={editingIndex}
+                           index={index}
+                           editedCheckOut={editedCheckOut}
+                           editingField={editingField}
+                           handleInputChange={handleInputChange}
+                           handleSave={handleSave}
+                           handleCancel={handleCancel}
+                           handleEditClick={handleEditClick}
+                       />
+                       <TableTotalBalance time={time} styles={styles} />
+                      </>
+                  )
        }
       </tr>
      ))}

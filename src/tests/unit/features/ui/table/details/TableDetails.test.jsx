@@ -181,7 +181,7 @@ describe('TableDetails', () => {
     });
 
 
-    test('handles empty sortedTimes array gracefully', () => {
+    test('handles empty sortedTimes array correctly', () => {
         sortedTimes = [];
 
         const { getByTestId } = render(<TableDetails sortedTimes={sortedTimes} onTimesUpdate={onTimesUpdateMock} />);

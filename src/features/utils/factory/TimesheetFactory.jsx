@@ -15,6 +15,8 @@ export function CreateTimesheet({
     isMaternityLeave = false,
     isOccasionalLeave = false,
     isParentalLeave = false,
+    isTraining = false,
+    trainingType = "",
 } = {}){
     return {
         employee: {name: "", surname: "", workingHours: "", annualLeave: 0, ...employee},
@@ -33,6 +35,8 @@ export function CreateTimesheet({
                 isMaternityLeave,
                 isOccasionalLeave,
                 isParentalLeave,
+                isTraining,
+                trainingType,
             },
         ],
     }

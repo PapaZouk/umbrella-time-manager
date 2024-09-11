@@ -10,6 +10,7 @@ export default function TableSummary({
     totalBusinessTripDays,
     totalDaysInMonth,
     formattedDate,
+    totalSickLeaveDays,
     totalBalance,
     totalRecordedDays
 }) {
@@ -23,9 +24,10 @@ export default function TableSummary({
                     'Godziny pracy',
                     'Bilans całkowity (min/godz)',
                     "Wyjazdy słuzbowe",
-                    'Urlop wykorzystany',
+                    'Urlop',
+                    "Zwolnień lekarskich",
                     'Dni robocze w miesiącu',
-                    'Dni zarejestrowane'
+                    'Dni zapisane'
                 ]
             }/>
             <TableSummaryBody
@@ -34,6 +36,7 @@ export default function TableSummary({
                 totalBalance={totalBalance}
                 businessTripDays={totalBusinessTripDays}
                 annualLeaveDays={annualLeaveDays}
+                totalSickLeaveDays={totalSickLeaveDays}
                 totalDaysInMonth={totalDaysInMonth}
                 totalRecordedDays={totalRecordedDays}
             />
@@ -48,6 +51,7 @@ TableSummary.propTypes = {
     totalBusinessTripDays: PropTypes.number,
     totalDaysInMonth: PropTypes.number,
     formattedDate: PropTypes.string,
+    totalSickLeaveDays: PropTypes.number,
     totalBalance: PropTypes.number,
     totalRecordedDays: PropTypes.number,
 }

@@ -44,7 +44,7 @@ describe('TableSummaryBody', () => {
       expect(tableRow).toBeInTheDocument();
 
       const tableData = getAllByTestId(/summary-body/);
-      expect(tableData).toHaveLength(9);
+      expect(tableData).toHaveLength(10);
    });
 
    test('given balance is negative should render total balance cell with correct class name', () => {
