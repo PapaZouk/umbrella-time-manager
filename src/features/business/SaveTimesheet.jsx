@@ -5,14 +5,13 @@ import PropTypes from "prop-types";
 export function SaveTimesheet(
     {
         timesheet,
-        selectedMonth,
         resetTimesheet,
         setError,
         setSuccessMessage,
     }
     ) {
  function onSave() {
-  handleOnSave(timesheet, selectedMonth, resetTimesheet, setError, setSuccessMessage);
+  handleOnSave(timesheet, resetTimesheet, setError, setSuccessMessage);
  }
 
  return (

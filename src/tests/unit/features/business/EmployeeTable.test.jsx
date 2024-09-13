@@ -1,4 +1,4 @@
-import {render} from '@testing-library/react';
+import {render,screen} from '@testing-library/react';
 import {EmployeeTable} from "../../../../features/business";
 import {sortTimesByDay} from "../../../../features/utils";
 import {generateTimesheetWithEmployeeAndSortedMock} from "../../_mocks/generateTimesheetWithEmployeeAndSorted.mock";
@@ -59,7 +59,7 @@ describe('EmployeeTable', () => {
         const timesheet = [];
         const handleEditedTimesheetMock = jest.fn();
 
-       const { getByTestId } = render(
+       render(
            <EmployeeTable
                month={month}
                timesheet={timesheet}
@@ -67,7 +67,7 @@ describe('EmployeeTable', () => {
            />
        );
 
-       const tableContainer = getByTestId(/tables-content/);
+       const tableContainer = screen.getByTestId('tables-content');
        expect(tableContainer).toBeInTheDocument();
     });
 });

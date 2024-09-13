@@ -1,14 +1,15 @@
-import buttons from '../shared/styles/Buttons.module.css';
 import PropTypes from "prop-types";
 import {useState} from "react";
-import TimesInputs from "../business/TimesInputs";
 import {calculateBalance} from "../utils";
-import DayOffPopup from "../shared/popups/DayOffPopup";
 import {dayOffTypes} from "../../resources/dayOffTypes";
 import {CreateTimesheet} from "../utils/factory/TimesheetFactory";
 import {isInitialTimesheetDataProvided} from "./validators/isInitialTimesheetDataProvided";
 import {hasAllTimes} from './validators/hasAllTimes';
-import TrainingPopup from "../shared/popups/TrainingPopup";
+import AddTimeButton from "./components/AddTimeButton";
+import AddDayOffButton from "./components/AddDayOffButton";
+import AddBusinessTripButton from "./components/AddBusinessTripButton";
+import AddTrainingButton from "./components/AddTrainingButton";
+import {handleDayOffType, showAddTimesInputs, showAddTrainingPopup, showDayOffPopup} from "./handlers/popupHandlers";
 
 export default function TimesController(
     {
@@ -29,58 +30,27 @@ export default function TimesController(
         if (!isInitialTimesheetDataProvided({month, day, employee, setError})) {
             return;
         }
-        setPopupContent(
-            <TimesInputs
-                setCheckIn={setCheckIn}
-                setCheckOut={setCheckOut}
-                handleCloseTimesInputs={(checkInValue, checkOutValue) => handleCloseTimesInputsPopup(checkInValue, checkOutValue)}
-                handleCancel={closePopup}
-            />
-        );
+        showAddTimesInputs(setPopupContent, handleCloseTimesInputsPopup, closePopup);
     };
 
     const handleAddDayOff = () => {
         if (!isInitialTimesheetDataProvided({month, day, employee, setError})) {
             return;
         }
-        setPopupContent(
-            <DayOffPopup
-                onSaveDayOff={(day) => handleSaveDayOff(day)}
-                handleCancel={closePopup}
-            />
-        );
+        showDayOffPopup(setPopupContent, handleSaveDayOff, closePopup);
     };
 
     const handleAddTraining = () => {
       if (!isInitialTimesheetDataProvided({month, day, employee, setError})) {
           return;
       }
-      setPopupContent(
-          <TrainingPopup
-            onSaveTraining={(training) => handleTrainingButton(training)}
-            handleCancel={closePopup}
-          />
-      );
+      showAddTrainingPopup(setPopupContent, handleTrainingButton, closePopup);
     };
 
     const handleSaveDayOff = (selectedDayOff) => {
         closePopup();
-
         const dayOffType = Array.from(dayOffTypes()).filter((day) => day === selectedDayOff)[0];
-
-        if (dayOffType === "Zwolnienie lekarskie") {
-            handleSickLeave(dayOffType);
-        } else if (dayOffType === "Bezpłatny urlop"){
-            handleUnpaidLeave(dayOffType);
-        } else if (dayOffType === "Urlop macierzyński") {
-            handleMaternityLeave(dayOffType);
-        } else if (dayOffType === "Urlop okazjonalny") {
-            handleOccasionalLeave(dayOffType);
-        } else if (dayOffType === 'Urlop wychowawczy') {
-            handleParentalLeave(dayOffType);
-        } else {
-            handleAddAnnualLeave(dayOffType);
-        }
+        handleDayOffType(dayOffType, employee, month, day, onTimesheetUpdate, resetCheckInAndCheckOut);
     };
 
     const handleAddBusinessTrip = () => {
@@ -140,90 +110,6 @@ export default function TimesController(
         resetCheckInAndCheckOut();
     };
 
-    const handleUnpaidLeave = (unpaidLeave) => {
-        const newTimesheetWithUnpaidLeave = CreateTimesheet(
-            {
-                employee: employee,
-                month: month,
-                day: day,
-                dayOff: unpaidLeave,
-                isUnpaidLeave: true,
-            },
-        );
-        onTimesheetUpdate(newTimesheetWithUnpaidLeave);
-        resetCheckInAndCheckOut();
-    };
-
-    const handleSickLeave = (sickLeave) => {
-        const newTimesheetWithSickLeave = CreateTimesheet(
-            {
-                employee: employee,
-                month: month,
-                day: day,
-                dayOff: sickLeave,
-                isSickLeave: true,
-            },
-        );
-        onTimesheetUpdate(newTimesheetWithSickLeave);
-        resetCheckInAndCheckOut();
-    };
-
-    const handleAddAnnualLeave = (annualLeaveType) => {
-        const newTimesheetWithAnnualLeave = CreateTimesheet(
-            {
-                employee: employee,
-                month: month,
-                day: day,
-                dayOff: annualLeaveType,
-                isHoliday: true,
-            },
-        );
-        onTimesheetUpdate(newTimesheetWithAnnualLeave);
-        resetCheckInAndCheckOut();
-    };
-
-    const handleMaternityLeave = (maternityLeave) => {
-        const newTimesheetWithMaternityLeave = CreateTimesheet(
-            {
-                employee: employee,
-                month: month,
-                day: day,
-                dayOff: maternityLeave,
-                isMaternityLeave: true,
-            },
-        );
-        onTimesheetUpdate(newTimesheetWithMaternityLeave);
-        resetCheckInAndCheckOut();
-    }
-
-    const handleOccasionalLeave = (occasionalLeave) => {
-      const newTimesheetWithOccasionalLeave = CreateTimesheet(
-          {
-            employee: employee,
-            month: month,
-            day: day,
-            dayOff: occasionalLeave,
-            isOccasionalLeave: true,
-          },
-      );
-      onTimesheetUpdate(newTimesheetWithOccasionalLeave);
-      resetCheckInAndCheckOut();
-    };
-
-    const handleParentalLeave = (parentalLeave) => {
-      const newTimesheetWithParentalLeave = CreateTimesheet(
-          {
-              employee: employee,
-              month: month,
-              day: day,
-              dayOff: parentalLeave,
-              isParentalLeave: true,
-          }
-      );
-      onTimesheetUpdate(newTimesheetWithParentalLeave);
-      resetCheckInAndCheckOut();
-    };
-
     const handleCloseTimesInputsPopup = (checkIn, checkOut) => {
         closePopup();
         handleSave(checkIn, checkOut);
@@ -242,34 +128,10 @@ export default function TimesController(
 
     return (
         <div>
-            <button
-                data-testid='time-controller-add-button'
-                className={buttons.greenButton}
-                onClick={handleAddTime}
-            >
-                Dodaj godziny
-            </button>
-            <button
-                data-testid='time-controller-day-off-button'
-                className={buttons.yellowButton}
-                onClick={handleAddDayOff}
-            >
-            Dodaj dzień wolny
-            </button>
-            <button
-                data-testid='time-controller-business-trip-button'
-                className={buttons.blueButton}
-                onClick={handleAddBusinessTrip}
-            >
-            Wyjazd służbowy
-            </button>
-            <button
-                data-testid='time-controller-business-training-button'
-                className={buttons.blueButton}
-                onClick={handleAddTraining}
-            >
-            Dodaj szkolenie
-            </button>
+            <AddTimeButton onClick={handleAddTime} />
+            <AddDayOffButton onClick={handleAddDayOff} />
+            <AddBusinessTripButton onClick={handleAddBusinessTrip} />
+            <AddTrainingButton onClick={handleAddTraining} />
         </div>
     );
 };

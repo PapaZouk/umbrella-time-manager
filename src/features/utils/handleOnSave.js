@@ -1,8 +1,7 @@
 import logger from "react-logger";
-import {calculateBusinessDaysInMonth} from "./calculators/calulculateBusinessDaysInMonth";
 import validateTimesheet from "../validators/validateTimesheet";
 
-export const handleOnSave = (employeeTimesheet, selectedMonth, resetTimesheets, setError, setSuccessMessage) => {
+export const handleOnSave = (employeeTimesheet, resetTimesheet, setError, setSuccessMessage) => {
  if (employeeTimesheet.length === 0) {
   setError("Brak godzin do zapisu. Wypełmnij wszystkie godziny pracy");
   setTimeout(() => {
@@ -10,32 +9,12 @@ export const handleOnSave = (employeeTimesheet, selectedMonth, resetTimesheets, 
   }, 2000);
   return;
  }
- if (hasValidTimesheet(employeeTimesheet, selectedMonth, setError, setSuccessMessage)) {
+ if (validateTimesheet(employeeTimesheet)) {
   logger.info("Saving employee timesheet");
-  resetTimesheets();
- }
-};
-
-const hasValidTimesheet = (employeeTimesheet, selectedMonth, setError, setSuccessMessage) => {
- const businessDaysInMonth = calculateBusinessDaysInMonth(selectedMonth);
- validateTimesheet(employeeTimesheet);
-
- const invalidTimesheet = employeeTimesheet.filter((timesheet) => timesheet.times.length !== businessDaysInMonth);
- if (invalidTimesheet.length > 0) {
-  const employeeWithInvalidTimesheet = invalidTimesheet
-   .map((timesheet) => `${timesheet.employee.name} ${timesheet.employee.surname}`)
-   .join(", ");
-  logger.info("Invalid timesheet: ", employeeWithInvalidTimesheet);
-
-  setError(`Uzupełnij brakujące dni pracy dla pracowników: ${employeeWithInvalidTimesheet}`);
+  setSuccessMessage("Pomyślnie zapisano godziny.");
   setTimeout(() => {
-   setError("");
+   setSuccessMessage("");
   }, 2000);
-  return false;
+  resetTimesheet();
  }
- setSuccessMessage("Pomyślnie zapisano godziny.");
- setTimeout(() => {
-  setSuccessMessage("");
- }, 2000);
- return true;
 };

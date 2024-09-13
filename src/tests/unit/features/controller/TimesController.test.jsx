@@ -9,8 +9,11 @@ jest.mock("../../../../features/utils");
 
 describe('TimesController', () => {
     const employee = generateEmployeeMock();
+    const addTimesButtonId = 'time-controller-add-button';
     const addDayOffId = 'time-controller-day-off-button';
     const addBusinessTripId = 'time-controller-business-trip-button';
+    const addTrainingButtonId = 'time-controller-business-training-button';
+
     const month = '2024-08';
     const day = '2';
 
@@ -52,13 +55,15 @@ describe('TimesController', () => {
     test('renders all buttons', () => {
         renderComponent();
 
-        const addButton = screen.getByTestId('time-controller-add-button');
+        const addTimesButton = screen.getByTestId(addTimesButtonId);
         const annualLeaveButton = screen.getByTestId(addDayOffId);
         const businessTripButton = screen.getByTestId(addBusinessTripId);
+        const addTrainingButton = screen.getByTestId(addTrainingButtonId);
 
-        expect(addButton).toBeVisible();
+        expect(addTimesButton).toBeVisible();
         expect(annualLeaveButton).toBeVisible();
         expect(businessTripButton).toBeVisible();
+        expect(addTrainingButton).toBeVisible();
     });
 
     test('calls setPopupContent with TimesInputs when handleAddTime is triggered', () => {
@@ -66,7 +71,7 @@ describe('TimesController', () => {
 
         renderComponent();
 
-        const addButton = screen.getByTestId('time-controller-add-button');
+        const addButton = screen.getByTestId(addTimesButtonId);
         fireEvent.click(addButton);
 
         expect(mockSetPopupContent).toHaveBeenCalled();
@@ -76,7 +81,7 @@ describe('TimesController', () => {
     test('renders error when month is not provided', () => {
         renderComponent({ month: '' });
 
-       const addButton = screen.getByTestId('time-controller-add-button');
+       const addButton = screen.getByTestId(addTimesButtonId);
        fireEvent.click(addButton);
 
        expect(mockSetError).toHaveBeenCalledWith("Wybierz miesiąc");
@@ -87,7 +92,7 @@ describe('TimesController', () => {
     test('renders error when day is not provided', () => {
         renderComponent({ day: '' });
 
-       const addButton = screen.getByTestId('time-controller-add-button');
+       const addButton = screen.getByTestId(addTimesButtonId);
        fireEvent.click(addButton);
 
        expect(mockSetError).toHaveBeenCalledWith("Wybierz dzień");
@@ -98,7 +103,7 @@ describe('TimesController', () => {
     test('renders error when employee name and surname is not provided', () => {
         renderComponent({ employee: { name: '', surname: ''} });
 
-       const addButton = screen.getByTestId('time-controller-add-button');
+       const addButton = screen.getByTestId(addTimesButtonId);
        fireEvent.click(addButton);
 
        expect(mockSetError).toHaveBeenCalledWith("Wybierz pracownika");
