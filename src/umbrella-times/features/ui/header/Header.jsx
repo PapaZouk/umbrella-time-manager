@@ -1,5 +1,5 @@
 import styles from './Header.module.css';
-import logo from '../../../assets/umbrella_logo_transparent.png';
+import logo from '../../../../assets/umbrella_logo_transparent.png';
 
 export default function Header() {
     return (

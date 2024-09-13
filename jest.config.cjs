@@ -1,7 +1,7 @@
 module.exports = {
   testEnvironment: 'jsdom',
   testMatch: [
-      '<rootDir>src/tests/unit/**/*.test.{js,jsx}'
+      '<rootDir>src/umbrella-times/tests/unit/**/*.test.{js,jsx}'
   ],
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
@@ -9,27 +9,27 @@ module.exports = {
     '^.+\\.(svg)$': 'jest-transform-stub',
   },
   moduleNameMapper: {
-    '\\.(jpg|jpeg|png|gif|svg)$': '<rootDir>/src/tests/unit/_mocks/fileMock.js',
+    '\\.(jpg|jpeg|png|gif|svg)$': '<rootDir>/src/umbrella-times/tests/unit/_mocks/fileMock.js',
   },
   testPathIgnorePatterns: [
     "/node_modules/",
-    "/src/tests/e2e/"
+    "/src/umbrella-times/tests/e2e/"
   ],
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
-  roots: ['<rootDir>/src/tests/unit/'],
-  setupFilesAfterEnv: ['<rootDir>/src/tests/setupTests.js'],
+  roots: ['<rootDir>/src/umbrella-times/tests/unit/'],
+  setupFilesAfterEnv: ['<rootDir>/src/umbrella-times/tests/setupTests.js'],
   collectCoverage: true,
   collectCoverageFrom: [
-    'src/**/*.{js,jsx,ts,tsx}',
-    '!src/**/*.d.ts',
-    '!src/resources**/*.{js,jsx,ts,tsx}',
-    '!src/contracts/**/*.{js,jsx,ts,tsx}',
-    '!src/utils/**/*.{js,jsx,ts,tsx}',
+    'src/umbrella-times/**/*.{js,jsx,ts,tsx}',
+    '!src/umbrella-times/**/*.d.ts',
+    '!src/umbrella-times/resources**/*.{js,jsx,ts,tsx}',
+    '!src/umbrella-times/contracts/**/*.{js,jsx,ts,tsx}',
+    '!src/umbrella-times/utils/**/*.{js,jsx,ts,tsx}',
     '!src/main.jsx',
     '!src/**/index.js',
-    '!src/features/utils/**/*.{js,jsx,ts,tsx}',
-    '!src/features/business/styles/**/*.{js,jsx,ts,tsx}',
-    '!src/tests/unit/_mocks/**/*.{js,jsx,ts,tsx}',
+    '!src/umbrella-times/features/utils/**/*.{js,jsx,ts,tsx}',
+    '!src/umbrella-times/features/business/styles/**/*.{js,jsx,ts,tsx}',
+    '!src/umbrella-times/tests/unit/_mocks/**/*.{js,jsx,ts,tsx}',
   ],
   coverageDirectory: 'coverage',
   coverageThreshold: {

@@ -1,7 +1,7 @@
 import {fireEvent, render, screen} from '@testing-library/react';
 import * as Hooks from '../../features/hooks';
 import * as Utils from '../../features/utils';
-import App from "../../App";
+import TimesApp from "../../TimesApp";
 
 jest.mock('../../features/hooks');
 jest.mock('../../features/utils', () => ({
@@ -69,7 +69,7 @@ describe('App', () => {
     });
 
     test("renders app components without crashing", () => {
-        const { getByTestId } = render(<App />);
+        const { getByTestId } = render(<TimesApp />);
 
         expect(getByTestId(headerId)).toBeInTheDocument();
         expect(getByTestId(monthSelectorId)).toBeInTheDocument();
@@ -85,7 +85,7 @@ describe('App', () => {
     });
 
     test('renders and interacts with DaySelector', () => {
-        render(<App />);
+        render(<TimesApp />);
 
         const daySelector = screen.getByTestId(daySelectorId);
         expect(daySelector).toBeInTheDocument();
@@ -102,7 +102,7 @@ describe('App', () => {
 
     test('renders with days from useMonthDays', () => {
        Hooks.useMonthDays.mockReturnValue(['2024-06', '2024-07']);
-       render(<App />);
+       render(<TimesApp />);
 
        expect(screen.getByTestId(daySelectorId)).toBeInTheDocument();
        expect(screen.getByTestId('days-content')).toBeInTheDocument();
@@ -110,14 +110,14 @@ describe('App', () => {
 
     test('renders without days from useMonthDays', () => {
        Hooks.useMonthDays.mockReturnValue([]);
-       render(<App />);
+       render(<TimesApp />);
 
        expect(screen.getByTestId(daySelectorId)).toBeInTheDocument();
        expect(screen.getByText('No Days')).toBeInTheDocument();
     });
 
     test('useMonthDays is called with selectedMonth', () => {
-        render(<App />);
+        render(<TimesApp />);
 
         const monthSelector = screen.getByTestId(monthSelectorId);
         fireEvent.click(monthSelector);
