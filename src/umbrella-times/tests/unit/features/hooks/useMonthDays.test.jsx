@@ -1,5 +1,5 @@
 import {render, screen} from "@testing-library/react";
-import {useMonthDays} from "../../../../features/hooks";
+import {useMonthDays} from "../../../../src/features/hooks";
 import PropTypes from "prop-types";
 
 const TestComponent = ({ selectedMonth }) => {

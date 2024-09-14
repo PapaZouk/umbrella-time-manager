@@ -1,4 +1,5 @@
 import {expect, test} from "@playwright/test";
+import loginAsUser from "../helpers/AuthenticationHelper";
 
 test.describe('TimesController', () => {
     const timeControllerAddButton = 'time-controller-add-button';
@@ -11,9 +12,13 @@ test.describe('TimesController', () => {
     const addEmployeeErrorMessage = 'Wybierz pracownika';
     const selectMonthErrorMessage = 'Wybierz miesiąc';
 
-    test('display add hours button', async ({ page }) => {
+    test.beforeEach( async ({ page }) => {
         await page.goto('/');
 
+        await loginAsUser(page, {username: "User", password: "password"});
+    });
+
+    test('display add hours button', async ({ page }) => {
         const header = await page.getByTestId(timeControllerAddButton);
 
         await expect(header).toBeVisible();
@@ -21,7 +26,6 @@ test.describe('TimesController', () => {
     });
 
     test('display add day off button', async ({ page }) => {
-        await page.goto('/');
 
         const annualLeaveButton = await page.getByTestId(addDayOffButton);
 
@@ -29,7 +33,6 @@ test.describe('TimesController', () => {
     });
 
     test('display business trip add button', async ({ page }) => {
-        await page.goto('/');
 
         const addButton = await page.getByTestId(businessTripAddButtonId);
 
@@ -38,7 +41,6 @@ test.describe('TimesController', () => {
     });
 
     test('when no data was filled and business trip button was clicked, should display error message', async ({ page }) => {
-        await page.goto('/');
         await page.getByTestId(businessTripAddButtonId).click();
 
         const errorMessage = await page.getByTestId(errorMessagePopupId);
@@ -51,7 +53,6 @@ test.describe('TimesController', () => {
     });
 
     test('when month and day was filled but no employee was selected and business trip button was clicked, should display error message', async ({ page }) => {
-        await page.goto('/');
         await page.getByTestId(monthInputId).fill('2024-08');
         await page.getByTestId(daySelectId).selectOption({ index: 2 });
 

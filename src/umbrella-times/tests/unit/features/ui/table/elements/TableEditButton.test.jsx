@@ -1,5 +1,5 @@
 import {fireEvent, render} from '@testing-library/react';
-import TableEditButton from "../../../../../../features/ui/table/elements/TableEditButton";
+import TableEditButton from "../../../../../../src/features/ui/table/elements/TableEditButton";
 
 describe('TableEditButton', () => {
     test('render table button element correctly', () => {

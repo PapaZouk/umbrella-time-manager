@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Header from '../../../../../features/ui/header/Header';
+import Header from '../../../../../src/features/ui/header/Header';
 
 describe('Header', () => {
     test('should render the logo image and alt text', () => {

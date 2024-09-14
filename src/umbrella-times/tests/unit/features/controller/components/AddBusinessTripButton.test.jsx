@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from "@testing-library/react";
-import AddBusinessTripButton from "../../../../../features/controller/components/AddBusinessTripButton";
+import AddBusinessTripButton from "../../../../../src/features/controller/components/AddBusinessTripButton";
 
 describe('addBusinessTripButton', () => {
    test('renders add business trip button correctly', () => {

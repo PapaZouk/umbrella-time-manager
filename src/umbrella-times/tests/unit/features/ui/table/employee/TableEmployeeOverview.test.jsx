@@ -1,5 +1,5 @@
 import { render, fireEvent } from '@testing-library/react';
-import TableEmployeeOverview from "../../../../../../features/ui/table/employee/TableEmployeeOverview";
+import TableEmployeeOverview from "../../../../../../src/features/ui/table/employee/TableEmployeeOverview";
 
 describe('TableEmployeeOverview', () => {
         const sortedTimes = [{

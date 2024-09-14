@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import TableSummary from "../../../../../../features/ui/table/summary/TableSummary";
+import TableSummary from "../../../../../../src/features/ui/table/summary/TableSummary";
 
 describe('TableSummary', () => {
    test('renders table with all table elements correctly', () => {

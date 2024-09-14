@@ -1,5 +1,5 @@
 import {render, screen, fireEvent} from '@testing-library/react';
-import TableCheckOutCell from "../../../../../../features/ui/table/details/TableCheckOutCell";
+import TableCheckOutCell from "../../../../../../src/features/ui/table/details/TableCheckOutCell";
 
 describe('TableCheckOutCell', () => {
     const time = { checkOut: '15:00' };

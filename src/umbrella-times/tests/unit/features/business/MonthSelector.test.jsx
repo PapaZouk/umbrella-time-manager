@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { MonthSelector } from '../../../../features/business';
+import { MonthSelector } from '../../../../src/features/business';
 
 describe('MonthSelector', () => {
     const onMonthChangeMock = jest.fn();

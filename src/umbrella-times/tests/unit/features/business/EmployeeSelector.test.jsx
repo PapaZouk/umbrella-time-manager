@@ -1,8 +1,8 @@
 import { render, fireEvent } from "@testing-library/react";
-import { EmployeeSelector } from "../../../../features/business";
-import { employeesData } from "../../../../resources/employeesData";
+import { EmployeeSelector } from "../../../../src/features/business";
+import { employeesData } from "../../../../src/resources/employeesData";
 
-jest.mock("../../../../resources/employeesData");
+jest.mock("../../../../src/resources/employeesData");
 
 describe("EmployeeSelector", () => {
  const onEmployeeSelect = jest.fn();

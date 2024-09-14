@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react';
-import TableSummaryBody from "../../../../../../features/ui/table/summary/TableSummaryBody";
+import TableSummaryBody from "../../../../../../src/features/ui/table/summary/TableSummaryBody";
 
-jest.mock('../../../../../../features/ui/table/styles/Tables.module.css', () => ({
+jest.mock('../../../../../../src/features/ui/table/styles/Tables.module.css', () => ({
     "total-balance-cell": "total-balance-cell",
     "total-balance-negative": "total-balance-negative",
     "total-balance-positive": "total-balance-positive",

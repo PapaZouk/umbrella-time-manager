@@ -1,12 +1,12 @@
 import {render,screen} from '@testing-library/react';
-import {EmployeeTable} from "../../../../features/business";
-import {sortTimesByDay} from "../../../../features/utils";
+import {EmployeeTable} from "../../../../src/features/business";
+import {sortTimesByDay} from "../../../../src/features/utils";
 import {generateTimesheetWithEmployeeAndSortedMock} from "../../_mocks/generateTimesheetWithEmployeeAndSorted.mock";
 
-jest.mock('../../../../features/utils/dateFormatter', () => ({
+jest.mock('../../../../src/features/utils/dateFormatter', () => ({
     dateFormatter: jest.fn(() => 'August 2024'),
 }));
-jest.mock('../../../../features/utils/sortTimesByDay', () => ({
+jest.mock('../../../../src/features/utils/sortTimesByDay', () => ({
     sortTimesByDay: jest.fn(() => [
         {
             day: 1,

@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import AddDayOffButton from "../../../../../features/controller/components/AddDayOffButton";
+import AddDayOffButton from "../../../../../src/features/controller/components/AddDayOffButton";
 
 describe('addDayOffButton', () => {
    test('renders add day off button correctly', () => {

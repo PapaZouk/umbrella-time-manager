@@ -1,4 +1,4 @@
-import {hasAllTimes} from "../../../../../features/controller/validators/hasAllTimes";
+import {hasAllTimes} from "../../../../../src/features/controller/validators/hasAllTimes";
 
 describe('hasAllTimes', () => {
    test('given check-in, check-out and employee are correct should return true and not call setError', () => {

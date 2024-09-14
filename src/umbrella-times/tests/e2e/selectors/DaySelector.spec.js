@@ -1,4 +1,5 @@
 import {expect, test} from "@playwright/test";
+import loginAsUser from "../helpers/AuthenticationHelper";
 
 
 test.describe('DaySelector', () => {
@@ -8,14 +9,18 @@ test.describe('DaySelector', () => {
     const weekendDayErrorMessage = 'Wybrany dzień jest weekendem. Proszę wybrać dzień roboczy';
     const holidayErrorMessage = 'Wybrany dzień jest świętem. Proszę wybrać dzień roboczy';
 
-    test('display label day', async ({ page }) => {
+    test.beforeEach( async ({ page }) => {
         await page.goto('/');
+
+        await loginAsUser(page, {username: "User", password: "password"});
+    });
+
+    test('display label day', async ({ page }) => {
         const daySelectorLabel = await page.getByTestId('day-selector-input');
         expect(await daySelectorLabel.textContent()).toBe('Wybierz dzień:');
     });
 
     test('when set up month, should display month days in selector', async  ({ page }) => {
-        await page.goto('/');
         await page.locator('input[data-testid="month-selector-input"]').fill("2024-08");
 
         const select = await page.locator('select[data-testid="day-selector-select"]');
@@ -26,18 +31,14 @@ test.describe('DaySelector', () => {
     });
 
     test('when no month selected, should no day be available', async ({ page }) => {
-       await page.goto('/');
-
        const select = await page.locator('select[data-testid="day-selector-select"]');
        const optionCount = await select.locator('option').count();
-       const dayCount = optionCount - 1;
+       const dayCount = optionCount;
 
        expect(dayCount).toEqual(0);
     });
 
     test('when given day is a weekend, should display error message', async ({ page }) => {
-       await page.goto('/');
-
        await page.getByTestId(monthInputId).fill('2024-08')
        await page.getByTestId(daySelectorSelectId).selectOption('3');
 
@@ -50,8 +51,6 @@ test.describe('DaySelector', () => {
     });
 
     test('when given day is a holiday, should display error message', async ({ page }) => {
-       await page.goto('/');
-
        await page.getByTestId(monthInputId).fill('2024-08')
        await page.getByTestId(daySelectorSelectId).selectOption('15');
 
@@ -64,7 +63,6 @@ test.describe('DaySelector', () => {
     });
 
     test('should fill day selector correctly', async ({ page }) => {
-        await page.goto('/');
         await page.locator('input[data-testid="month-selector-input"]').fill('2024-08');
 
         const daySelect = page.locator('select[data-testid="day-selector-select"]');

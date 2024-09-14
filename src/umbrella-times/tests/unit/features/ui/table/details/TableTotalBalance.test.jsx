@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import TableTotalBalance from "../../../../../../features/ui/table/details/TableTotalBalance";
+import TableTotalBalance from "../../../../../../src/features/ui/table/details/TableTotalBalance";
 
 const styles = {
     "total-balance-cell": "total-balance-cell",

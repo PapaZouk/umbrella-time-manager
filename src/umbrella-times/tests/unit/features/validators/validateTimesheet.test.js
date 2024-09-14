@@ -1,4 +1,4 @@
-import validateTimesheet from '../../../../features/validators/validateTimesheet';
+import validateTimesheet from '../../../../src/features/validators/validateTimesheet';
 
 describe('validateTimesheet', () => {
     test('given timesheet should validate successfully', () => {

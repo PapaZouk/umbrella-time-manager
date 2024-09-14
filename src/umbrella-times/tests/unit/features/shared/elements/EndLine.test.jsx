@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import { EndLine } from "../../../../../features/shared";
+import { EndLine } from "../../../../../src/features/shared";
 
 describe('EndLine', () => {
    test('renders hr element successfully', () => {

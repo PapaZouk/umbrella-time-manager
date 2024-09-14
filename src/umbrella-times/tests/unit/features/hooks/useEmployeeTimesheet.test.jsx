@@ -1,6 +1,6 @@
 import {act, render, screen} from "@testing-library/react";
-import {useEmployeeTimesheet} from "../../../../features/hooks";
-import {initialEmployee, initialTimesheet,} from "../../../../resources/initialStates";
+import {useEmployeeTimesheet} from "../../../../src/features/hooks";
+import {initialEmployee, initialTimesheet,} from "../../../../src/resources/initialStates";
 import {generateTimesheetWithEmployeeMock} from "../../_mocks/generateTimesheetWithEmployee.mock";
 
 const timesheet =  generateTimesheetWithEmployeeMock();

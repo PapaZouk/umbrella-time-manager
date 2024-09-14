@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import TimesInputs from "../../../../features/business/TimesInputs";
+import TimesInputs from "../../../../src/features/business/TimesInputs";
 
 describe('TimesInput', () => {
     const checkInLabelId = 'time-selector-check-in-label';

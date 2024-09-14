@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import Popup from "../../../../../features/shared/popups/Popup";
+import Popup from "../../../../../src/features/shared/popups/Popup";
 
 describe('Popup', () => {
     test('renders content correctly', () => {

@@ -1,5 +1,5 @@
 import { render, screen, fireEvent} from '@testing-library/react';
-import TrainingPopup from "../../../../../features/shared/popups/TrainingPopup";
+import TrainingPopup from "../../../../../src/features/shared/popups/TrainingPopup";
 
 describe('trainingPopup', () => {
     const trainingSelectorLabelId = 'training-selector-label';

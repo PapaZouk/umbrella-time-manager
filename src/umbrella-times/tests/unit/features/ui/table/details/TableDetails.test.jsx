@@ -1,6 +1,6 @@
 import {fireEvent, render} from '@testing-library/react';
-import TableDetails from "../../../../../../features/ui/table/details/TableDetails";
-import {calculateBalance} from "../../../../../../features/utils";
+import TableDetails from "../../../../../../src/features/ui/table/details/TableDetails";
+import {calculateBalance} from "../../../../../../src/features/utils";
 
 const styles = {
     "total-balance-cell": "total-balance-cell",
@@ -8,10 +8,10 @@ const styles = {
     "total-balance-positive": "total-balance-positive",
 };
 
-jest.mock('../../../../../../features/ui/table/styles/Tables.module.css', () => ({
+jest.mock('../../../../../../src/features/ui/table/styles/Tables.module.css', () => ({
     styles
 }));
-jest.mock('../../../../../../features/utils/calculators/calculateBalance', () => ({
+jest.mock('../../../../../../src/features/utils/calculators/calculateBalance', () => ({
     calculateBalance: jest.fn(() => 0),
     calculateTotalHoursAndMinutes: jest.fn(),
 }));

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import TableBusinessTrip from "../../../../../../features/ui/table/details/TableBusinessTrip";
+import TableBusinessTrip from "../../../../../../src/features/ui/table/details/TableBusinessTrip";
 
 describe('tableBusinessTrip', () => {
     const testComponent = (businessTrip) => (

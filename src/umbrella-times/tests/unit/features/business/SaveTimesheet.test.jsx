@@ -1,8 +1,8 @@
 import {fireEvent, render, screen} from "@testing-library/react";
-import {SaveTimesheet} from "../../../../features/business";
-import {handleOnSave} from "../../../../features/utils";
+import {SaveTimesheet} from "../../../../src/features/business";
+import {handleOnSave} from "../../../../src/features/utils";
 
-jest.mock("../../../../features/utils/handleOnSave.js", () => ({
+jest.mock("../../../../src/features/utils/handleOnSave.js", () => ({
     handleOnSave: jest.fn(),
 }));
 

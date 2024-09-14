@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import TableSummaryHead from "../../../../../../features/ui/table/summary/TableSummaryHead";
+import TableSummaryHead from "../../../../../../src/features/ui/table/summary/TableSummaryHead";
 
 describe('TableSummaryHead', () => {
    test('renders table row with proper columns', () => {

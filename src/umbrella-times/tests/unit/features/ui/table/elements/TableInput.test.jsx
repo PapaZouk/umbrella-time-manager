@@ -1,5 +1,5 @@
 import {fireEvent, render} from '@testing-library/react';
-import TableInput from "../../../../../../features/ui/table/elements/TableInput";
+import TableInput from "../../../../../../src/features/ui/table/elements/TableInput";
 
 describe('TableInput', () => {
     test('renders input with proper type, value and onChange handler', () => {

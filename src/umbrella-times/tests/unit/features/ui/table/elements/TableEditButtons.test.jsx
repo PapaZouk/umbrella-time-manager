@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import TableEditButtons from "../../../../../../features/ui/table/elements/TableEditButtons";
+import TableEditButtons from "../../../../../../src/features/ui/table/elements/TableEditButtons";
 
 describe('TableEditButtons', () => {
    test('render two edit buttons with save and cancel icon correctly', () => {

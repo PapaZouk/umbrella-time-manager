@@ -1,7 +1,7 @@
 /* eslint-disable jest/no-identical-title */
 
 import { render, screen } from '@testing-library/react';
-import TableDetailsDayOffType from "../../../../../../features/ui/table/details/TableDetailsDayOffType";
+import TableDetailsDayOffType from "../../../../../../src/features/ui/table/details/TableDetailsDayOffType";
 
 const styles = {
     annualLeaveDays: 'annual-leave-days',

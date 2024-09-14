@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import DayOffPopup from "../../../../../features/shared/popups/DayOffPopup";
+import DayOffPopup from "../../../../../src/features/shared/popups/DayOffPopup";
 
 describe('DayOffPopup', () => {
     const selectorLabelId = 'day-off-selector-label';

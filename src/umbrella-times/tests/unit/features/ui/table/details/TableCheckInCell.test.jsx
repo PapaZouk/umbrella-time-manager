@@ -1,5 +1,5 @@
 import {render, screen, fireEvent} from '@testing-library/react';
-import TableCheckInCell from "../../../../../../features/ui/table/details/TableCheckInCell";
+import TableCheckInCell from "../../../../../../src/features/ui/table/details/TableCheckInCell";
 
 describe('TableCheckInCell', () => {
     const time = { checkIn: '11:00' };

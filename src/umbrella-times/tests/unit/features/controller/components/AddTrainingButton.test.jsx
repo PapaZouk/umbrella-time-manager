@@ -1,5 +1,5 @@
 import {render, screen, fireEvent} from "@testing-library/react";
-import AddTrainingButton from "../../../../../features/controller/components/AddTrainingButton";
+import AddTrainingButton from "../../../../../src/features/controller/components/AddTrainingButton";
 
 describe('addTrainingButton', () => {
    test('renders add training button correctly', () => {

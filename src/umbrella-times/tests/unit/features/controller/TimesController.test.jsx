@@ -1,11 +1,11 @@
 import {fireEvent, render, screen} from '@testing-library/react';
-import TimesController from "../../../../features/controller/TimesController";
+import TimesController from "../../../../src/features/controller/TimesController";
 import {generateEmployeeMock} from "../../_mocks/generateEmployee.mock";
-import TimesInputs from "../../../../features/business/TimesInputs";
+import TimesInputs from "../../../../src/features/business/TimesInputs";
 
-jest.mock("../../../../features/business/TimesInputs");
-jest.mock("../../../../features/shared/popups/DayOffPopup");
-jest.mock("../../../../features/utils");
+jest.mock("../../../../src/features/business/TimesInputs");
+jest.mock("../../../../src/features/shared/popups/DayOffPopup");
+jest.mock("../../../../src/features/utils");
 
 describe('TimesController', () => {
     const employee = generateEmployeeMock();

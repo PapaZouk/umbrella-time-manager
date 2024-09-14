@@ -1,9 +1,10 @@
 import {render, screen, fireEvent} from '@testing-library/react';
-import {TimesheetController} from "../../../../features/business";
+import {TimesheetController} from "../../../../src/features/business";
 import {generateTimesheetMock} from "../../_mocks/generateTimesheet.mock";
-import { printTable } from "../../../../features/utils";
+import { printTable } from "../../../../src/features/utils";
 
-jest.mock('../../../../features/utils/printTable');
+jest.mock('../../../../src/features/utils');
+
 describe('TimesheetController', () => {
     const timesheetControllerId = 'timesheet-controller';
     const saveTimesheetButtonId = 'save-timesheet-button';

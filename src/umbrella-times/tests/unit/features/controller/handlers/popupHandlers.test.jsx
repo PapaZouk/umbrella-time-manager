@@ -3,13 +3,13 @@ import {
     showAddTimesInputs,
     showAddTrainingPopup,
     showDayOffPopup
-} from '../../../../../features/controller/handlers/popupHandlers';
-import DayOffPopup from "../../../../../features/shared/popups/DayOffPopup";
-import TrainingPopup from "../../../../../features/shared/popups/TrainingPopup";
-import TimesInputs from "../../../../../features/business/TimesInputs";
-import {CreateTimesheet} from "../../../../../features/utils/factory/TimesheetFactory";
+} from '../../../../../src/features/controller/handlers/popupHandlers';
+import DayOffPopup from "../../../../../src/features/shared/popups/DayOffPopup";
+import TrainingPopup from "../../../../../src/features/shared/popups/TrainingPopup";
+import TimesInputs from "../../../../../src/features/business/TimesInputs";
+import {CreateTimesheet} from "../../../../../src/features/utils/factory/TimesheetFactory";
 
-jest.mock('../../../../../features/utils/factory/TimesheetFactory', () => ({
+jest.mock('../../../../../src/features/utils/factory/TimesheetFactory', () => ({
     CreateTimesheet: jest.fn(),
 }));
 

@@ -1,5 +1,5 @@
 import {render, screen} from '@testing-library/react';
-import TableTraining from "../../../../../../features/ui/table/details/TableTraining";
+import TableTraining from "../../../../../../src/features/ui/table/details/TableTraining";
 
 describe('tableTraining', () => {
    test('renders training data with correct value', () => {

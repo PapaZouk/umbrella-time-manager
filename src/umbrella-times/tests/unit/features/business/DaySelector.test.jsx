@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react';
-import { DaySelector } from '../../../../features/business';
+import { DaySelector } from '../../../../src/features/business';
 
 describe('DaySelector', () => {
     const onDayChangeMock = jest.fn();

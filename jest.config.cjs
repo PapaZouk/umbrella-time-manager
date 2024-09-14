@@ -1,7 +1,8 @@
 module.exports = {
   testEnvironment: 'jsdom',
   testMatch: [
-      '<rootDir>src/umbrella-times/tests/unit/**/*.test.{js,jsx}'
+      '<rootDir>src/umbrella-times/tests/unit/**/*.test.{js,jsx}',
+      '<rootDir>src/umbrella-web-common/tests/unit/**/*.test.{js,jsx}'
   ],
   transform: {
     '^.+\\.(js|jsx|ts|tsx)$': 'babel-jest',
@@ -16,20 +17,24 @@ module.exports = {
     "/src/umbrella-times/tests/e2e/"
   ],
   moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx'],
-  roots: ['<rootDir>/src/umbrella-times/tests/unit/'],
+  roots: [
+      '<rootDir>/src/umbrella-times/tests/unit/',
+      '<rootDir>/src/umbrella-web-common/tests/unit/',
+  ],
   setupFilesAfterEnv: ['<rootDir>/src/umbrella-times/tests/setupTests.js'],
   collectCoverage: true,
   collectCoverageFrom: [
-    'src/umbrella-times/**/*.{js,jsx,ts,tsx}',
-    '!src/umbrella-times/**/*.d.ts',
-    '!src/umbrella-times/resources**/*.{js,jsx,ts,tsx}',
-    '!src/umbrella-times/contracts/**/*.{js,jsx,ts,tsx}',
-    '!src/umbrella-times/utils/**/*.{js,jsx,ts,tsx}',
+    'src/umbrella-times/src/**/*.{js,jsx}',
+    'src/umbrella-web-common/src/**/*.{js,jsx}',
+    '!src/umbrella-times/src/**/*.d.ts',
+    '!src/umbrella-times/src/resources**/*.{js,jsx}',
+    '!src/umbrella-times/src/contracts/**/*.{js,jsx}',
+    '!src/umbrella-times/src/features/utils/**/*.{js,jsx}',
     '!src/main.jsx',
     '!src/**/index.js',
-    '!src/umbrella-times/features/utils/**/*.{js,jsx,ts,tsx}',
-    '!src/umbrella-times/features/business/styles/**/*.{js,jsx,ts,tsx}',
-    '!src/umbrella-times/tests/unit/_mocks/**/*.{js,jsx,ts,tsx}',
+    '!src/umbrella-times/src/features/utils/**/*.{js,jsx}',
+    '!src/umbrella-times/src/features/business/styles/**/*.{js,jsx}',
+    '!src/umbrella-times/tests/unit/_mocks/**/*.{js,jsx}',
   ],
   coverageDirectory: 'coverage',
   coverageThreshold: {

@@ -1,5 +1,5 @@
 import { render } from '@testing-library/react';
-import TableDetailsHead from "../../../../../../features/ui/table/details/TableDetailsHead";
+import TableDetailsHead from "../../../../../../src/features/ui/table/details/TableDetailsHead";
 
 describe('TableDetailsHead', () => {
     test('render thead with the correct class name correctly', () => {
