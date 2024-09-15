@@ -1,12 +1,12 @@
 .addTimes {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
     background-color: #629711;
-    color: white;
     border: none;
     border-radius: 5px;
+    color: white;
     cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+    padding: 10px 20px;
 }
 
 .addTimes:hover {

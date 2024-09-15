@@ -1,17 +1,17 @@
 .iconButton {
-  display: inline-flex;
-  font-size: 8px;
   align-items: center;
-  justify-content: center;
-  width: 30px;
-  height: 30px;
   background-color: #e0e0e0;
   border: 1px solid #ccc;
   border-radius: 4px;
   cursor: pointer;
-  margin-right: 8px;
+  display: inline-flex;
+  font-size: 8px;
+  height: 30px;
+  justify-content: center;
   margin-left: 10px;
+  margin-right: 8px;
   transition: background-color 0.3s, transform 0.3s;
+  width: 30px;
 }
 
 .iconButton:hover {
@@ -20,8 +20,8 @@
 }
 
 .icon {
-  width: 16px;
+  color: black;
   height: 16px;
   pointer-events: none;
-  color: black;
+  width: 16px;
 }

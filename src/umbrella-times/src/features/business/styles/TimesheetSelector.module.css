@@ -1,14 +1,14 @@
 .container {
-    display: flex;
     align-items: center;
-    flex-wrap: nowrap;
     animation: fadeInOut 3s ease-in-out;
+    display: flex;
+    flex-wrap: nowrap;
 }
 
 .label {
-    margin: 10px 30px;
+    color: #333;
     font-size: 14px;
-    color: #333333;
     font-weight: bold;
+    margin: 10px 30px;
     white-space: nowrap;
 }

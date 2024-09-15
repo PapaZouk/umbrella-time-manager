@@ -1,46 +1,46 @@
 .label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 18px;
-    color: #3498db;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    transition: color 0.3s ease, background-color 0.3s ease;
-    font-family: 'Montserrat', sans-serif;
     background-color: #ecf0f1;
-    padding: 5px;
     border-radius: 4px;
+    color: #3498db;
+    display: block;
+    font-family: Montserrat, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    margin-bottom: 8px;
+    padding: 5px;
+    text-transform: uppercase;
+    transition: color 0.3s ease, background-color 0.3s ease;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .input {
-        width: 100%;
+        box-sizing: border-box;
+        font-size: 14px;
         max-width: 100%;
         padding: 10px;
-        font-size: 14px;
-        box-sizing: border-box;
+        width: 100%;
     }
 
     .label {
+        background-color: #fff;
         font-size: 16px;
         letter-spacing: 0.5px;
         margin-bottom: 10px;
-        background-color: #ffffff;
     }
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
     .label {
+        background-color: #fff;
         font-size: 14px;
         letter-spacing: 0.3px;
         margin-bottom: 12px;
-        background-color: #ffffff;
         padding: 8px;
     }
 
     .input {
-        padding: 8px;
         font-size: 12px;
+        padding: 8px;
     }
 }

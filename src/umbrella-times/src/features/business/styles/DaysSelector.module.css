@@ -1,29 +1,29 @@
 .container {
-    display: flex;
     align-items: center;
+    display: flex;
     flex-wrap: nowrap;
 }
 
 .label {
-    margin: 0 30px 0 0; /* Increase the right margin for more space */
+    color: #333;
     font-size: 14px;
-    color: #333333;
     font-weight: bold;
+    margin: 0 30px 0 0; /* Increase the right margin for more space */
     white-space: nowrap;
 }
 
 .select {
-    width: 150px;
-    padding: 10px;
-    font-size: 14px;
-    border: 1px solid #cccccc;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    margin-right: 20px;
     flex-shrink: 0; /* Prevents the select from shrinking */
+    font-size: 14px;
+    margin-right: 20px;
+    padding: 10px;
+    width: 150px;
 }
 
 .select:focus {
     border-color: #007bff;
+    box-shadow: 0 0 3px rgb(0 123 255 / 50%);
     outline: none;
-    box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
 }

@@ -1,11 +1,10 @@
-
 table {
-  width: 100%;
   border-collapse: collapse;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 16px;
   color: #333;
+  font-family: Montserrat, sans-serif;
+  font-size: 16px;
   margin: 10px 0;
+  width: 100%;
 }
 
 thead {
@@ -14,9 +13,9 @@ thead {
 }
 
 th, td {
+  border-bottom: 1px solid #ddd;
   padding: 12px 15px;
   text-align: center;
-  border-bottom: 1px solid #ddd;
 }
 
 th {
@@ -34,84 +33,84 @@ tbody tr:hover {
 
 tbody tr td.annualLeaveDays {
   background-color: #00bcd4;
-  color: #ffffff;
+  color: #fff;
 }
 
 tbody tr td.businessTrip {
   background-color: #3498db;
-  color: #ffffff;
+  color: #fff;
 }
 
 tbody tr td.sickLeave {
   background-color: #e67e22;
-  color: #ffffff;
+  color: #fff;
 }
 
 tbody tr td.unpaidLeave {
   background-color: #95a5a6;
-  color: #ffffff;
+  color: #fff;
 }
 
 tbody tr td.maternityLeave {
   background-color: #1abc9c;
-  color: #ffffff;
+  color: #fff;
 }
 
 tbody tr td.occasionalLeave {
   background-color: #16a085;
-  color: #ffffff;
+  color: #fff;
 }
 
 tbody tr td.parentalLeave {
   background-color: #2ecc71;
-  color: #ffffff;
+  color: #fff;
 }
 
 tbody tr td.total-balance-positive {
-  color: #27ae60;
   background-color: #e9f7ef;
+  color: #27ae60;
   font-weight: 700;
 }
 
 tbody tr td.total-balance-negative {
-  color: #e74c3c;
   background-color: #f9d6d5;
+  color: #e74c3c;
   font-weight: 700;
 }
 
 tbody tr td.annualLeaveDays:hover {
   background-color: #0097a7;
-  color: #ffffff;
+  color: #fff;
 }
 
 tbody tr td.businessTrip:hover {
   background-color: #2980b9;
-  color: #ffffff;
+  color: #fff;
 }
 
 tbody tr td.sickLeave:hover {
   background-color: #d35400;
-  color: #ffffff;
+  color: #fff;
 }
 
 tbody tr td.unpaidLeave:hover {
   background-color: #7f8c8d;
-  color: #ffffff;
+  color: #fff;
 }
 
 tbody tr td.maternityLeave:hover {
   background-color: #16a085;
-  color: #ffffff;
+  color: #fff;
 }
 
 tbody tr td.occasionalLeave:hover {
   background-color: #1e8449;
-  color: #ffffff;
+  color: #fff;
 }
 
 tbody tr td.parentalLeave:hover {
   background-color: #27ae60;
-  color: #ffffff;
+  color: #fff;
 }
 
 tbody tr:nth-child(even):not(:hover) {
@@ -119,18 +118,18 @@ tbody tr:nth-child(even):not(:hover) {
 }
 
 tbody tr:nth-child(odd):not(:hover) {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 .tableMonthTitle {
-  font-weight: 700;
-  font-size: 18px;
   background-color: #2c3e50;
   color: #ecf0f1;
+  font-size: 18px;
+  font-weight: 700;
   padding: 10px 0;
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
   table {
     font-size: 14px;
   }
@@ -140,7 +139,7 @@ tbody tr:nth-child(odd):not(:hover) {
   }
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
   table {
     font-size: 12px;
   }

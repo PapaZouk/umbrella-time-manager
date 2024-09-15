@@ -1,16 +1,15 @@
 .container {
-    max-width: 400px;
-    margin: 80px auto;
-    padding: 40px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    font-family: 'Montserrat', sans-serif;
-    color: #333;
-
-    opacity: 0;
     animation: fadeIn 0.5s ease forwards;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgb(0 0 0 / 10%);
+    color: #333;
+    font-family: Montserrat, sans-serif;
+    margin: 80px auto;
+    max-width: 400px;
+    opacity: 0;
+    padding: 40px;
+    text-align: center;
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
@@ -19,6 +18,7 @@
         opacity: 0;
         transform: translateY(20px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -30,31 +30,31 @@
 }
 
 .loginHeader {
-    margin-bottom: 30px;
+    color: #3498db;
     font-size: 24px;
     font-weight: 700;
-    color: #3498db;
-    text-transform: uppercase;
     letter-spacing: 1px;
+    margin-bottom: 30px;
+    text-transform: uppercase;
 }
 
 /* Input fields for username and password */
 .loginInput {
-    width: 90%;
-    padding: 15px;
-    margin-bottom: 20px;
-    font-size: 16px;
+    background-color: #f4f6f9;
     border: 1px solid #BDC3C7;
     border-radius: 6px;
-    background-color: #f4f6f9;
     color: #333;
+    font-size: 16px;
+    margin-bottom: 20px;
+    padding: 15px;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    width: 90%;
 }
 
 .loginInput:focus {
     border-color: #4A90E2;
+    box-shadow: 0 0 6px rgb(74 144 226 / 50%);
     outline: none;
-    box-shadow: 0 0 6px rgba(74, 144, 226, 0.5);
 }
 
 .loginInput::placeholder {
@@ -63,27 +63,27 @@
 
 /* Label for the login inputs */
 .loginLabel {
-    display: block;
-    text-align: left;
-    margin-bottom: 8px;
-    font-size: 16px;
     color: #3498db;
+    display: block;
+    font-size: 16px;
     font-weight: 600;
-    text-transform: uppercase;
     letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    text-align: left;
+    text-transform: uppercase;
 }
 
 /* Submit button */
 .login-button {
-    width: 100%;
-    padding: 15px;
-    font-size: 18px;
-    color: #ffffff;
     background-color: #3498db;
     border: none;
     border-radius: 6px;
+    color: #fff;
     cursor: pointer;
+    font-size: 18px;
+    padding: 15px;
     transition: background-color 0.3s ease;
+    width: 100%;
 }
 
 .login-button:hover {
@@ -92,10 +92,10 @@
 
 /* Forgot password link */
 .forgot-password {
-    display: block;
-    margin-top: 20px;
-    font-size: 14px;
     color: #3498db;
+    display: block;
+    font-size: 14px;
+    margin-top: 20px;
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -105,10 +105,10 @@
 }
 
 /* Media queries for responsive design */
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .login-container {
-        padding: 30px;
         margin: 60px auto;
+        padding: 30px;
     }
 
     .login-header {
@@ -116,8 +116,8 @@
     }
 
     .login-input {
-        padding: 12px;
         font-size: 14px;
+        padding: 12px;
     }
 
     .login-button {
@@ -125,10 +125,10 @@
     }
 }
 
-@media (max-width: 480px) {
+@media (width <= 480px) {
     .login-container {
-        padding: 20px;
         margin: 40px auto;
+        padding: 20px;
     }
 
     .login-header {
@@ -136,8 +136,8 @@
     }
 
     .login-input {
-        padding: 10px;
         font-size: 12px;
+        padding: 10px;
     }
 
     .login-button {

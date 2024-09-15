@@ -1,12 +1,12 @@
 .greenButton {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
     background-color: #629711;
-    color: white;
     border: none;
     border-radius: 5px;
+    color: white;
     cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+    padding: 10px 20px;
 }
 
 .greenButton:hover {
@@ -14,14 +14,14 @@
 }
 
 .yellowButton {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
     background-color: #a79d51;
-    color: white;
     border: none;
     border-radius: 5px;
+    color: white;
     cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+    padding: 10px 20px;
 }
 
 .yellowButton:hover {
@@ -30,14 +30,14 @@
 
 
 .blueButton {
-    margin: 10px;
-    padding: 10px 20px;
-    font-size: 16px;
     background-color: #79b9da;
-    color: white;
     border: none;
     border-radius: 5px;
+    color: white;
     cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+    padding: 10px 20px;
 }
 
 .blueButton:hover {
@@ -45,14 +45,14 @@
 }
 
 .redButton {
-    margin: 10px 10px;
-    padding: 10px 20px;
-    font-size: 16px;
     background-color: #f73a3a;
-    color: white;
     border: none;
     border-radius: 5px;
+    color: white;
     cursor: pointer;
+    font-size: 16px;
+    margin: 10px;
+    padding: 10px 20px;
 }
 
 .redButton:hover {

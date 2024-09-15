@@ -1,10 +1,10 @@
 table {
-  width: 100%;
   border-collapse: collapse;
+  color: #333;
   font-family: Arial, sans-serif;
   font-size: 16px;
-  color: #333;
   margin: 10px;
+  width: 100%;
 }
 
 thead {
@@ -14,9 +14,9 @@ thead {
 
 
 th, td {
+  border-bottom: 1px solid #ddd;
   padding: 12px 15px;
   text-align: center;
-  border-bottom: 1px solid #ddd;
 }
 
 th {
@@ -24,9 +24,9 @@ th {
 }
 
 tr.tableMonthTitle {
-  padding: 20x;
-  font-weight: bold;
   font-size: 20px;
+  font-weight: bold;
+  padding: 20px;
 }
 
 tr:hover {
@@ -38,40 +38,40 @@ tbody tr:nth-child(even) {
 }
 
 tbody tr:nth-child(odd) {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 .balance-positive {
-  color: #006400;
   background-color: #e6ffe6;
+  color: #006400;
 }
 
 .balance-negative {
-  color: #ff0000;
   background-color: #ffe6e6;
+  color: #f00;
 }
 
 .total-balance-cell {
-  text-align: center;
   font-size: 18px;
+  text-align: center;
 }
 
 .total-balance-positive {
-  color: #004d00;
   background-color: #e6ffe6;
+  color: #004d00;
   font-weight: bold;
 }
 
 .total-balance-negative {
-  color: #b30000;
   background-color: #ffe6e6;
+  color: #b30000;
   font-weight: bold;
 }
 
 .hours-cell {
-  white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .hour-detail {
@@ -92,7 +92,7 @@ tbody tr:nth-child(odd) {
 }
 
 .hour-detail:nth-child(odd) {
-  background-color: #ffffff;
+  background-color: #fff;
 }
 
 .hour-detail.holiday-background {

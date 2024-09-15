@@ -1,21 +1,21 @@
 .input {
-    width: 100%;
-    max-width: 300px;
-    padding: 12px;
-    font-size: 16px;
+    background-color: #f4f6f9;
     border: 1px solid #BDC3C7;
     border-radius: 6px;
-    margin: 8px 0;
-    background-color: #f4f6f9;
-    color: #333;
     box-sizing: border-box;
+    color: #333;
+    font-size: 16px;
+    margin: 8px 0;
+    max-width: 300px;
+    padding: 12px;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    width: 100%;
 }
 
 .input:focus {
     border-color: #4A90E2;
+    box-shadow: 0 0 6px rgb(74 144 226 / 50%);
     outline: none;
-    box-shadow: 0 0 6px rgba(74, 144, 226, 0.5);
 }
 
 .input::placeholder {
