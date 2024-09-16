@@ -1,10 +1,9 @@
 import styles from "../styles/Container.module.css";
 import PropTypes from "prop-types";
 
-export function Container({ fadeIn, children, styleModule = styles }) {
- const containerAppear = fadeIn ? `${styleModule.containerAppear}` : "";
+export function Container({ children, styleModule = styles }) {
  return (
-     <div className={`${styleModule.container} ${containerAppear}`}>
+     <div className={`${styleModule.container} ${styleModule.containerAppear}`}>
       {children}
      </div>
  );

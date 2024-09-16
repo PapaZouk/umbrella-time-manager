@@ -1,12 +1,13 @@
-import { useState } from "react";
+import {useContext, useState} from "react";
 import styles from "./styles/EmployeeSelector.module.css";
 import logger from "react-logger";
 import { employeesData } from "../../resources/employeesData";
 import { initialEmployee } from "../../resources/initialStates";
 import PropTypes from "prop-types";
+import {EmployeeTimesheetContext} from "../../../../store/employee-timesheet-context";
 
-export function EmployeeSelector({ onEmployeeSelect }) {
- const [selectedEmployee, setSelectedEmployee] = useState({});
+export function EmployeeSelector() {
+ const {selectedEmployee, updateEmployee } = useContext(EmployeeTimesheetContext);
  const employees = employeesData();
 
  function handleChange(event) {
@@ -17,12 +18,10 @@ export function EmployeeSelector({ onEmployeeSelect }) {
 
   if (selectedEmployee) {
    logger.info("Selected employee", selectedEmployee);
-   setSelectedEmployee(selectedEmployee);
-   onEmployeeSelect(selectedEmployee);
+   updateEmployee(selectedEmployee);
   } else {
    logger.info("Setting up initial employee");
-   onEmployeeSelect(initialEmployee);
-   setSelectedEmployee({});
+   updateEmployee(initialEmployee);
   }
  }
 
@@ -58,7 +57,3 @@ export function EmployeeSelector({ onEmployeeSelect }) {
   </>
  );
 }
-
-EmployeeSelector.propTypes = {
- onEmployeeSelect: PropTypes.func.isRequired,
-};

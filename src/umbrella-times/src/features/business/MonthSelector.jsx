@@ -1,10 +1,13 @@
 import styles from './styles/MonthSelector.module.css';
-import PropTypes from "prop-types";
+import {useContext} from "react";
+import {DateSelectionContext} from "../../../../store/date-selection-context";
 
-export function MonthSelector({ onMonthChange, disabled = false}) {
+export function MonthSelector() {
+    const { isMonthSelectionDisabled, updateMonth } = useContext(DateSelectionContext);
+
     const handleMonthChange = (event) => {
-        if (!disabled) {
-            onMonthChange(event.target.value);
+        if (!isMonthSelectionDisabled) {
+            updateMonth(event.target.value);
         }
     }
     return (
@@ -23,13 +26,8 @@ export function MonthSelector({ onMonthChange, disabled = false}) {
                 name="month"
                 className={styles.input}
                 onChange={handleMonthChange}
-                disabled={disabled}
+                disabled={isMonthSelectionDisabled}
             />
         </div>
     );
-}
-
-MonthSelector.propTypes = {
-    onMonthChange: PropTypes.func.isRequired,
-    disabled: PropTypes.bool,
 };

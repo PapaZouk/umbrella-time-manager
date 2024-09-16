@@ -21,7 +21,7 @@ module.exports = {
       '<rootDir>/src/umbrella-times/tests/unit/',
       '<rootDir>/src/umbrella-web-common/tests/unit/',
   ],
-  setupFilesAfterEnv: ['<rootDir>/src/umbrella-times/tests/setupTests.js'],
+  setupFilesAfterEnv: ['<rootDir>/setupTests.js'],
   collectCoverage: true,
   collectCoverageFrom: [
     'src/umbrella-times/src/**/*.{js,jsx}',

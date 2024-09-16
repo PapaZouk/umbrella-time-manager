@@ -1,19 +1,34 @@
 import { render, screen } from '@testing-library/react';
 import { SuccessMessage } from '../../../../src/components/messages';
+import {MessagesContext} from "../../../../../store/messages-context";
+
+jest.mock('../../../../src/icons/Icons', () => ({
+  SuccessIcon: () => <div data-testid="success-icon"></div>
+}));
 
 describe('SuccessMessage', () => {
-  test('renders success message when provided', () => {
-    const message = 'test message';
+  test('renders the success message when successMessage is provided', () => {
+    const mockContextValue = { successMessage: "Successful" };
 
-    render(<SuccessMessage message={message} />);
+    render(
+        <MessagesContext.Provider value={mockContextValue}>
+          <SuccessMessage />
+        </MessagesContext.Provider>
+    );
 
-    expect(screen.getByText(message)).toBeInTheDocument();
-    expect(screen.getByText(message)).toHaveStyle('background-color: #d4edda');
-    expect(screen.getByText(message)).toHaveStyle('color: #155724');
+    expect(screen.getByTestId('success-message-popup')).toBeInTheDocument();
+    expect(screen.getByTestId('success-icon')).toBeInTheDocument();
+    expect(screen.getByTestId('success-message-popup').textContent).toBe('Successful');
   });
 
   test('does not render when no message is provided', () => {
-    render(<SuccessMessage message={null} />);
-    expect(screen.queryByText(/./)).toBeNull();
+    const mockContextValue = { successMessage: ''};
+    render(
+        <MessagesContext.Provider value={mockContextValue}>
+          <SuccessMessage />
+        </MessagesContext.Provider>
+    );
+
+    expect(screen.queryByTestId('success-message-popup')).toBeNull();
   });
 });

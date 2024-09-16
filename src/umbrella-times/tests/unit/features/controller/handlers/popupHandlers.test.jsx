@@ -1,70 +1,25 @@
-import {
-    handleDayOffType,
-    showAddTimesInputs,
-    showAddTrainingPopup,
-    showDayOffPopup
-} from '../../../../../src/features/controller/handlers/popupHandlers';
+import {handleDayOffType,} from '../../../../../src/features/controller/handlers/popupHandlers';
 import DayOffPopup from "../../../../../src/features/shared/popups/DayOffPopup";
-import TrainingPopup from "../../../../../src/features/shared/popups/TrainingPopup";
-import TimesInputs from "../../../../../src/features/business/TimesInputs";
 import {CreateTimesheet} from "../../../../../src/features/utils/factory/TimesheetFactory";
+import {useContext} from "react";
+import {PopupContext} from "../../../../../../store/popups-context";
 
 jest.mock('../../../../../src/features/utils/factory/TimesheetFactory', () => ({
     CreateTimesheet: jest.fn(),
 }));
 
 describe('popupHandlers', () => {
-    test('display TimesInput component correctly', () => {
-        const setPopupContentMock = jest.fn();
-        const handleCloseTimesInputsPopupMock = jest.fn();
-        const closePopupMock = jest.fn();
-
-        showAddTimesInputs(
-            setPopupContentMock,
-            handleCloseTimesInputsPopupMock,
-            closePopupMock,
-        );
-
-        expect(setPopupContentMock).toHaveBeenCalledWith(
-            <TimesInputs
-                handleCloseTimesInputs={handleCloseTimesInputsPopupMock}
-                handleCancel={closePopupMock}
-            />
-        );
-    });
-
     test('displays DayOffPopup component correctly', () => {
         const setPopupContentMock = jest.fn();
         const handleSaveDayOffMock = jest.fn();
         const closePopupMock = jest.fn();
 
-        showDayOffPopup(
-            setPopupContentMock,
-            handleSaveDayOffMock,
-            closePopupMock,
-        );
+        const {setPopupContent} = useContext(PopupContext);
+        setPopupContent(<DayOffPopup onSaveDayOff={setPopupContentMock}/>);
 
         expect(setPopupContentMock).toHaveBeenCalledWith(
             <DayOffPopup
                 onSaveDayOff={handleSaveDayOffMock}
-                handleCancel={closePopupMock}
-            />
-        );
-    });
-    test('displays TrainingPopup component correctly', () => {
-        const setPopupContentMock = jest.fn();
-        const handleTrainingButtonMock = jest.fn();
-        const closePopupMock = jest.fn();
-
-        showAddTrainingPopup(
-            setPopupContentMock,
-            handleTrainingButtonMock,
-            closePopupMock,
-        );
-
-        expect(setPopupContentMock).toHaveBeenCalledWith(
-            <TrainingPopup
-                onSaveTraining={handleTrainingButtonMock}
                 handleCancel={closePopupMock}
             />
         );

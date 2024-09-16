@@ -1,8 +1,12 @@
 import styles from './Header.module.css';
 import logo from '../../../../../assets/umbrella_logo_transparent.png';
 import PropTypes from "prop-types";
+import {UserContext} from "../../../../../store/user-context";
+import {useContext} from "react";
 
-export default function Header({ userName, children }) {
+export default function Header({ children }) {
+    const {user} = useContext(UserContext);
+
     return (
         <>
             <header data-testid="time-manager-header" className={styles.appHeader}>
@@ -15,7 +19,7 @@ export default function Header({ userName, children }) {
                 </div>
             </header>
             <menu className={styles.menu}>
-                <h4 className={styles.welcomeMessage}>Witaj, {userName}!</h4>
+                <h4 className={styles.welcomeMessage}>Witaj, {user.userName}!</h4>
                 <div className={styles.menuItem}>
                     {children}
                 </div>
@@ -25,6 +29,5 @@ export default function Header({ userName, children }) {
 }
 
 Header.propTypes = {
-    userName: PropTypes.string,
     children: PropTypes.node,
 }

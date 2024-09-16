@@ -5,15 +5,18 @@ import PropTypes from "prop-types";
 import {calculateTotalBalance} from "../../../utils/calculators/calculateBalance";
 import {calculateBusinessTripDays} from "../../../utils/calculators/calculateBusinessTripDays";
 import {calculateTotalSickLeaveDays} from "../../../utils/calculators/calculateTotalSickLeaveDays";
+import {useContext} from "react";
+import {DateSelectionContext} from "../../../../../../store/date-selection-context";
 
 export default function TableEmployeeOverview(
     {
         sortedTimesheet = [],
-        month,
         formattedDate,
         onTimesUpdate,
     }
     ) {
+    const { selectedMonth } = useContext(DateSelectionContext);
+
     return (
         <div data-testid='tables-content' id="table-content">
             {sortedTimesheet.map((timesheet, timesheetIndex) => {
@@ -23,7 +26,7 @@ export default function TableEmployeeOverview(
                 const annualLeaveDays = calculateAnnualLeaveDays(timesheet.times);
                 const totalBusinessTripDays = calculateBusinessTripDays(timesheet.times);
                 const totalSickLeaveDays = calculateTotalSickLeaveDays(timesheet.times);
-                const totalDaysInMonth = calculateBusinessDaysInMonth(month);
+                const totalDaysInMonth = calculateBusinessDaysInMonth(selectedMonth);
                 const totalRecordedDays = timesheet.times.length;
 
                 return (

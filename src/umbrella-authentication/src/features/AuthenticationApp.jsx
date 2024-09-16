@@ -1,20 +1,17 @@
 import styles from './styles/Login.module.css';
 import errors from '../../../umbrella-web-common/src/components/styles/Errors.module.css';
 import effects from '../../../umbrella-web-common/src/components/styles/Effects.module.css';
-import {forwardRef, useImperativeHandle, useRef, useState} from "react";
+import {useContext, useRef, useState} from "react";
 import PropTypes from "prop-types";
 import WelcomeMessage from "./messages/WelcomeMessage";
 import {Container} from "../../../umbrella-web-common/src/components/container/Container";
+import {UserContext} from "../../../store/user-context";
 
-const AuthenticationApp = forwardRef(function AuthenticationApp({ onLogin }, ref) {
+export default function AuthenticationApp() {
+    const { handleUserLogin } = useContext(UserContext);
+
     const loginInput = useRef();
     const passwordInput = useRef();
-
-    useImperativeHandle(ref, () => ({
-           getUserLogin() {
-               return loginInput.current.value;
-           }
-    }));
 
     const [error, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -28,8 +25,8 @@ const AuthenticationApp = forwardRef(function AuthenticationApp({ onLogin }, ref
             setErrorMessage('Uzupełnij wszystkie dane');
             resetError();
         } else if (loginInput.current.value === 'User' && passwordInput.current.value === 'password') {
+            handleUserLogin(loginInput.current.value);
             setSuccess(true);
-            onLogin();
         } else {
             setError(true);
             setErrorMessage("Niepoprawne dane");
@@ -39,7 +36,7 @@ const AuthenticationApp = forwardRef(function AuthenticationApp({ onLogin }, ref
 
     return (
         <>
-          {success ? <WelcomeMessage userName={loginInput.current.value}/> : (
+          {success ? <WelcomeMessage /> : (
               <Container fadeIn={true} styleModule={styles}>
                   {error && <p className={errors.errorFrame}>{errorMessage}</p>}
                   <label
@@ -81,10 +78,8 @@ const AuthenticationApp = forwardRef(function AuthenticationApp({ onLogin }, ref
           )}
         </>
     );
-});
-
-AuthenticationApp.propTypes = {
-    onLogin: PropTypes.func,
 };
 
-export default AuthenticationApp;
+AuthenticationApp.propTypes = {
+    handleLogIn: PropTypes.func,
+};

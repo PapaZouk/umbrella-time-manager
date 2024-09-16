@@ -1,112 +1,141 @@
-import PropTypes from "prop-types";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {calculateBalance} from "../utils";
 import {dayOffTypes} from "../../resources/dayOffTypes";
 import {CreateTimesheet} from "../utils/factory/TimesheetFactory";
-import {isInitialTimesheetDataProvided} from "./validators/isInitialTimesheetDataProvided";
-import {hasAllTimes} from './validators/hasAllTimes';
 import AddTimeButton from "./components/AddTimeButton";
 import AddDayOffButton from "./components/AddDayOffButton";
 import AddBusinessTripButton from "./components/AddBusinessTripButton";
 import AddTrainingButton from "./components/AddTrainingButton";
-import {handleDayOffType, showAddTimesInputs, showAddTrainingPopup, showDayOffPopup} from "./handlers/popupHandlers";
+import {PopupContext} from "../../../../store/popups-context";
+import TimesInputs from "../business/TimesInputs";
+import DayOffPopup from "../shared/popups/DayOffPopup";
+import TrainingPopup from "../shared/popups/TrainingPopup";
+import {EmployeeTimesheetContext} from "../../../../store/employee-timesheet-context";
+import {MessagesContext} from "../../../../store/messages-context";
+import {DateSelectionContext} from "../../../../store/date-selection-context";
 
-export default function TimesController(
-    {
-        employee,
-        month,
-        day,
-        onTimesheetUpdate,
-        setError,
-        setPopupContent,
-    }
-) {
+export default function TimesController() {
+    const { closePopup, setPopupContent } = useContext(PopupContext);
+    const { selectedEmployee, updateTimesheet } = useContext(EmployeeTimesheetContext);
+    const { setErrorMessage } = useContext(MessagesContext);
+    const { selectedMonth, selectedDay } = useContext(DateSelectionContext);
+
     // eslint-disable-next-line no-unused-vars
     const [checkIn, setCheckIn] = useState("");
     // eslint-disable-next-line no-unused-vars
     const [checkOut, setCheckOut] = useState("");
 
     const handleAddTime = () => {
-        if (!isInitialTimesheetDataProvided({month, day, employee, setError})) {
+        if (!isInitialTimesheetDataProvided({selectedMonth, selectedDay, selectedEmployee})) {
             return;
         }
-        showAddTimesInputs(setPopupContent, handleCloseTimesInputsPopup, closePopup);
+        setPopupContent(<TimesInputs handleCloseTimesInputs={handleCloseTimesInputsPopup}/>);
     };
 
     const handleAddDayOff = () => {
-        if (!isInitialTimesheetDataProvided({month, day, employee, setError})) {
+        if (!isInitialTimesheetDataProvided({selectedMonth, selectedDay, selectedEmployee})) {
             return;
         }
-        showDayOffPopup(setPopupContent, handleSaveDayOff, closePopup);
+        setPopupContent(<DayOffPopup onSaveDayOff={handleSaveDayOff}/>);
     };
 
     const handleAddTraining = () => {
-      if (!isInitialTimesheetDataProvided({month, day, employee, setError})) {
+      if (!isInitialTimesheetDataProvided({selectedMonth, selectedDay, selectedEmployee})) {
           return;
       }
-      showAddTrainingPopup(setPopupContent, handleTrainingButton, closePopup);
+        setPopupContent(<TrainingPopup onSaveTraining={handleTrainingButton}/>);
     };
 
     const handleSaveDayOff = (selectedDayOff) => {
         closePopup();
         const dayOffType = Array.from(dayOffTypes()).filter((day) => day === selectedDayOff)[0];
-        handleDayOffType(dayOffType, employee, month, day, onTimesheetUpdate, resetCheckInAndCheckOut);
+        let timesheetData = {};
+
+        switch (dayOffType) {
+            case 'Zwolnienie lekarskie':
+                timesheetData = {isSickLeave: true};
+                break;
+            case 'Bezpłatny urlop':
+                timesheetData = {isUnpaidLeave: true};
+                break;
+            case "Urlop macierzyński":
+                timesheetData = {isMaternityLeave: true};
+                break;
+            case "Urlop okazjonalny":
+                timesheetData = {isOccasionalLeave: true};
+                break;
+            case "Urlop wychowawczy":
+                timesheetData = {isParentalLeave: true};
+                break;
+            default:
+                timesheetData = {isHoliday: true};
+        }
+        const newTimesheet = CreateTimesheet({
+            employee: selectedEmployee,
+            month: selectedMonth,
+            day: selectedDay,
+            dayOff: dayOffType,
+            ...timesheetData,
+        });
+
+        updateTimesheet(newTimesheet);
+        resetCheckInAndCheckOut();
     };
 
     const handleAddBusinessTrip = () => {
-        if (!isInitialTimesheetDataProvided({month, day, employee, setError})) {
+        if (!isInitialTimesheetDataProvided({selectedMonth, selectedDay, selectedEmployee})) {
             return;
         }
         const newTimesheetWithBusinessTrip = CreateTimesheet(
             {
-                employee: employee,
-                month: month,
-                day: day,
+                employee: selectedEmployee,
+                month: selectedMonth,
+                day: selectedDay,
                 isBusinessTrip: true,
             }
         );
-        onTimesheetUpdate(newTimesheetWithBusinessTrip);
+        updateTimesheet(newTimesheetWithBusinessTrip);
         resetCheckInAndCheckOut();
     };
 
     const handleTrainingButton = (trainingType) => {
       closePopup();
 
-      if (!isInitialTimesheetDataProvided({month, day, employee, setError})) {
+      if (!isInitialTimesheetDataProvided({selectedMonth, selectedDay, selectedEmployee})) {
           return;
       }
 
       const newTimesheetWithTraining = CreateTimesheet(
           {
-            employee,
-              month,
-              day,
+              employee: selectedEmployee,
+              month: selectedMonth,
+              day: selectedDay,
               isTraining: true,
               trainingType: trainingType
           }
       );
-      onTimesheetUpdate(newTimesheetWithTraining);
+      updateTimesheet(newTimesheetWithTraining);
       resetCheckInAndCheckOut();
     };
 
     const handleSave = (newCheckIn, newCheckOut) => {
-        if (!hasAllTimes(newCheckIn, newCheckOut, employee, setError)) {
+        if (!hasAllTimes(newCheckIn, newCheckOut, selectedEmployee)) {
             return;
         }
 
         const balance = calculateBalance(newCheckIn, newCheckOut, 8);
         const newTimesheet = CreateTimesheet(
             {
-                employee: employee,
+                employee: selectedEmployee,
                 checkIn: newCheckIn,
                 checkOut: newCheckOut,
-                month: month,
-                day: day,
+                month: selectedMonth,
+                day: selectedDay,
                 balance: balance,
             },
         );
 
-        onTimesheetUpdate(newTimesheet);
+        updateTimesheet(newTimesheet);
         resetCheckInAndCheckOut();
     };
 
@@ -115,16 +144,49 @@ export default function TimesController(
         handleSave(checkIn, checkOut);
     };
 
-    const closePopup = () => {
-        setTimeout(() => {
-            setPopupContent("");
-        }, 200);
-    };
-
     const resetCheckInAndCheckOut = () => {
         setCheckIn("");
         setCheckOut("");
     };
+
+    function isInitialTimesheetDataProvided({selectedMonth, selectedDay, selectedEmployee}) {
+        if (!selectedMonth) {
+            setErrorMessage('Wybierz miesiąc');
+            setTimeout(() => {
+                setErrorMessage('');
+            }, 2000);
+            return false;
+        } else if (!selectedDay) {
+            setErrorMessage('Wybierz dzień');
+            setTimeout(() => {
+                setErrorMessage('');
+            }, 2000);
+            return false;
+        } else if (!selectedEmployee || selectedEmployee.name === '' || selectedEmployee.surname === '') {
+            setErrorMessage('Wybierz pracownika');
+            setTimeout(() => {
+                setErrorMessage('');
+            }, 2000);
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    function hasAllTimes(checkIn, checkOut, selectedEmployee) {
+        if (
+            (checkIn && checkOut && selectedEmployee) &&
+            (checkIn !== '' && checkOut !== '') &&
+            (selectedEmployee.name !== '' && selectedEmployee.surname !== '')
+        ) {
+            return true;
+        }
+        setErrorMessage("Uzupełnij wszystkie dane");
+        setTimeout(() => {
+            setErrorMessage("");
+        }, 2000);
+        return false;
+    }
 
     return (
         <div>
@@ -134,13 +196,4 @@ export default function TimesController(
             <AddTrainingButton onClick={handleAddTraining} />
         </div>
     );
-};
-
-TimesController.propTypes = {
-    employee: PropTypes.object,
-    month: PropTypes.string,
-    day: PropTypes.string,
-    onTimesheetUpdate: PropTypes.func,
-    setError: PropTypes.func,
-    setPopupContent: PropTypes.func,
 };

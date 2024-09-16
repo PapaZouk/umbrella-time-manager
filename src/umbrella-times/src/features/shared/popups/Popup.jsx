@@ -1,8 +1,11 @@
 import styles from '../styles/Popup.module.css';
 import PropTypes from "prop-types";
+import {useContext} from "react";
+import {PopupContext} from "../../../../../store/popups-context";
 
-export default function Popup({ content }) {
-    if (!content) {
+export default function Popup() {
+    const { popupContent } = useContext(PopupContext);
+    if (!popupContent) {
         return;
     }
 
@@ -14,12 +17,8 @@ export default function Popup({ content }) {
                 data-testid="popup-content"
                 className={styles.popupContent}
             >
-                { content }
+                { popupContent }
             </div>
         </div>
     )
 };
-
-Popup.propTypes = {
-    content: PropTypes.node,
-}

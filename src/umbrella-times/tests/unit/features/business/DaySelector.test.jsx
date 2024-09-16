@@ -2,11 +2,10 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import { DaySelector } from '../../../../src/features/business';
 
 describe('DaySelector', () => {
-    const onDayChangeMock = jest.fn();
     const days = [1, 2, 3, 4];
 
     test('render correctly with given days', () => {
-        render(<DaySelector days={days} onDayChange={onDayChangeMock} />);
+        render(<DaySelector />);
 
         expect(screen.getByLabelText(/Wybierz dzień:/i)).toBeInTheDocument();
         expect(screen.getByText('Wybierz...')).toBeInTheDocument();
@@ -18,7 +17,7 @@ describe('DaySelector', () => {
     });
 
     test('calls onDayChange when a day is selected', () => {
-        render(<DaySelector days={ days } onDayChange = { onDayChangeMock } />);
+        render(<DaySelector />);
 
         fireEvent.change(screen.getByRole('combobox'), { target: { value: '1' } });
 
@@ -26,7 +25,7 @@ describe('DaySelector', () => {
     });
 
     test('renders without errors when days is undefined or empty', () => {
-        render(<DaySelector days={ [] } onDayChange = { onDayChangeMock } />);
+        render(<DaySelector />);
 
         expect(screen.getByText('Wybierz...')).toBeInTheDocument();
         expect(screen.getAllByRole('option').length).toBe(1);

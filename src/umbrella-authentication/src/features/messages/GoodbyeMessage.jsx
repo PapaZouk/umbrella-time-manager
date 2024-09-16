@@ -1,11 +1,9 @@
-import PropTypes from "prop-types";
+import {UserContext} from "../../../../store/user-context";
+import {useContext} from "react";
 
-export default function GoodbyeMessage({ userName }) {
+export default function GoodbyeMessage() {
+    const {user} = useContext(UserContext);
     return (
-            <h3>Do zobaczenia {userName}!</h3>
+            <h3>Do zobaczenia {user.userName}!</h3>
     )
-};
-
-GoodbyeMessage.propTypes = {
-    userName: PropTypes.string,
 };

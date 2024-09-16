@@ -5,9 +5,12 @@ import buttons from '../shared/styles/Buttons.module.css';
 import inputs from '../shared/styles/Inputs.module.css';
 import labels from '../shared/styles/Labels.module.css';
 import PropTypes from "prop-types";
-import {useState} from "react";
+import {useContext, useState} from "react";
+import {PopupContext} from "../../../../store/popups-context";
 
-export default function TimesInputs({ handleCloseTimesInputs, handleCancel }) {
+export default function TimesInputs({ handleCloseTimesInputs}) {
+    const { closePopup } = useContext(PopupContext);
+
     const [selectedCheckIn, setSelectedCheckIn] = useState('');
     const [selectedCheckOut, setSelectedCheckOut] = useState('');
     const [error, setError] = useState(false);
@@ -83,7 +86,7 @@ export default function TimesInputs({ handleCloseTimesInputs, handleCancel }) {
                     <button
                     data-testid='times-input-cancel-button'
                     className={buttons.redButton}
-                    onClick={handleCancel}
+                    onClick={closePopup}
                     >
                         Anuluj
                     </button>

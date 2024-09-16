@@ -1,16 +1,20 @@
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {dateFormatter, sortTimesByDay} from "../utils";
 import TableEmployeeOverview from "../ui/table/employee/TableEmployeeOverview";
-import PropTypes from "prop-types";
+import {EmployeeTimesheetContext} from "../../../../store/employee-timesheet-context";
+import {DateSelectionContext} from "../../../../store/date-selection-context";
 
-export function EmployeeTable({ month, timesheet, handleEditedTimesheet }) {
+export function EmployeeTable() {
+ const { selectedMonth } = useContext(DateSelectionContext);
+ const { timesheet, editTimesheet } = useContext(EmployeeTimesheetContext);
+
  const [sortedTimesheet, setSortedTimesheet] = useState(timesheet);
 
  useEffect(() => {
   setSortedTimesheet(
-   timesheet.map((timesheet) => ({
-    ...timesheet,
-    sortedTimes: sortTimesByDay(timesheet.times),
+   timesheet.map((unsortedTimes) => ({
+    ...unsortedTimes,
+    sortedTimes: sortTimesByDay(unsortedTimes.times),
    }))
   );
  }, [timesheet]);
@@ -23,23 +27,16 @@ export function EmployeeTable({ month, timesheet, handleEditedTimesheet }) {
    sortedTimes: sortTimesByDay(updatedTimes),
   };
   setSortedTimesheet(updatedTimesheet);
-  handleEditedTimesheet(updatedTimesheet[index]);
+  editTimesheet(updatedTimesheet[index]);
  };
 
- const formattedDate = month ? dateFormatter(month) : "Wybierz miesiąc";
+ const formattedDate = selectedMonth ? dateFormatter(selectedMonth) : "Wybierz miesiąc";
 
  return (
   <TableEmployeeOverview
       sortedTimesheet={sortedTimesheet}
-      month={month}
       formattedDate={formattedDate}
       onTimesUpdate={onTimesUpdate}
   />
  );
-};
-
-EmployeeTable.propTypes = {
- month: PropTypes.string,
- timesheet: PropTypes.array,
- handleEditedTimesheet: PropTypes.func,
-};
+}

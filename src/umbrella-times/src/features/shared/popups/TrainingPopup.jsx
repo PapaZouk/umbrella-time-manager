@@ -1,22 +1,21 @@
 import styles from '../styles/Popup.module.css';
 import labels from '../styles/Labels.module.css';
 import buttons from '../styles/Buttons.module.css';
-import {useState} from "react";
+import {useContext, useState} from "react";
 import errors from "../../../../../umbrella-web-common/src/components/styles/Errors.module.css";
 import { trainingTypes } from '../../../resources/trainingTypes';
 import PropTypes from "prop-types";
+import {PopupContext} from "../../../../../store/popups-context";
 
-export default function TrainingPopup({ onSaveTraining, handleCancel }) {
+export default function TrainingPopup({ onSaveTraining }) {
+    const { closePopup } = useContext(PopupContext);
+
     const [selectedOption, setSelectedOption] = useState('');
     const [error, setError] = useState(false);
 
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
     };
-
-    const handleOnCancel = () => {
-        handleCancel();
-    }
 
     const handleSave = () => {
         if (selectedOption) {
@@ -72,7 +71,7 @@ export default function TrainingPopup({ onSaveTraining, handleCancel }) {
                 <button
                     data-testid='training-selector-cancel-button'
                     className={buttons.redButton}
-                    onClick={handleOnCancel}
+                    onClick={closePopup}
                 >
                     Anuluj
                 </button>

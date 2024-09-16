@@ -1,20 +1,18 @@
-import PropTypes from "prop-types";
 import errors from '../styles/Errors.module.css';
-import { ErrorIcon } from '../../icons/Icons';
+import {ErrorIcon} from '../../icons/Icons';
+import {useContext} from "react";
+import {MessagesContext} from "../../../../store/messages-context";
 
-export function ErrorMessage({ message }) {
-    if (!message) return null;
+export function ErrorMessage() {
+    const { errorMessage} = useContext(MessagesContext);
+    if (!errorMessage) return null;
 
     return (
         <div data-testid='error-message-popup' className={errors.errorOverlay}>
             <div className={errors.errorFrame}>
                 <ErrorIcon />
-                {message}
+                {errorMessage}
             </div>
         </div>
     );
 }
-
-ErrorMessage.propTypes = {
-    message: PropTypes.string,
-};

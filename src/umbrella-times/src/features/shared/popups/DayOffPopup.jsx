@@ -4,12 +4,16 @@ import errors from '../../../../../umbrella-web-common/src/components/styles/Err
 import buttons from '../styles/Buttons.module.css';
 import labels from '../styles/Labels.module.css';
 import {dayOffTypes} from "../../../resources/dayOffTypes";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import PropTypes from "prop-types";
+import {PopupContext} from "../../../../../store/popups-context";
+import {MessagesContext} from "../../../../../store/messages-context";
 
-export default function DayOffPopup({ onSaveDayOff, handleCancel }) {
+export default function DayOffPopup({ onSaveDayOff }) {
+    const { closePopup } = useContext(PopupContext);
+    const { errorMessage, setErrorMessage } = useContext(MessagesContext);
+
     const [selectedOption, setSelectedOption] = useState("");
-    const [error, setError] = useState(false);
 
     const handleChange = (event) => {
         setSelectedOption(event.target.value);
@@ -17,19 +21,19 @@ export default function DayOffPopup({ onSaveDayOff, handleCancel }) {
 
     const handleSave = () => {
         if (selectedOption) {
-            setError(false);
+            setErrorMessage(false);
             onSaveDayOff(selectedOption);
         } else {
-            setError(true);
+            setErrorMessage(true);
             setTimeout(() => {
-               setError(false);
+               setErrorMessage(false);
             }, 2000);
         }
     }
 
     return (
         <>
-            {error && (
+            {errorMessage && (
                 <div data-testid='day-off-error' className={styles.container}>
                     <p className={errors.errorFrame}>Wybierz rodzaj dnia wolnego</p>
                 </div>
@@ -45,7 +49,7 @@ export default function DayOffPopup({ onSaveDayOff, handleCancel }) {
                 <select
                     data-testid='day-off-selector-select'
                     value={selectedOption}
-                    className={`${error && !selectedOption ? effects.errorEffect : ''}`}
+                    className={`${errorMessage && !selectedOption ? effects.errorEffect : ''}`}
                     onChange={handleChange}
                 >
                     <option value="" disabled>
@@ -63,14 +67,14 @@ export default function DayOffPopup({ onSaveDayOff, handleCancel }) {
                     data-testid='day-off-selector-save-button'
                     className={buttons.greenButton}
                     onClick={handleSave}
-                    disabled={error}
+                    disabled={!!errorMessage}
                 >
                     Zapisz
                 </button>
                 <button
                     data-testid='day-off-selector-cancel-button'
                     className={buttons.redButton}
-                    onClick={handleCancel}
+                    onClick={closePopup}
                 >
                     Anuluj
                 </button>
@@ -81,6 +85,4 @@ export default function DayOffPopup({ onSaveDayOff, handleCancel }) {
 
 DayOffPopup.propTypes = {
     onSaveDayOff: PropTypes.func,
-    setSelectedDayOff: PropTypes.func,
-    handleCancel: PropTypes.func,
 };
