@@ -1,5 +1,6 @@
 import { render, screen, fireEvent} from '@testing-library/react';
 import TrainingPopup from "../../../../../src/features/shared/popups/TrainingPopup";
+import {PopupContext} from "../../../../../../store/popups-context";
 
 describe('trainingPopup', () => {
     const trainingSelectorLabelId = 'training-selector-label';
@@ -10,13 +11,16 @@ describe('trainingPopup', () => {
 
     const errorMessage = 'Wybierz rodzaj szkolenia';
 
+    const popupContextValueMock = {
+        closePopup: jest.fn(),
+    };
+
     test('renders label with selector, save and cancel button correctly', () => {
         render(
-           <TrainingPopup
-               onSaveTraining={() => {}}
-               handleCancel={() => {}}
-           />
-       );
+           <PopupContext.Provider value={popupContextValueMock}>
+               <TrainingPopup onSaveTraining={() => {}} />
+           </PopupContext.Provider>
+        );
 
        const trainingLabel = screen.getByTestId(trainingSelectorLabelId);
        const trainingSelector = screen.getByTestId(trainigSelectorId);
@@ -33,10 +37,9 @@ describe('trainingPopup', () => {
         const onSaveTrainingMock = jest.fn();
 
         render(
-           <TrainingPopup
-            onSaveTraining={onSaveTrainingMock}
-            handleCancel={() => {}}
-           />
+           <PopupContext.Provider value={popupContextValueMock}>
+               <TrainingPopup onSaveTraining={onSaveTrainingMock} />
+           </PopupContext.Provider>
        );
 
        const trainingSaveButton = screen.getByTestId(trainingSelectorSaveButtonId);
@@ -49,29 +52,25 @@ describe('trainingPopup', () => {
     });
 
     test('calls handle cancel when cancel button was clicked', () => {
-        const handleCancelMock = jest.fn();
-
         render(
-           <TrainingPopup
-            onSaveTraining={() => {}}
-            handleCancel={handleCancelMock}
-           />
+           <PopupContext.Provider value={popupContextValueMock} >
+               <TrainingPopup onSaveTraining={() => {}} />
+           </PopupContext.Provider>
        );
 
        const trainingCancelButton = screen.getByTestId(trainingSelectorCancelButtonId);
        fireEvent.click(trainingCancelButton);
 
-       expect(handleCancelMock).toHaveBeenCalled();
+       expect(popupContextValueMock.closePopup).toHaveBeenCalled();
     });
 
     test('calls onSaveTraining when training was selected and save button was clicked', () => {
         const onSaveTrainingMock = jest.fn();
 
         render(
-            <TrainingPopup
-                onSaveTraining={onSaveTrainingMock}
-                handleCancel={() => {}}
-            />
+            <PopupContext.Provider value={popupContextValueMock} >
+                <TrainingPopup onSaveTraining={onSaveTrainingMock} />
+            </PopupContext.Provider>
         );
 
         const select = screen.getByTestId(trainigSelectorId);
@@ -85,13 +84,11 @@ describe('trainingPopup', () => {
 
     test('selecting training and then clicking cancel button should not call onSaveTraining', () => {
         const onSaveTrainingMock = jest.fn();
-        const handleCancelMock = jest.fn();
 
         render(
-           <TrainingPopup
-            onSaveTraining={onSaveTrainingMock}
-            handleCancel={handleCancelMock}
-           />
+            <PopupContext.Provider value={popupContextValueMock} >
+                <TrainingPopup onSaveTraining={onSaveTrainingMock} />
+            </PopupContext.Provider>
        );
 
        const select = screen.getByTestId(trainigSelectorId);
@@ -101,6 +98,6 @@ describe('trainingPopup', () => {
        fireEvent.click(cancelButton);
 
        expect(onSaveTrainingMock).not.toHaveBeenCalled();
-       expect(handleCancelMock).toHaveBeenCalled();
+       expect(popupContextValueMock.closePopup).toHaveBeenCalled();
     });
 });

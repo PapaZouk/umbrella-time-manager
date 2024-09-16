@@ -1,9 +1,7 @@
-import {useContext, useState} from "react";
+import {useContext} from "react";
 import styles from "./styles/EmployeeSelector.module.css";
-import logger from "react-logger";
-import { employeesData } from "../../resources/employeesData";
-import { initialEmployee } from "../../resources/initialStates";
-import PropTypes from "prop-types";
+import {employeesData} from "../../resources/employeesData";
+import {initialEmployee} from "../../resources/initialStates";
 import {EmployeeTimesheetContext} from "../../../../store/employee-timesheet-context";
 
 export function EmployeeSelector() {
@@ -17,10 +15,8 @@ export function EmployeeSelector() {
   );
 
   if (selectedEmployee) {
-   logger.info("Selected employee", selectedEmployee);
    updateEmployee(selectedEmployee);
   } else {
-   logger.info("Setting up initial employee");
    updateEmployee(initialEmployee);
   }
  }
@@ -49,7 +45,7 @@ export function EmployeeSelector() {
      ))}
     </select>
    {selectedEmployee.workingHours && (
-     <span className="working-hours">
+     <span className="employee-working-hours">
       Godziny pracy: {selectedEmployee.workingHours}
      </span>
    )}

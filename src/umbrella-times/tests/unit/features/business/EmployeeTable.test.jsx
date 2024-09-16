@@ -1,7 +1,8 @@
-import {render,screen} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import {EmployeeTable} from "../../../../src/features/business";
-import {sortTimesByDay} from "../../../../src/features/utils";
 import {generateTimesheetWithEmployeeAndSortedMock} from "../../_mocks/generateTimesheetWithEmployeeAndSorted.mock";
+import {DateSelectionContext} from "../../../../../store/date-selection-context";
+import {EmployeeTimesheetContext} from "../../../../../store/employee-timesheet-context";
 
 jest.mock('../../../../src/features/utils/dateFormatter', () => ({
     dateFormatter: jest.fn(() => 'August 2024'),
@@ -20,54 +21,26 @@ jest.mock('../../../../src/features/utils/sortTimesByDay', () => ({
 }));
 
 describe('EmployeeTable', () => {
-    test('updates sortedTimesheet when timesheet prop changes', () => {
-        const timesheet = [generateTimesheetWithEmployeeAndSortedMock()];
-        const handleEditedTimesheetMock = jest.fn();
+    const dataSelectionContextValueMock = {
+        selectedMonth: '2024-04',
+    };
 
-        const { rerender } = render(
-            <EmployeeTable
-                month="2024-08"
-                timesheet={timesheet}
-                handleEditedTimesheet={handleEditedTimesheetMock}
-            />
+    const employeeTimesheetContextValueMock = {
+        timesheet: [generateTimesheetWithEmployeeAndSortedMock()],
+        editTimesheet: jest.fn(),
+    };
+
+    test('renders table content corretly', () => {
+        render(
+            <DateSelectionContext.Provider value={dataSelectionContextValueMock}>
+                <EmployeeTimesheetContext.Provider value={employeeTimesheetContextValueMock}>
+                    <EmployeeTable />
+                </EmployeeTimesheetContext.Provider>
+            </DateSelectionContext.Provider>
         );
 
-        expect(sortTimesByDay).toHaveBeenCalledWith(timesheet[0].times);
+        const tableContent = screen.getByTestId('tables-content');
 
-        const newTimesheet = [
-            {
-                employee: timesheet[0].employee,
-                times: [
-                    { day: 1, month: '2024-08', checkIn: '09:00', checkOut: '17:00', balance: 1, isHoliday: false }
-                ]
-            }
-        ];
-
-        rerender(
-            <EmployeeTable
-                month="2024-08"
-                timesheet={newTimesheet}
-                handleEditedTimesheet={handleEditedTimesheetMock}
-            />
-        );
-
-        expect(sortTimesByDay).toHaveBeenCalledWith(newTimesheet[0].times);
-    });
-
-    test('renders employee table with correct month, formatted date and sorted timesheet', () => {
-        const month = '2024-08';
-        const timesheet = [];
-        const handleEditedTimesheetMock = jest.fn();
-
-       render(
-           <EmployeeTable
-               month={month}
-               timesheet={timesheet}
-               handleEditedTimesheet={handleEditedTimesheetMock}
-           />
-       );
-
-       const tableContainer = screen.getByTestId('tables-content');
-       expect(tableContainer).toBeInTheDocument();
+        expect(tableContent).toBeInTheDocument();
     });
 });

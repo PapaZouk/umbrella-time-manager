@@ -1,5 +1,4 @@
 import buttons from '../shared/styles/Buttons.module.css';
-import PropTypes from "prop-types";
 import {useContext} from "react";
 import {EmployeeTimesheetContext} from "../../../../store/employee-timesheet-context";
 import validateTimesheet from "../validators/validateTimesheet";
@@ -13,10 +12,11 @@ export function SaveTimesheet() {
 
     function onSave() {
      if (timesheet.length === 0) {
-         setErrorMessage("Brak godzin do zapisu. Wypełmnij wszystkie godziny pracy");
+         setErrorMessage("Brak godzin do zapisu. Wypełnij wszystkie godziny pracy");
          setTimeout(() => {
              setErrorMessage("");
          }, 2000);
+         return;
      }
 
      if (validateTimesheet(timesheet)) {
@@ -41,9 +41,4 @@ export function SaveTimesheet() {
    </button>
   </>
  );
-}
-
-SaveTimesheet.propTypes = {
-    setError: PropTypes.func,
-    setSuccessMessage: PropTypes.func,
 }

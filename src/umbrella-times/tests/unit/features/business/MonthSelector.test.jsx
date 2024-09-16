@@ -1,15 +1,19 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import { MonthSelector } from '../../../../src/features/business';
+import {DateSelectionContext} from "../../../../../store/date-selection-context";
 
 describe('MonthSelector', () => {
-    const onMonthChangeMock = jest.fn();
+    test('given isMonthSelectionDisabled is set on true should render disabled input', () => {
+        const dateSelectionContextValueMock = {
+            isMonthSelectionDisabled: true,
+            updateMonth: jest.fn(),
+        };
 
-    beforeEach(() => {
-        onMonthChangeMock.mockClear();
-    });
-
-    test('given disabled is set on true should render disabled input', () => {
-        render(<MonthSelector onMonthChange={ onMonthChangeMock } disabled = { true } />);
+        render(
+            <DateSelectionContext.Provider value={dateSelectionContextValueMock}>
+                <MonthSelector />
+            </DateSelectionContext.Provider>
+        );
 
         const inputElement = screen.getByLabelText(/Wybierz miesiąc:/i);
 
@@ -17,8 +21,16 @@ describe('MonthSelector', () => {
         expect(inputElement).toBeDisabled();
     });
 
-    test('does not call onMonthChange when input is disabled', () => {
-        render(<MonthSelector onMonthChange={ onMonthChangeMock } disabled={ true } />);
+    test('does not call updateMonth when input is disabled', () => {
+        const dateSelectionContextValueMock = {
+            isMonthSelectionDisabled: true,
+            updateMonth: jest.fn(),
+        };
+        render(
+            <DateSelectionContext.Provider value={dateSelectionContextValueMock}>
+                <MonthSelector />
+            </DateSelectionContext.Provider>
+        );
 
         const inputElement = screen.getByLabelText(/Wybierz miesiąc:/i);
 
@@ -27,25 +39,41 @@ describe('MonthSelector', () => {
 
         fireEvent.change(inputElement, { target: { value: '2024-01' } });
 
-        expect(onMonthChangeMock).not.toHaveBeenCalled();
+        expect(dateSelectionContextValueMock.updateMonth).not.toHaveBeenCalled();
     });
 
-    test('given disabled is set on false should render disabled input', () => {
-        render(<MonthSelector onMonthChange={ onMonthChangeMock } disabled = { false } />);
+    test('given isMonthSelectionDisabled is set on false should render disabled input', () => {
+        const dateSelectionContextValueMock = {
+            isMonthSelectionDisabled: false,
+            updateMonth: jest.fn(),
+        };
+        render(
+            <DateSelectionContext.Provider value={dateSelectionContextValueMock}>
+                <MonthSelector />
+            </DateSelectionContext.Provider>
+        );
 
-        const inputElement = screen.getByLabelText(/Wybierz miesiąc:/i);
+        const inputElement = screen.getByTestId('month-selector-label');
 
         expect(inputElement).toBeInTheDocument();
         expect(inputElement).not.toBeDisabled();
     });
 
-    test('calls onMonthChange when input is not disabled and is selected', () => {
-        render(<MonthSelector onMonthChange={ onMonthChangeMock } disabled = { false } />);
+    test('calls updateMonth when input is not disabled and is selected', () => {
+        const dateSelectionContextValueMock = {
+            isMonthSelectionDisabled: false,
+            updateMonth: jest.fn(),
+        };
+        render(
+            <DateSelectionContext.Provider value={dateSelectionContextValueMock}>
+                <MonthSelector />
+            </DateSelectionContext.Provider>
+        );
 
         const inputElement = screen.getByLabelText(/Wybierz miesiąc:/i);
 
         fireEvent.change(inputElement, { target: { value: '2024-01' } });
 
-        expect(onMonthChangeMock).toHaveBeenCalledWith('2024-01');
+        expect(dateSelectionContextValueMock.updateMonth).toHaveBeenCalledWith('2024-01');
     });
 });

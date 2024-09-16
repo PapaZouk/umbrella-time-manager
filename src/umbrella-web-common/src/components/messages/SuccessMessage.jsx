@@ -2,7 +2,6 @@ import {SuccessIcon} from "../../icons/Icons";
 import successStyle from '../styles/Success.module.css';
 import {useContext} from "react";
 import {MessagesContext} from "../../../../store/messages-context";
-import ''
 
 export function SuccessMessage() {
     const { successMessage } = useContext(MessagesContext);

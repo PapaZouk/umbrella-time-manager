@@ -1,4 +1,5 @@
 import {createContext, useState} from "react";
+import PropTypes from "prop-types";
 
 export const DateSelectionContext = createContext({
     selectedMonth: "",
@@ -34,4 +35,8 @@ export default function DateSelectionContextProvider({ children }) {
             {children}
         </DateSelectionContext.Provider>
     )
+}
+
+DateSelectionContextProvider.propTypes = {
+    children: PropTypes.node,
 }

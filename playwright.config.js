@@ -9,7 +9,7 @@ module.exports = defineConfig({
   reporter: 'html',
   testMatch: /.*.spec.js/,
   use: {
-    baseURL: 'http://localhost:5173/',
+    baseURL: 'http://localhost:5173/umbrella-time-manager/',
 
     trace: 'on-first-retry',
     colorScheme: 'dark',

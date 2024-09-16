@@ -4,7 +4,7 @@ export { calculateBalance } from './calculators/calculateBalance';
 export { dateFormatter } from './dateFormatter';
 export { calculateBusinessDaysInMonth } from './calculators/calulculateBusinessDaysInMonth';
 export { handleDateChange } from './handleDateChange';
-export { handleOnSave } from './handleOnSave';
+export { useHandleOnSave } from './useHandleOnSave';
 export { sortTimesByDay } from './sortTimesByDay';
 export { isValidNewTimesheet } from './isValidNewTimesheet';
 export { printTable } from './printTable';

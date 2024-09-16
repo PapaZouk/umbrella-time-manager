@@ -1,4 +1,5 @@
 import {createContext, useState} from "react";
+import PropTypes from "prop-types";
 
 export const MessagesContext = createContext({
     successMessage: '',
@@ -31,4 +32,8 @@ export default function MessagesContextProvider({children}) {
             {children}
         </MessagesContext.Provider>
     )
+}
+
+MessagesContextProvider.propTypes = {
+    children: PropTypes.node,
 }

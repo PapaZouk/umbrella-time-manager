@@ -1,6 +1,7 @@
 import {createContext, useState} from "react";
 import {isValidNewTimesheet} from "../umbrella-times/src/features/utils";
 import {initialEmployee, initialTimesheet} from "../umbrella-times/src/resources/initialStates";
+import PropTypes from "prop-types";
 
 export const EmployeeTimesheetContext = createContext({
     timesheet: [],
@@ -104,4 +105,9 @@ export default function EmployeeTimesheetContextProvider({ children, setError })
           {children}
       </EmployeeTimesheetContext.Provider>
     );
+}
+
+EmployeeTimesheetContextProvider.propTypes = {
+    children: PropTypes.node,
+    setError: PropTypes.func,
 }

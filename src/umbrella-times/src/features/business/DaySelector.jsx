@@ -1,5 +1,4 @@
 import styles from './styles/DaysSelector.module.css';
-import PropTypes from "prop-types";
 import {DateSelectionContext} from "../../../../store/date-selection-context";
 import {useContext} from "react";
 import {isHoliday} from "../utils";

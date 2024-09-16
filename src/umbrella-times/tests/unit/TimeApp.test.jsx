@@ -1,16 +1,14 @@
-import {fireEvent, render, screen} from '@testing-library/react';
-import * as Hooks from '../../src/features/hooks';
-import * as Utils from '../../src/features/utils';
+import {render, screen} from '@testing-library/react';
 import TimesApp from "../../src/TimesApp";
+import {MessagesContext} from "../../../store/messages-context";
 
-jest.mock('../../src/features/hooks');
 jest.mock('../../src/features/utils', () => ({
     handleDateChange: jest.fn(),
 }));
 jest.mock('../../src/features/business', () => ({
-    DaySelector: jest.fn(({ days, onDayChange }) => (
-        <div data-testid='day-selector' onClick={() => onDayChange('test-day')}>
-            {days.length ? (<div data-testid='days-content'>Days Content</div>) : (<div>No Days</div>)}
+    DaySelector: jest.fn(() => (
+        <div data-testid='day-selector' >
+            <div data-testid='days-content'>Days Content</div>
         </div>
     )),
     EmployeeSelector: jest.fn(() => <div data-testid='employee-selector'/>),
@@ -47,81 +45,38 @@ describe('App', () => {
     const successMessageId = 'success-message';
     const employeeTableId = 'employee-table';
 
-    beforeEach(() => {
-        Hooks.useEmployeeTimesheet.mockReturnValue({
-            selectedEmployee: null,
-            employeeTimesheet: [],
-            error: '',
-            successMessage: '',
-            setError: jest.fn(),
-            setSuccessMessage: jest.fn(),
-            handleEditedTimesheet: jest.fn(),
-            isMonthLocked: false,
-            handleEmployeeSelect: jest.fn(),
-            handleTimesheetUpdate: jest.fn(),
-            resetTimesheet: jest.fn(),
-        });
-
-        Hooks.useMonthDays.mockReturnValue([]);
-        Utils.handleDateChange.mockImplementation((day, selectedMonth, setSelectedDay) => {
-            setSelectedDay(day);
-        });
-    });
+    const messagesContextValueMock = {
+        setErrorMessage: jest.fn(),
+    };
 
     test("renders app components without crashing", () => {
-        const { getByTestId } = render(<TimesApp />);
+        render(
+            <MessagesContext.Provider value={messagesContextValueMock}>
+                <TimesApp />
+            </MessagesContext.Provider>
+        );
 
-        expect(getByTestId(headerId)).toBeInTheDocument();
-        expect(getByTestId(monthSelectorId)).toBeInTheDocument();
-        expect(getByTestId(daySelectorId)).toBeInTheDocument();
-        expect(getByTestId(employeeSelectorId)).toBeInTheDocument();
-        expect(getByTestId(addTimesButtonId)).toBeInTheDocument();
-        expect(getByTestId(addDayOffButtonId)).toBeInTheDocument();
-        expect(getByTestId(addBusinessTripButtonId)).toBeInTheDocument();
-        expect(getByTestId(addTrainingButtonId)).toBeInTheDocument();
-        expect(getByTestId(errorMessageId)).toBeInTheDocument();
-        expect(getByTestId(successMessageId)).toBeInTheDocument();
-        expect(getByTestId(employeeTableId)).toBeInTheDocument();
+        expect(screen.getByTestId(headerId)).toBeInTheDocument();
+        expect(screen.getByTestId(monthSelectorId)).toBeInTheDocument();
+        expect(screen.getByTestId(daySelectorId)).toBeInTheDocument();
+        expect(screen.getByTestId(employeeSelectorId)).toBeInTheDocument();
+        expect(screen.getByTestId(addTimesButtonId)).toBeInTheDocument();
+        expect(screen.getByTestId(addDayOffButtonId)).toBeInTheDocument();
+        expect(screen.getByTestId(addBusinessTripButtonId)).toBeInTheDocument();
+        expect(screen.getByTestId(addTrainingButtonId)).toBeInTheDocument();
+        expect(screen.getByTestId(errorMessageId)).toBeInTheDocument();
+        expect(screen.getByTestId(successMessageId)).toBeInTheDocument();
+        expect(screen.getByTestId(employeeTableId)).toBeInTheDocument();
     });
 
-    test('renders and interacts with DaySelector', () => {
-        render(<TimesApp />);
+    test('renders DaySelector', () => {
+        render(
+            <MessagesContext.Provider value={messagesContextValueMock}>
+                <TimesApp />
+            </MessagesContext.Provider>
+        );
 
         const daySelector = screen.getByTestId(daySelectorId);
         expect(daySelector).toBeInTheDocument();
-
-        fireEvent.click(daySelector);
-
-        expect(Utils.handleDateChange).toHaveBeenCalledWith(
-            'test-day',
-            undefined,
-            expect.any(Function),
-            expect.any(Function),
-        );
-    });
-
-    test('renders with days from useMonthDays', () => {
-       Hooks.useMonthDays.mockReturnValue(['2024-06', '2024-07']);
-       render(<TimesApp />);
-
-       expect(screen.getByTestId(daySelectorId)).toBeInTheDocument();
-       expect(screen.getByTestId('days-content')).toBeInTheDocument();
-    });
-
-    test('renders without days from useMonthDays', () => {
-       Hooks.useMonthDays.mockReturnValue([]);
-       render(<TimesApp />);
-
-       expect(screen.getByTestId(daySelectorId)).toBeInTheDocument();
-       expect(screen.getByText('No Days')).toBeInTheDocument();
-    });
-
-    test('useMonthDays is called with selectedMonth', () => {
-        render(<TimesApp />);
-
-        const monthSelector = screen.getByTestId(monthSelectorId);
-        fireEvent.click(monthSelector);
-
-        expect(Hooks.useMonthDays).toHaveBeenCalledWith('2024-08');
     });
 });

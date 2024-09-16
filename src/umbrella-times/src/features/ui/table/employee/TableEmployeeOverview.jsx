@@ -57,7 +57,6 @@ export default function TableEmployeeOverview(
 
 TableEmployeeOverview.propTypes = {
     sortedTimesheet: PropTypes.array,
-    month: PropTypes.string,
     formattedDate: PropTypes.string,
     onTimesUpdate: PropTypes.func,
 };

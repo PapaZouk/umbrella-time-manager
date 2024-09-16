@@ -1,5 +1,4 @@
 import styles from '../styles/Popup.module.css';
-import PropTypes from "prop-types";
 import {useContext} from "react";
 import {PopupContext} from "../../../../../store/popups-context";
 

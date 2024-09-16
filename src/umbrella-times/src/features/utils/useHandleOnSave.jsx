@@ -3,7 +3,7 @@ import validateTimesheet from "../validators/validateTimesheet";
 import {EmployeeTimesheetContext} from "../../../../store/employee-timesheet-context";
 import {useContext} from "react";
 
-export const handleOnSave = (setError, setSuccessMessage) => {
+export const useHandleOnSave = (setError, setSuccessMessage) => {
  const { timesheet, resetTimesheet } = useContext(EmployeeTimesheetContext);
 
  if (timesheet.length === 0) {

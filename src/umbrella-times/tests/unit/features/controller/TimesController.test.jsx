@@ -2,6 +2,10 @@ import {fireEvent, render, screen} from '@testing-library/react';
 import TimesController from "../../../../src/features/controller/TimesController";
 import {generateEmployeeMock} from "../../_mocks/generateEmployee.mock";
 import TimesInputs from "../../../../src/features/business/TimesInputs";
+import {PopupContext} from "../../../../../store/popups-context";
+import {EmployeeTimesheetContext} from "../../../../../store/employee-timesheet-context";
+import {MessagesContext} from "../../../../../store/messages-context";
+import {DateSelectionContext} from "../../../../../store/date-selection-context";
 
 jest.mock("../../../../src/features/business/TimesInputs");
 jest.mock("../../../../src/features/shared/popups/DayOffPopup");
@@ -17,43 +21,47 @@ describe('TimesController', () => {
     const month = '2024-08';
     const day = '2';
 
-    let mockOnTimesheetUpdate;
-    let mockSetError;
-    let mockSetPopupContent;
+    const popupContextProviderValueMock = {
+        closePopup: jest.fn(),
+        setPopupContent: jest.fn(),
+    };
+
+    const employeeTimesheetContextValueMock = {
+      selectedEmployee: employee,
+      updateTimesheet: jest.fn(),
+    };
+
+    const messagesContextValueMock = {
+      setErrorMessage: jest.fn(),
+    };
+
+    const dateSelectionContextMock = {
+        selectedMonth: month,
+        selectedDay: day,
+    };
 
     beforeEach(() => {
         jest.clearAllMocks();
         jest.useFakeTimers();
-
-        mockOnTimesheetUpdate = jest.fn();
-        mockSetError = jest.fn();
-        mockSetPopupContent = jest.fn();
     });
 
     afterEach(() => {
        jest.useRealTimers();
-    });
-
-    const renderComponent = (props = {}) => {
-        return render(
-            <TimesController
-                employee={employee}
-                month={month}
-                day={day}
-                onTimesheetUpdate={mockOnTimesheetUpdate}
-                setError={mockSetError}
-                setPopupContent={mockSetPopupContent}
-                {...props}
-            />
-        );
-    }
-
-    afterEach(() => {
         jest.resetAllMocks();
     });
 
     test('renders all buttons', () => {
-        renderComponent();
+        render(
+            <PopupContext.Provider value={popupContextProviderValueMock}>
+                <EmployeeTimesheetContext.Provider value={employeeTimesheetContextValueMock}>
+                    <MessagesContext.Provider value={messagesContextValueMock}>
+                        <DateSelectionContext.Provider value={dateSelectionContextMock}>
+                            <TimesController />
+                        </DateSelectionContext.Provider>
+                    </MessagesContext.Provider>
+                </EmployeeTimesheetContext.Provider>
+            </PopupContext.Provider>
+        );
 
         const addTimesButton = screen.getByTestId(addTimesButtonId);
         const annualLeaveButton = screen.getByTestId(addDayOffId);
@@ -69,69 +77,145 @@ describe('TimesController', () => {
     test('calls setPopupContent with TimesInputs when handleAddTime is triggered', () => {
         TimesInputs.mockImplementation(() => <div data-testid="mock-times-input" />);
 
-        renderComponent();
+        render(
+            <PopupContext.Provider value={popupContextProviderValueMock}>
+                <EmployeeTimesheetContext.Provider value={employeeTimesheetContextValueMock}>
+                    <MessagesContext.Provider value={messagesContextValueMock}>
+                        <DateSelectionContext.Provider value={dateSelectionContextMock}>
+                            <TimesController />
+                        </DateSelectionContext.Provider>
+                    </MessagesContext.Provider>
+                </EmployeeTimesheetContext.Provider>
+            </PopupContext.Provider>
+        );
 
         const addButton = screen.getByTestId(addTimesButtonId);
         fireEvent.click(addButton);
 
-        expect(mockSetPopupContent).toHaveBeenCalled();
-        expect(mockSetPopupContent).toHaveBeenCalledWith(expect.anything()); // You might want to check the exact content
+        expect(popupContextProviderValueMock.setPopupContent).toHaveBeenCalled();
+        expect(popupContextProviderValueMock.setPopupContent).toHaveBeenCalledWith(expect.anything());
     });
 
     test('renders error when month is not provided', () => {
-        renderComponent({ month: '' });
+        const dateSelectionContextMock = {
+            selectedMonth: '',
+            selectedDay: day,
+        };
+        render(
+            <PopupContext.Provider value={popupContextProviderValueMock}>
+                <EmployeeTimesheetContext.Provider value={employeeTimesheetContextValueMock}>
+                    <MessagesContext.Provider value={messagesContextValueMock}>
+                        <DateSelectionContext.Provider value={dateSelectionContextMock}>
+                            <TimesController />
+                        </DateSelectionContext.Provider>
+                    </MessagesContext.Provider>
+                </EmployeeTimesheetContext.Provider>
+            </PopupContext.Provider>
+        );
 
        const addButton = screen.getByTestId(addTimesButtonId);
        fireEvent.click(addButton);
 
-       expect(mockSetError).toHaveBeenCalledWith("Wybierz miesiąc");
+       expect(messagesContextValueMock.setErrorMessage).toHaveBeenCalledWith("Wybierz miesiąc");
        jest.advanceTimersByTime(2000);
-       expect(mockSetError).toHaveBeenCalledWith("");
+       expect(messagesContextValueMock.setErrorMessage).toHaveBeenCalledWith("");
     });
 
     test('renders error when day is not provided', () => {
-        renderComponent({ day: '' });
+        const dateSelectionContextMock = {
+            selectedMonth: month,
+            selectedDay: '',
+        };
+        render(
+            <PopupContext.Provider value={popupContextProviderValueMock}>
+                <EmployeeTimesheetContext.Provider value={employeeTimesheetContextValueMock}>
+                    <MessagesContext.Provider value={messagesContextValueMock}>
+                        <DateSelectionContext.Provider value={dateSelectionContextMock}>
+                            <TimesController />
+                        </DateSelectionContext.Provider>
+                    </MessagesContext.Provider>
+                </EmployeeTimesheetContext.Provider>
+            </PopupContext.Provider>
+        );
 
        const addButton = screen.getByTestId(addTimesButtonId);
        fireEvent.click(addButton);
 
-       expect(mockSetError).toHaveBeenCalledWith("Wybierz dzień");
+       expect(messagesContextValueMock.setErrorMessage).toHaveBeenCalledWith("Wybierz dzień");
        jest.advanceTimersByTime(2000);
-       expect(mockSetError).toHaveBeenCalledWith("");
+       expect(messagesContextValueMock.setErrorMessage).toHaveBeenCalledWith("");
     });
 
     test('renders error when employee name and surname is not provided', () => {
-        renderComponent({ employee: { name: '', surname: ''} });
+        const employeeTimesheetContextValueMock = {
+            selectedEmployee: { name: '', surname: ''},
+            updateTimesheet: jest.fn(),
+        };
+        render(
+            <PopupContext.Provider value={popupContextProviderValueMock}>
+                <EmployeeTimesheetContext.Provider value={employeeTimesheetContextValueMock}>
+                    <MessagesContext.Provider value={messagesContextValueMock}>
+                        <DateSelectionContext.Provider value={dateSelectionContextMock}>
+                            <TimesController />
+                        </DateSelectionContext.Provider>
+                    </MessagesContext.Provider>
+                </EmployeeTimesheetContext.Provider>
+            </PopupContext.Provider>
+        );
 
        const addButton = screen.getByTestId(addTimesButtonId);
        fireEvent.click(addButton);
 
-       expect(mockSetError).toHaveBeenCalledWith("Wybierz pracownika");
+       expect(messagesContextValueMock.setErrorMessage).toHaveBeenCalledWith("Wybierz pracownika");
        jest.advanceTimersByTime(2000);
-       expect(mockSetError).toHaveBeenCalledWith("");
+       expect(messagesContextValueMock.setErrorMessage).toHaveBeenCalledWith("");
     });
 
     test('displays error when trying to add business trip without employee', () => {
-        renderComponent({ employee: { name: '', surname: '' } });
+        const employeeTimesheetContextValueMock = {
+            selectedEmployee: undefined,
+            updateTimesheet: jest.fn(),
+        };
+        render(
+            <PopupContext.Provider value={popupContextProviderValueMock}>
+                <EmployeeTimesheetContext.Provider value={employeeTimesheetContextValueMock}>
+                    <MessagesContext.Provider value={messagesContextValueMock}>
+                        <DateSelectionContext.Provider value={dateSelectionContextMock}>
+                            <TimesController />
+                        </DateSelectionContext.Provider>
+                    </MessagesContext.Provider>
+                </EmployeeTimesheetContext.Provider>
+            </PopupContext.Provider>
+        );
 
         const businessTripButton = screen.getByTestId('time-controller-business-trip-button');
         fireEvent.click(businessTripButton);
 
-        expect(mockSetError).toHaveBeenCalledWith('Wybierz pracownika');
+        expect(messagesContextValueMock.setErrorMessage).toHaveBeenCalledWith('Wybierz pracownika');
 
-        jest.advanceTimersByTime(2000); // Fast-forward time to clear the error
-        expect(mockSetError).toHaveBeenCalledWith('');
+        jest.advanceTimersByTime(2000);
+        expect(messagesContextValueMock.setErrorMessage).toHaveBeenCalledWith('');
     });
 
-    test('calls onTimesheetUpdate with the correct data for business trip', () => {
-        renderComponent();
+    test('calls updateTimesheet with the correct data for business trip', () => {
+        render(
+            <PopupContext.Provider value={popupContextProviderValueMock}>
+                <EmployeeTimesheetContext.Provider value={employeeTimesheetContextValueMock}>
+                    <MessagesContext.Provider value={messagesContextValueMock}>
+                        <DateSelectionContext.Provider value={dateSelectionContextMock}>
+                            <TimesController />
+                        </DateSelectionContext.Provider>
+                    </MessagesContext.Provider>
+                </EmployeeTimesheetContext.Provider>
+            </PopupContext.Provider>
+        );
 
         const businessTripButton = screen.getByTestId(addBusinessTripId);
         fireEvent.click(businessTripButton);
 
         jest.runAllTimers();
 
-        expect(mockOnTimesheetUpdate).toHaveBeenCalledWith({
+        expect(employeeTimesheetContextValueMock.updateTimesheet).toHaveBeenCalledWith({
             employee,
             times: [
                 {
