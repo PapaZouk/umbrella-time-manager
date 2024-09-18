@@ -34,7 +34,7 @@ export default function EmployeeTimesheetContextProvider({ children, setError })
             return;
         }
 
-        setSelectedEmployee((previousTimesheet) => {
+        setEmployeeTimesheet((previousTimesheet) => {
             return previousTimesheet.map((timesheet) => ({
                 ...timesheet,
                 times: [...editedTimesheet.times],
