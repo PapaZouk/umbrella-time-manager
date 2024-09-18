@@ -1,0 +1,43 @@
+@keyframes shake {
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-5px);
+    }
+
+    50% {
+        transform: translateX(5px);
+    }
+
+    75% {
+        transform: translateX(-5px);
+    }
+}
+
+.errorEffect {
+    animation: shake 0.5s ease;
+    border-color: #f00;
+    box-shadow: 0 0 5px rgb(255 0 0 / 50%);
+}
+
+.success {
+    animation: successGlow 1.5s ease-in-out infinite alternate;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgb(72 187 120 / 50%);
+    color: #155724;
+    padding: 15px 20px;
+}
+
+@keyframes successGlow {
+    0% {
+        box-shadow: 0 0 10px rgb(72 187 120 / 50%);
+    }
+
+    100% {
+        box-shadow: 0 0 20px rgb(72 187 120 / 100%);
+    }
+}

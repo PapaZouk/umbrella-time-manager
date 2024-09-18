@@ -1,0 +1,27 @@
+.iconButton {
+  align-items: center;
+  background-color: #e0e0e0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 8px;
+  height: 30px;
+  justify-content: center;
+  margin-left: 10px;
+  margin-right: 8px;
+  transition: background-color 0.3s, transform 0.3s;
+  width: 30px;
+}
+
+.iconButton:hover {
+  background-color: #d1d1d1;
+  transform: scale(1.1);
+}
+
+.icon {
+  color: black;
+  height: 16px;
+  pointer-events: none;
+  width: 16px;
+}

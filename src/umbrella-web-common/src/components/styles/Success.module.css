@@ -1,0 +1,20 @@
+.successOverlay {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    background-color: rgb(0 0 0 / 50%);
+}
+
+.successFrame {
+    display: flex;
+    align-items: center;
+    background-color: #d4edda;
+    color: #155724;
+    padding: 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #c3e6cb;
+    margin-top: 10px;
+}

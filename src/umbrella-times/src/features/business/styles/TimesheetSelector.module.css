@@ -1,0 +1,14 @@
+.container {
+    align-items: center;
+    animation: fadeInOut 3s ease-in-out;
+    display: flex;
+    flex-wrap: nowrap;
+}
+
+.label {
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 10px 30px;
+    white-space: nowrap;
+}

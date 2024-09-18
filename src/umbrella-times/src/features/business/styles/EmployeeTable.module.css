@@ -1,0 +1,101 @@
+table {
+  border-collapse: collapse;
+  color: #333;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  margin: 10px;
+  width: 100%;
+}
+
+thead {
+  background-color: #f2f2f2;
+  width: 50%;
+}
+
+
+th, td {
+  border-bottom: 1px solid #ddd;
+  padding: 12px 15px;
+  text-align: center;
+}
+
+th {
+  font-weight: bold;
+}
+
+tr.tableMonthTitle {
+  font-size: 20px;
+  font-weight: bold;
+  padding: 20px;
+}
+
+tr:hover {
+  background-color: #f9f9f9;
+}
+
+tbody tr:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #fff;
+}
+
+.balance-positive {
+  background-color: #e6ffe6;
+  color: #006400;
+}
+
+.balance-negative {
+  background-color: #ffe6e6;
+  color: #f00;
+}
+
+.total-balance-cell {
+  font-size: 18px;
+  text-align: center;
+}
+
+.total-balance-positive {
+  background-color: #e6ffe6;
+  color: #004d00;
+  font-weight: bold;
+}
+
+.total-balance-negative {
+  background-color: #ffe6e6;
+  color: #b30000;
+  font-weight: bold;
+}
+
+.hours-cell {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.hour-detail {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding-top: 10px;
+}
+
+.hour-detail span {
+  display: inline-block;
+  margin-bottom: 5px;
+  padding: 0 5px;
+}
+
+.hour-detail:nth-child(even) {
+  background-color: #f7f7f7;
+}
+
+.hour-detail:nth-child(odd) {
+  background-color: #fff;
+}
+
+.hour-detail.holiday-background {
+  background-color: #f8f688;
+  text-align: center;
+}
