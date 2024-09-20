@@ -2,13 +2,21 @@ import {SaveTimesheet} from "../business";
 import {printTable} from "../utils";
 import PrintTimesheet from "../business/PrintTimesheet";
 import {UserContext} from "../../../../store/user-context";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {PopupContext} from "../../../../store/popups-context";
 import GoodbyeMessage from "../../../../umbrella-authentication/src/features/messages/GoodbyeMessage";
 
 export function TimesheetController() {
     const { isLoggedIn, handleUserLogOut } = useContext(UserContext);
-    const { setPopupContent } = useContext(PopupContext);
+    const { popupContent, setPopupContent } = useContext(PopupContext);
+
+    useEffect(() => {
+        if (popupContent !== '') {
+            setTimeout(() => {
+                setPopupContent('');
+            }, 2500);
+        }
+    }, [popupContent, setPopupContent]);
 
     function handlePrint() {
         printTable();
@@ -23,9 +31,6 @@ export function TimesheetController() {
             handleUserLogOut();
             }, 2000);
         setPopupContent(<GoodbyeMessage />);
-        setTimeout(() => {
-            setPopupContent("");
-        }, 2500);
     }
 
     return (
