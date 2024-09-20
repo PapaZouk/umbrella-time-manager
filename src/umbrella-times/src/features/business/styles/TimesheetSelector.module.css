@@ -3,6 +3,7 @@
     animation: fadeInOut 3s ease-in-out;
     display: flex;
     flex-wrap: nowrap;
+    justify-content: center;
 }
 
 .label {

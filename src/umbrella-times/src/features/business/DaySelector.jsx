@@ -1,6 +1,6 @@
 import styles from './styles/DaysSelector.module.css';
 import {DateSelectionContext} from "../../../../store/date-selection-context";
-import {useContext} from "react";
+import {useContext, useEffect} from "react";
 import {isHoliday} from "../utils";
 import {MessagesContext} from "../../../../store/messages-context";
 import moment from "moment/moment";
@@ -8,9 +8,17 @@ import {useMonthDays} from "../hooks";
 
 export function DaySelector() {
     const { selectedMonth, selectedDay, updateDay  } = useContext(DateSelectionContext);
-    const { setErrorMessage }  = useContext(MessagesContext);
-
+    const { errorMessage, setErrorMessage }  = useContext(MessagesContext);
     const days = useMonthDays(selectedMonth) || [];
+
+    useEffect(() => {
+        if (errorMessage !== '') {
+            setTimeout(() => {
+                setErrorMessage('');
+                updateDay('');
+            }, 2000);
+        }
+    }, [errorMessage, setErrorMessage, updateDay])
 
     function handleDaySelection(event) {
         const day = event.target.value;
@@ -23,16 +31,8 @@ export function DaySelector() {
 
         if (dayOfWeek === 0 || dayOfWeek === 6) {
             setErrorMessage('Wybrany dzień jest weekendem. Proszę wybrać dzień roboczy');
-            setTimeout(() => {
-                setErrorMessage('');
-                updateDay(null);
-            }, 2000);
         } else if (isHoliday(formattedDate)) {
             setErrorMessage('Wybrany dzień jest świętem. Proszę wybrać dzień roboczy');
-            setTimeout(() => {
-                setErrorMessage('');
-                updateDay(null);
-            }, 2000);
         } else {
             updateDay(day);
         }

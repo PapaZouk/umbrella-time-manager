@@ -5,7 +5,7 @@ import buttons from '../shared/styles/Buttons.module.css';
 import inputs from '../shared/styles/Inputs.module.css';
 import labels from '../shared/styles/Labels.module.css';
 import PropTypes from "prop-types";
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {PopupContext} from "../../../../store/popups-context";
 
 export default function TimesInputs({ handleCloseTimesInputs}) {
@@ -14,6 +14,14 @@ export default function TimesInputs({ handleCloseTimesInputs}) {
     const [selectedCheckIn, setSelectedCheckIn] = useState('');
     const [selectedCheckOut, setSelectedCheckOut] = useState('');
     const [error, setError] = useState(false);
+
+    useEffect(() => {
+        if (error) {
+            setTimeout(() => {
+                setError(false);
+            }, 3000);
+        }
+    }, [error, setError]);
 
     const handleCheckInSelect = (event) => {
         setSelectedCheckIn(event.target.value);
@@ -26,12 +34,8 @@ export default function TimesInputs({ handleCloseTimesInputs}) {
     const handleOnSave = () => {
         if (selectedCheckIn && selectedCheckOut) {
             handleCloseTimesInputs(selectedCheckIn, selectedCheckOut);
-            setError(false);
         } else {
             setError(true);
-            setTimeout(() => {
-                setError(false);
-            }, 3000);
         }
     }
 

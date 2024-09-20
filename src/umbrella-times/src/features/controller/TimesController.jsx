@@ -1,4 +1,4 @@
-import {useContext, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import {calculateBalance} from "../utils";
 import {dayOffTypes} from "../../resources/dayOffTypes";
 import {CreateTimesheet} from "../utils/factory/TimesheetFactory";
@@ -17,8 +17,16 @@ import {DateSelectionContext} from "../../../../store/date-selection-context";
 export default function TimesController() {
     const { closePopup, setPopupContent } = useContext(PopupContext);
     const { selectedEmployee, updateTimesheet } = useContext(EmployeeTimesheetContext);
-    const { setErrorMessage } = useContext(MessagesContext);
+    const { errorMessage, setErrorMessage } = useContext(MessagesContext);
     const { selectedMonth, selectedDay } = useContext(DateSelectionContext);
+
+    useEffect(() => {
+        if (errorMessage !== '') {
+            setTimeout(() => {
+                setErrorMessage('');
+            }, 2000);
+        }
+    }, [errorMessage, setErrorMessage]);
 
     // eslint-disable-next-line no-unused-vars
     const [checkIn, setCheckIn] = useState("");
@@ -152,21 +160,12 @@ export default function TimesController() {
     function isInitialTimesheetDataProvided({selectedMonth, selectedDay, selectedEmployee}) {
         if (!selectedMonth) {
             setErrorMessage('Wybierz miesiąc');
-            setTimeout(() => {
-                setErrorMessage('');
-            }, 2000);
             return false;
         } else if (!selectedDay) {
             setErrorMessage('Wybierz dzień');
-            setTimeout(() => {
-                setErrorMessage('');
-            }, 2000);
             return false;
         } else if (!selectedEmployee || selectedEmployee.name === '' || selectedEmployee.surname === '') {
             setErrorMessage('Wybierz pracownika');
-            setTimeout(() => {
-                setErrorMessage('');
-            }, 2000);
             return false;
         } else {
             return true;
@@ -182,9 +181,6 @@ export default function TimesController() {
             return true;
         }
         setErrorMessage("Uzupełnij wszystkie dane");
-        setTimeout(() => {
-            setErrorMessage("");
-        }, 2000);
         return false;
     }
 
