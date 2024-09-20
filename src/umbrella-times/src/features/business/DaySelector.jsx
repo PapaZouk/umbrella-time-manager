@@ -9,16 +9,17 @@ import {useMonthDays} from "../hooks";
 export function DaySelector() {
     const { selectedMonth, selectedDay, updateDay  } = useContext(DateSelectionContext);
     const { errorMessage, setErrorMessage }  = useContext(MessagesContext);
-    const days = useMonthDays(selectedMonth) || [];
 
     useEffect(() => {
         if (errorMessage !== '') {
             setTimeout(() => {
-                setErrorMessage('');
-                updateDay('');
+               setErrorMessage('');
+                updateDay(null);
             }, 2000);
         }
-    }, [errorMessage, setErrorMessage, updateDay])
+    }, [errorMessage, setErrorMessage, updateDay]);
+
+    const days = useMonthDays(selectedMonth) || [];
 
     function handleDaySelection(event) {
         const day = event.target.value;

@@ -1,3 +1,7 @@
+.errorContainer {
+    margin: auto;
+}
+
 .errorFrame {
     align-items: center;
     animation: fadeInOut 5s forwards;

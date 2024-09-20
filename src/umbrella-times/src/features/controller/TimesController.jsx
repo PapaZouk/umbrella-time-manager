@@ -23,7 +23,7 @@ export default function TimesController() {
     useEffect(() => {
         if (errorMessage !== '') {
             setTimeout(() => {
-                setErrorMessage('');
+               setErrorMessage('')
             }, 2000);
         }
     }, [errorMessage, setErrorMessage]);

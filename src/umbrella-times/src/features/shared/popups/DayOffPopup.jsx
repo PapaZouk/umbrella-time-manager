@@ -1,4 +1,3 @@
-import styles from "../styles/Popup.module.css";
 import effects from '../../../../../umbrella-web-common/src/components/styles/Effects.module.css';
 import errors from '../../../../../umbrella-web-common/src/components/styles/Errors.module.css';
 import buttons from '../styles/Buttons.module.css';
@@ -34,7 +33,7 @@ export default function DayOffPopup({ onSaveDayOff }) {
     return (
         <>
             {errorMessage && (
-                <div data-testid='day-off-error' className={styles.container}>
+                <div data-testid='day-off-error' className={errors.errorContainer}>
                     <p className={errors.errorFrame}>Wybierz rodzaj dnia wolnego</p>
                 </div>
             )}

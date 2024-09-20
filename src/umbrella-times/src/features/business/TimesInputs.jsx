@@ -44,7 +44,7 @@ export default function TimesInputs({ handleCloseTimesInputs}) {
             {error && (
                 <div
                     data-testid={'times-input-error'}
-                    className={styles.container}>
+                    className={errors.errorContainer}>
                     <p className={errors.errorFrame}>Uzupełnij wszystkie godziny</p>
                 </div>
             )}
