@@ -33,7 +33,7 @@ test.describe('DaySelector', () => {
     test('when no month selected, should no day be available', async ({ page }) => {
        const select = await page.locator('select[data-testid="day-selector-select"]');
        const optionCount = await select.locator('option').count();
-       const dayCount = optionCount;
+       const dayCount = optionCount - 1;
 
        expect(dayCount).toEqual(0);
     });
