@@ -1,30 +1,30 @@
 import {SaveTimesheet} from "../business";
 import {printTable} from "../utils";
 import PrintTimesheet from "../business/PrintTimesheet";
-import {UserContext} from "../../../../store/user-context";
 import {useContext} from "react";
 import {PopupContext} from "../../../../store/popups-context";
 import GoodbyeMessage from "../../../../umbrella-authentication/src/features/messages/GoodbyeMessage";
+import {LoginContext} from "../../../../store/login-context";
 
 export function TimesheetController() {
-    const { isLoggedIn, handleUserLogOut } = useContext(UserContext);
-    const { setPopupContent } = useContext(PopupContext);
+    const { isLoggedIn, handleLogOut } = useContext(LoginContext);
+    const { setPopupContent, closePopup } = useContext(PopupContext);
 
     function handlePrint() {
         printTable();
     }
 
-    function handleLogOut() {
+    function handleUserLogOut() {
         if (!isLoggedIn) {
             return;
         }
 
         setTimeout(() => {
-            handleUserLogOut();
+            handleLogOut();
             }, 2000);
         setPopupContent(<GoodbyeMessage />);
         setTimeout(() => {
-            setPopupContent("");
+            closePopup();
         }, 2500);
     }
 
@@ -34,7 +34,7 @@ export function TimesheetController() {
                 <span>
                     <PrintTimesheet handlePrint={handlePrint}/>
                     <SaveTimesheet />
-                    <button onClick={handleLogOut}>Wyloguj</button>
+                    <button onClick={handleUserLogOut}>Wyloguj</button>
                 </span>
             </div>
         </>

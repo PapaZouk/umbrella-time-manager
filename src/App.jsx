@@ -1,25 +1,28 @@
 import './App.css';
-import AuthenticationApp from "./umbrella-authentication/src/features/AuthenticationApp";
 import TimesApp from "./umbrella-times/src/TimesApp";
-import UserContextProvider, {UserContext} from "./store/user-context";
+import UserContextProvider from "./store/user-context";
 import {useContext} from "react";
 import PopupsContextProvider from "./store/popups-context";
 import MessagesContextProvider from "./store/messages-context";
+import AuthenticationApp from "./umbrella-authentication/src/AuthenticationApp";
+import LoginContextProvider, {LoginContext} from "./store/login-context";
 
 function App() {
     return (
-        <UserContextProvider>
-            <PopupsContextProvider>
-                <MessagesContextProvider>
-                    <AppContent />
-                </MessagesContextProvider>
-            </PopupsContextProvider>
-        </UserContextProvider>
+        <LoginContextProvider>
+            <UserContextProvider>
+                <PopupsContextProvider>
+                    <MessagesContextProvider>
+                        <AppContent />
+                    </MessagesContextProvider>
+                </PopupsContextProvider>
+            </UserContextProvider>
+        </LoginContextProvider>
     )
 }
 
 function AppContent() {
-    const {isLoggedIn} = useContext(UserContext);
+    const {isLoggedIn}  = useContext(LoginContext);
 
     return (
         <>

@@ -9,7 +9,7 @@ export const UserContext = createContext({
 });
 
 export default function UserContextProvider({ children }) {
-    const [userName, setUserName] = useState('');
+    const [user, setUser] = useState({});
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     function handleUserLogin(userName) {
@@ -17,7 +17,10 @@ export default function UserContextProvider({ children }) {
             return;
         }
 
-        setUserName(userName);
+        setUser((previousUser) => ({
+            ...previousUser,
+            userName: userName,
+        }))
         setTimeout(() => {
             setIsLoggedIn(true)
         }, 2500);
@@ -28,9 +31,7 @@ export default function UserContextProvider({ children }) {
     }
 
     const userContextValue = {
-        user: {
-            userName: userName,
-        },
+        user: user,
         isLoggedIn: isLoggedIn,
         handleUserLogin: handleUserLogin,
         handleUserLogOut: handleUserLogOut,
